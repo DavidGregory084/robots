@@ -26,7 +26,7 @@ import cats.instances.int._
 case class Document(maxColumn: Int, maxLines: Int, lines: List[String])
 
 val passing = Document(80, 120, List("Hello", "World"))
-val failing = Document(0, 1, List("Hello", "World"))
+val failing = Document(4, 1, List("Hey", "World"))
 
 val documentValidator =
   validate[List, String, Document].
@@ -34,10 +34,17 @@ val documentValidator =
     has(_.maxLines)(gt(0, List("Max line count should be greater than zero"))).
     has2(_.maxLines, _.lines)(Validator {
       case (maxLines, lines) =>
-        if (lines.length < maxLines)
+        if (lines.length <= maxLines)
           Nil
         else
           List("Exceeded the maximum number of lines")
+    }).
+    all2(_.maxColumn, _.lines)(Validator {
+      case (maxColumn, line) =>
+        if (line.length <= maxColumn)
+          Nil
+        else
+          List("Exceeded the maximum number of columns")
     })
 ```
 
@@ -46,7 +53,7 @@ documentValidator.run(passing)
 // res3: cats.data.ValidatedNel[String,Document] = Valid(Document(80,120,List(Hello, World)))
 
 documentValidator.run(failing)
-// res4: cats.data.ValidatedNel[String,Document] = Invalid(NonEmptyList(Max width should be greater than zero, Exceeded the maximum number of lines))
+// res4: cats.data.ValidatedNel[String,Document] = Invalid(NonEmptyList(Exceeded the maximum number of lines, Exceeded the maximum number of columns))
 ```
 
 ### Conduct
