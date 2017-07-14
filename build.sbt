@@ -25,6 +25,7 @@ lazy val docs = project.in(file("docs"))
     micrositeDescription := "A helper library for validating data with Cats",
     micrositeAuthor := "David Gregory",
     micrositeHomepage := "https://DavidGregory084.github.io/robots",
+    micrositeBaseUrl := "/robots",
     micrositePushSiteWith := GitHub4s,
     micrositeGithubOwner := "DavidGregory084",
     micrositeGithubRepo := "robots",
