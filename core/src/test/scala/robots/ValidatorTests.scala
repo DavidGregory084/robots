@@ -132,6 +132,36 @@ class ValidatorTests extends FunSuite with GeneratorDrivenPropertyChecks with Ma
     }
   }
 
+  test("Validate using optional") {
+    val lteZero = Validator.lteq(0, (i: Int) => Option(s"$i was not less than or equal to 0")).optional
+
+    forAll { opt: Option[Int] =>
+      opt match {
+        case Some(i) if i <= 0 =>
+          lteZero.run(opt) shouldBe Validated.valid(opt)
+        case Some(i) =>
+          lteZero.run(opt) shouldBe Validated.invalid(NonEmptyList.of(s"$i was not less than or equal to 0"))
+        case None =>
+          lteZero.run(opt) shouldBe Validated.valid(opt)
+      }
+    }
+  }
+
+  test("Validate using required") {
+    val lteZero = Validator.lteq(0, Option("Was not less than or equal to 0")).required(Option("I need an answer!"))
+
+    forAll { opt: Option[Int] =>
+      opt match {
+        case Some(i) if i <= 0 =>
+          lteZero.run(opt) shouldBe Validated.valid(opt)
+        case Some(_) =>
+          lteZero.run(opt) shouldBe Validated.invalid(NonEmptyList.of("Was not less than or equal to 0"))
+        case None =>
+          lteZero.run(opt) shouldBe Validated.invalid(NonEmptyList.of("I need an answer!"))
+      }
+    }
+  }
+
   case class Document(maxColumn: Int, maxLines: Int, lines: List[String])
 
   test("Validate using has") {

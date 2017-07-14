@@ -24,7 +24,7 @@ import cats.syntax.functor._
 import cats.syntax.semigroupk._
 import cats.syntax.order._
 
-final case class Validator[F[_]: Foldable, E, A](private[robots] val validate: A => F[E])(implicit M: MonoidK[F]) {
+final case class Validator[F[_]: Foldable, E, A](val validate: A => F[E])(implicit M: MonoidK[F]) {
 
   def run(a: A): ValidatedNel[E, A] = {
     val fe = validate(a)
