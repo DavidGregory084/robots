@@ -21,7 +21,7 @@
 <span class="k">case</span> <span class="k">class</span> <span class="nc">Document</span><span class="o">(</span><span class="n">maxColumn</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">maxLines</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">lines</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span>
 
 <span class="k">val</span> <span class="n">passing</span> <span class="k">=</span> <span class="nc">Document</span><span class="o">(</span><span class="mi">80</span><span class="o">,</span> <span class="mi">120</span><span class="o">,</span> <span class="nc">List</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">,</span> <span class="s">"World"</span><span class="o">))</span>
-<span class="k">val</span> <span class="n">failing</span> <span class="k">=</span> <span class="nc">Document</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="nc">List</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">,</span> <span class="s">"World"</span><span class="o">))</span>
+<span class="k">val</span> <span class="n">failing</span> <span class="k">=</span> <span class="nc">Document</span><span class="o">(</span><span class="mi">4</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="nc">List</span><span class="o">(</span><span class="s">"Hey"</span><span class="o">,</span> <span class="s">"World"</span><span class="o">))</span>
 
 <span class="k">val</span> <span class="n">documentValidator</span> <span class="k">=</span>
   <span class="n">validate</span><span class="o">[</span><span class="kt">List</span>, <span class="kt">String</span>, <span class="kt">Document</span><span class="o">].</span>
@@ -29,10 +29,17 @@
     <span class="n">has</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">maxLines</span><span class="o">)(</span><span class="n">gt</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="nc">List</span><span class="o">(</span><span class="s">"Max line count should be greater than zero"</span><span class="o">))).</span>
     <span class="n">has2</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">maxLines</span><span class="o">,</span> <span class="k">_</span><span class="o">.</span><span class="n">lines</span><span class="o">)(</span><span class="nc">Validator</span> <span class="o">{</span>
       <span class="k">case</span> <span class="o">(</span><span class="n">maxLines</span><span class="o">,</span> <span class="n">lines</span><span class="o">)</span> <span class="k">=&gt;</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">lines</span><span class="o">.</span><span class="n">length</span> <span class="o">&lt;</span> <span class="n">maxLines</span><span class="o">)</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">lines</span><span class="o">.</span><span class="n">length</span> <span class="o">&lt;=</span> <span class="n">maxLines</span><span class="o">)</span>
           <span class="nc">Nil</span>
         <span class="k">else</span>
           <span class="nc">List</span><span class="o">(</span><span class="s">"Exceeded the maximum number of lines"</span><span class="o">)</span>
+    <span class="o">}).</span>
+    <span class="n">all2</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">maxColumn</span><span class="o">,</span> <span class="k">_</span><span class="o">.</span><span class="n">lines</span><span class="o">)(</span><span class="nc">Validator</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="o">(</span><span class="n">maxColumn</span><span class="o">,</span> <span class="n">line</span><span class="o">)</span> <span class="k">=&gt;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">line</span><span class="o">.</span><span class="n">length</span> <span class="o">&lt;=</span> <span class="n">maxColumn</span><span class="o">)</span>
+          <span class="nc">Nil</span>
+        <span class="k">else</span>
+          <span class="nc">List</span><span class="o">(</span><span class="s">"Exceeded the maximum number of columns"</span><span class="o">)</span>
     <span class="o">})</span>
 </code></pre>
 </div>
@@ -41,7 +48,7 @@
 <span class="c1">// res3: cats.data.ValidatedNel[String,Document] = Valid(Document(80,120,List(Hello, World)))
 </span>
 <span class="n">documentValidator</span><span class="o">.</span><span class="n">run</span><span class="o">(</span><span class="n">failing</span><span class="o">)</span>
-<span class="c1">// res4: cats.data.ValidatedNel[String,Document] = Invalid(NonEmptyList(Max width should be greater than zero, Exceeded the maximum number of lines))
+<span class="c1">// res4: cats.data.ValidatedNel[String,Document] = Invalid(NonEmptyList(Exceeded the maximum number of lines, Exceeded the maximum number of columns))
 </span></code></pre>
 </div>
 
