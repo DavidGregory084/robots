@@ -5,9 +5,14 @@ lazy val root = project.in(file("."))
   .aggregate(core, docs)
 
 lazy val core = project.in(file("core"))
+  .enablePlugins(TutPlugin)
   .settings(commonSettings)
   .settings(publishSettings)
-  .settings(moduleName := "robots-core")
+  .settings(
+    moduleName := "robots-core",
+    scalacOptions.in(Tut) ~= { _.filterNot(Set("-Ywarn-unused-import", "-Ywarn-dead-code")) },
+    tutTargetDirectory := file(".")
+  )
 
 lazy val docs = project.in(file("docs"))
   .enablePlugins(MicrositesPlugin)

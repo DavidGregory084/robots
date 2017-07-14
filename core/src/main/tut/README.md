@@ -1,7 +1,3 @@
----
-layout: home
-
----
 ## Robots
 
 [![Build Status](https://api.travis-ci.org/DavidGregory084/robots.svg)](https://travis-ci.org/DavidGregory084/robots)
@@ -18,7 +14,7 @@ The library is at an early stage of development and does not currently have any 
 
 ### Example
 
-```scala
+```tut:silent
 import robots.Validator, Validator._
 import cats.instances.list._
 import cats.instances.int._
@@ -41,12 +37,10 @@ val documentValidator =
     })
 ```
 
-```scala
+```tut:book
 documentValidator.run(passing)
-// res3: cats.data.ValidatedNel[String,Document] = Valid(Document(80,120,List(Hello, World)))
 
 documentValidator.run(failing)
-// res4: cats.data.ValidatedNel[String,Document] = Invalid(NonEmptyList(Max width should be greater than zero, Exceeded the maximum number of lines))
 ```
 
 ### Conduct
@@ -60,4 +54,3 @@ Thanks to Brendan Maginnis ([@brendanator](https://github.com/brendanator)) for 
 ### License
 
 All code in this repository is licensed under the Apache License, Version 2.0.  See [LICENSE](./LICENSE).
-
