@@ -57,6 +57,10 @@ lazy val commonSettings = Seq(
     "org.typelevel" %% "discipline" % "0.7.3" % Test
   ),
 
+  createHeaders.in(Compile) := {
+    createHeaders.in(Compile).triggeredBy(compile.in(Compile)).value
+  },
+
   addCompilerPlugin("org.spire-math" % "kind-projector" % "0.9.3" cross CrossVersion.binary),
   addCompilerPlugin("io.tryp" %% "splain" % "0.2.4"),
 
@@ -115,7 +119,7 @@ lazy val commonSettings = Seq(
 
   headers := {
     import de.heikoseeberger.sbtheader.license._
-    Map("scala" -> Apache2_0("2017", "David Gregory"))
+    Map("scala" -> Apache2_0("2017", "David Gregory and the Robots project contributors"))
   },
 
   unmanagedSources.in(Compile, createHeaders) ++= (sourceDirectory.in(Compile).value / "boilerplate" ** "*.template").get,

@@ -17,7 +17,7 @@ install:
   - gem install jekyll -v 3.2.1
 
 script:
-  - sbt ++$TRAVIS_SCALA_VERSION clean compile tut coverage test coverageReport
+  - sbt ++$TRAVIS_SCALA_VERSION clean compile checkHeaders tut coverage test coverageReport
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
