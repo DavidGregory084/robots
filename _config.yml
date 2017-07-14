@@ -1,0 +1,11 @@
+name: Robots
+baseurl: ''
+description: A helper library for validating data with Cats
+highlighter: rouge
+docs: true
+collections:
+  tut:
+    output: true
+version: 0.1-SNAPSHOT
+org: io.github.robots
+markdown: kramdown

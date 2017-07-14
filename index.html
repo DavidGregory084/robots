@@ -1,0 +1,69 @@
+<html><head><title>Robots</title><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="David Gregory" /><meta name="description" content="A helper library for validating data with Cats" /><meta name="og:image" content="/img/poster.png" /><meta name="og:title" content="Robots" /><meta name="og:site_name" content="Robots" /><meta name="og:url" content="https://DavidGregory084.github.io/robots" /><meta name="og:type" content="website" /><meta name="og:description" content="A helper library for validating data with Cats" /><link rel="icon" type="image/png" href="/img/favicon.png" /><meta name="twitter:title" content="Robots" /><meta name="twitter:image" content="https://DavidGregory084.github.io/robotsimg/poster.png" /><meta name="twitter:description" content="A helper library for validating data with Cats" /><meta name="twitter:card" content="summary_large_image" /><link rel="icon" type="image/png" sizes="16x16" href="/img/favicon16x16.png" /><link rel="icon" type="image/png" sizes="24x24" href="/img/favicon24x24.png" /><link rel="icon" type="image/png" sizes="32x32" href="/img/favicon32x32.png" /><link rel="icon" type="image/png" sizes="48x48" href="/img/favicon48x48.png" /><link rel="icon" type="image/png" sizes="57x57" href="/img/favicon57x57.png" /><link rel="icon" type="image/png" sizes="60x60" href="/img/favicon60x60.png" /><link rel="icon" type="image/png" sizes="64x64" href="/img/favicon64x64.png" /><link rel="icon" type="image/png" sizes="70x70" href="/img/favicon70x70.png" /><link rel="icon" type="image/png" sizes="72x72" href="/img/favicon72x72.png" /><link rel="icon" type="image/png" sizes="76x76" href="/img/favicon76x76.png" /><link rel="icon" type="image/png" sizes="96x96" href="/img/favicon96x96.png" /><link rel="icon" type="image/png" sizes="114x114" href="/img/favicon114x114.png" /><link rel="icon" type="image/png" sizes="120x120" href="/img/favicon120x120.png" /><link rel="icon" type="image/png" sizes="128x128" href="/img/favicon128x128.png" /><link rel="icon" type="image/png" sizes="144x144" href="/img/favicon144x144.png" /><link rel="icon" type="image/png" sizes="150x150" href="/img/favicon150x150.png" /><link rel="icon" type="image/png" sizes="152x152" href="/img/favicon152x152.png" /><link rel="icon" type="image/png" sizes="196x196" href="/img/favicon196x196.png" /><link rel="icon" type="image/png" sizes="310x310" href="/img/favicon310x310.png" /><link rel="icon" type="image/png" sizes="310x150" href="/img/favicon310x150.png" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" /><link rel="stylesheet" href="/highlight/styles/default.css" /><link rel="stylesheet" href="/css/style.css" /><link rel="stylesheet" href="/css/palette.css" /><link rel="stylesheet" href="/css/codemirror.css" /><link rel="stylesheet" href="/css/kazari-style.css" /><link rel="stylesheet" href="/css/monokai.css" /></head><body><header id="site-header"><div class="navbar-wrapper"><div class="container"><div class="row"><div class="col-xs-6"><a href="/" class="brand"><div class="icon-wrapper"><span>Robots</span></div></a></div><div class="col-xs-6"><nav class="text-right"><ul class=""><li><a href="https://github.com/DavidGregory084/robots"><i class="fa fa-github"></i><span class="hidden-xs">GitHub</span></a></li></ul></nav></div></div></div></div><div class="jumbotron"><div class="container"><h1 class="text-center">A helper library for validating data with Cats</h1><h2></h2><p class="text-center"><a href="https://github.com/DavidGregory084/robots" class="btn btn-outline-inverse">View on GitHub</a></p></div></div><div><ul class="horizontalNav">      </ul></div></header><main id="site-main"><section class="use"><div class="container"><div id="content"><h2 id="robots">Robots</h2>
+
+<p><a href="https://travis-ci.org/DavidGregory084/robots"><img src="https://api.travis-ci.org/DavidGregory084/robots.svg" alt="Build Status" /></a>
+<a href="http://codecov.io/github/DavidGregory084/robots?branch=master"><img src="http://codecov.io/github/DavidGregory084/robots/coverage.svg?branch=master" alt="Coverage Status" /></a>
+<a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/github/license/DavidGregory084/robots.svg" alt="License" /></a></p>
+
+<h3 id="overview">Overview</h3>
+
+<p>Robots is a small Scala library which aims to provide helpful utilities for validating data using the type classes and data types provided by the <a href="https://github.com/typelevel/cats">Cats</a> library.</p>
+
+<h3 id="getting-started">Getting Started</h3>
+
+<p>The library is at an early stage of development and does not currently have any published artifacts.</p>
+
+<h3 id="example">Example</h3>
+
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">import</span> <span class="nn">robots.Validator</span><span class="o">,</span> <span class="nc">Validator</span><span class="o">.</span><span class="k">_</span>
+<span class="k">import</span> <span class="nn">cats.instances.list._</span>
+<span class="k">import</span> <span class="nn">cats.instances.int._</span>
+
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Document</span><span class="o">(</span><span class="n">maxColumn</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">maxLines</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">lines</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span>
+
+<span class="k">val</span> <span class="n">passing</span> <span class="k">=</span> <span class="nc">Document</span><span class="o">(</span><span class="mi">80</span><span class="o">,</span> <span class="mi">120</span><span class="o">,</span> <span class="nc">List</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">,</span> <span class="s">"World"</span><span class="o">))</span>
+<span class="k">val</span> <span class="n">failing</span> <span class="k">=</span> <span class="nc">Document</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="nc">List</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">,</span> <span class="s">"World"</span><span class="o">))</span>
+
+<span class="k">val</span> <span class="n">documentValidator</span> <span class="k">=</span>
+  <span class="n">validate</span><span class="o">[</span><span class="kt">List</span>, <span class="kt">String</span>, <span class="kt">Document</span><span class="o">].</span>
+    <span class="n">has</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">maxColumn</span><span class="o">)(</span><span class="n">gt</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="nc">List</span><span class="o">(</span><span class="s">"Max width should be greater than zero"</span><span class="o">))).</span>
+    <span class="n">has</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">maxLines</span><span class="o">)(</span><span class="n">gt</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="nc">List</span><span class="o">(</span><span class="s">"Max line count should be greater than zero"</span><span class="o">))).</span>
+    <span class="n">has2</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">maxLines</span><span class="o">,</span> <span class="k">_</span><span class="o">.</span><span class="n">lines</span><span class="o">)(</span><span class="nc">Validator</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="o">(</span><span class="n">maxLines</span><span class="o">,</span> <span class="n">lines</span><span class="o">)</span> <span class="k">=&gt;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">lines</span><span class="o">.</span><span class="n">length</span> <span class="o">&lt;</span> <span class="n">maxLines</span><span class="o">)</span>
+          <span class="nc">Nil</span>
+        <span class="k">else</span>
+          <span class="nc">List</span><span class="o">(</span><span class="s">"Exceeded the maximum number of lines"</span><span class="o">)</span>
+    <span class="o">})</span>
+</code></pre>
+</div>
+
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">documentValidator</span><span class="o">.</span><span class="n">run</span><span class="o">(</span><span class="n">passing</span><span class="o">)</span>
+<span class="c1">// res3: cats.data.ValidatedNel[String,Document] = Valid(Document(80,120,List(Hello, World)))
+</span>
+<span class="n">documentValidator</span><span class="o">.</span><span class="n">run</span><span class="o">(</span><span class="n">failing</span><span class="o">)</span>
+<span class="c1">// res4: cats.data.ValidatedNel[String,Document] = Invalid(NonEmptyList(Max width should be greater than zero, Exceeded the maximum number of lines))
+</span></code></pre>
+</div>
+
+<h3 id="conduct">Conduct</h3>
+
+<p>Contributors are expected to follow the <a href="http://typelevel.org/conduct.html">Typelevel Code of Conduct</a> while participating on Github and any other venues associated with the project.</p>
+
+<h3 id="acknowledgements">Acknowledgements</h3>
+
+<p>Thanks to Brendan Maginnis (<a href="https://github.com/brendanator">@brendanator</a>) for the design which inspired this library.</p>
+
+<h3 id="license">License</h3>
+
+<p>All code in this repository is licensed under the Apache License, Version 2.0.  See <a href="./LICENSE">LICENSE</a>.</p>
+
+</div></div></section><section class="technologies"><div class="container"><div class="row"></div></div></section></main><footer id="site-footer"><div class="container"><div class="row"><div class="col-xs-6"><p>Robots is designed and developed by <a href="" target="_blank">David Gregory</a></p></div><div class="col-xs-6"><p class="text-right"><a href="https://github.com/DavidGregory084/robots"><span class="fa fa-github"></span>View on GitHub</a></p></div></div><div class="row"><div class="col-xs-6"><p>Website built with <a href="https://47deg.github.io/sbt-microsites/" target="_blank">Sbt-microsites</a> - © 2016 <a href="https://www.47deg.com/" target="_blank">47 Degrees</a></p></div></div></div></footer><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script><script src="/highlight/highlight.pack.js"></script><script>hljs.configure({
+languages:['scala','java','bash']
+});
+hljs.initHighlighting();
+             </script><script>((window.gitter = {}).chat = {}).options = {
+room: 'DavidGregory084/robots'};</script><script src="https://sidecar.gitter.im/dist/sidecar.v1.js"></script><script src="/js/kazari.js"></script><script>
+$(document).ready(function() {
+	kazari.KazariPlugin().decorateCode('https://scala-evaluator-212.herokuapp.com/eval', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.S2F6YXJp.Jl2eqMfw8IakJF93PjxTbrf-8YUJgX5OoOfy5JHE8Yw', '', 'monokai')
+})
+    </script></body></html>
