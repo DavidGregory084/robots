@@ -1,4 +1,4 @@
-lazy val root = project.in(file("."))
+lazy val robots = project.in(file("."))
   .settings(commonSettings)
   .settings(publishSettings)
   .settings(noPublishSettings)
@@ -23,12 +23,13 @@ lazy val docs = project.in(file("docs"))
     moduleName := "robots-docs",
     scalacOptions.in(Tut) ~= { _.filterNot(Set("-Ywarn-unused-import", "-Ywarn-dead-code")) },
     siteSubdirName in ScalaUnidoc := "api/latest",
-    addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), siteSubdirName in ScalaUnidoc),
+    addMappingsToSiteDir(mappings.in(ScalaUnidoc, packageDoc), siteSubdirName.in(ScalaUnidoc)),
     micrositeName := "Robots",
     micrositeDescription := "A helper library for validating data with Cats",
     micrositeAuthor := "David Gregory",
     micrositeHomepage := "https://DavidGregory084.github.io/robots",
     micrositeBaseUrl := "/robots",
+    micrositeDocumentationUrl := siteSubdirName.in(ScalaUnidoc).value,
     micrositePushSiteWith := GitHub4s,
     micrositeGithubOwner := "DavidGregory084",
     micrositeGithubRepo := "robots",
@@ -43,7 +44,7 @@ lazy val docs = project.in(file("docs"))
       "gray-light"        -> "#E3E2E3",
       "gray-lighter"      -> "#F4F3F4",
       "white-color"       -> "#FFFFFF"),
-      includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.yml" | "*.md"
+      includeFilter.in(makeSite) := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.yml" | "*.md"
   )
 
 lazy val commonSettings = Seq(
