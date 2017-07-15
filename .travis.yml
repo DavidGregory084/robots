@@ -1,37 +1,31 @@
 language: scala
 
-jobs:
+scala:
+  - 2.12.2
+  - 2.11.11
+
+jdk:
+  - oraclejdk8
+
+matrix:
   include:
-    - stage: test
+  - scala: 2.12.2
+    jdk: oraclejdk8
+    env: PUBLISH_SITE=true
 
-      before_install:
-        - export PATH=${PATH}:./vendor/bundle
+before_install:
+ - export PATH=${PATH}:./vendor/bundle
 
-      install:
-        - rvm use 2.2.3 --install --fuzzy
-        - gem update --system
-        - gem install sass
-        - gem install jekyll -v 3.2.1
+install:
+  - rvm use 2.2.3 --install --fuzzy
+  - gem update --system
+  - gem install sass
+  - gem install jekyll -v 3.2.1
 
-      script:
-        - sbt ++$TRAVIS_SCALA_VERSION clean checkHeaders compile tut coverage test coverageReport
+script:
+  - sbt ++$TRAVIS_SCALA_VERSION clean checkHeaders compile tut coverage test coverageReport
 
-      scala:
-        - 2.11.11
-        - 2.12.2
-      jdk:
-        - oraclejdk8
-
-      after_success:
-        - bash <(curl -s https://codecov.io/bash)
-
-    - stage: publish
-
-      script:
-        - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash
-          scripts/publishMicrosite.sh; fi
-
-      scala:
-        - 2.12.2
-      jdk:
-        - oraclejdk8
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+  - if [ "$PUBLISH_SITE" = "true" -a "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash
+    scripts/publishMicrosite.sh; fi
