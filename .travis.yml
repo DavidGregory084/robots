@@ -8,10 +8,14 @@ jdk:
   - oraclejdk8
 
 matrix:
+  # Add a job for 2.12 which publishes the site
   include:
   - scala: 2.12.2
-    jdk: oraclejdk8
     env: PUBLISH_SITE=true
+  # Remove the 2.12 job that doesn't publish the site
+  exclude:
+  - scala: 2.12.2
+    env:
 
 before_install:
  - export PATH=${PATH}:./vendor/bundle
@@ -29,3 +33,15 @@ after_success:
   - bash <(curl -s https://codecov.io/bash)
   - if [ "$PUBLISH_SITE" = "true" -a "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash
     scripts/publishMicrosite.sh; fi
+
+before_cache:
+  - find $HOME/.sbt -name "*.lock" -type f -delete
+  - find $HOME/.ivy2/cache -name "ivydata-*.properties" -type f -delete
+
+cache:
+  directories:
+  - $HOME/.m2
+  - $HOME/.ivy2/cache
+  - $HOME/.sbt
+  - $HOME/.coursier
+

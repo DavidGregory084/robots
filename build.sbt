@@ -44,8 +44,7 @@ lazy val docs = project.in(file("docs"))
       "gray"              -> "#837F84",
       "gray-light"        -> "#E3E2E3",
       "gray-lighter"      -> "#F4F3F4",
-      "white-color"       -> "#FFFFFF"),
-    includeFilter.in(makeSite) := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.yml" | "*.md"
+      "white-color"       -> "#FFFFFF")
   )
 
 lazy val commonSettings = Seq(
