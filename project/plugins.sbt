@@ -19,3 +19,6 @@ addSbtPlugin("com.dwijnand" % "sbt-travisci" % "1.1.0")
 addSbtPlugin("de.heikoseeberger" % "sbt-header" % "1.8.0")
 
 addSbtPlugin("com.47deg"  % "sbt-microsites" % "0.6.1")
+
+addSbtPlugin("com.eed3si9n" % "sbt-unidoc" % "0.4.0")
+

@@ -16,11 +16,14 @@ lazy val core = project.in(file("core"))
 
 lazy val docs = project.in(file("docs"))
   .enablePlugins(MicrositesPlugin)
+  .enablePlugins(ScalaUnidocPlugin)
   .settings(commonSettings)
   .settings(noPublishSettings)
   .settings(
     moduleName := "robots-docs",
     scalacOptions.in(Tut) ~= { _.filterNot(Set("-Ywarn-unused-import", "-Ywarn-dead-code")) },
+    siteSubdirName in ScalaUnidoc := "api/latest",
+    addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), siteSubdirName in ScalaUnidoc),
     micrositeName := "Robots",
     micrositeDescription := "A helper library for validating data with Cats",
     micrositeAuthor := "David Gregory",
@@ -39,7 +42,8 @@ lazy val docs = project.in(file("docs"))
       "gray"              -> "#837F84",
       "gray-light"        -> "#E3E2E3",
       "gray-lighter"      -> "#F4F3F4",
-      "white-color"       -> "#FFFFFF")
+      "white-color"       -> "#FFFFFF"),
+      includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.yml" | "*.md"
   )
 
 lazy val commonSettings = Seq(
