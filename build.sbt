@@ -31,10 +31,8 @@ lazy val docs = project.in(file("docs"))
     micrositeHomepage := "https://DavidGregory084.github.io/robots",
     micrositeBaseUrl := "/robots",
     micrositeDocumentationUrl := "api/latest",
-    micrositePushSiteWith := GitHub4s,
     micrositeGithubOwner := "DavidGregory084",
     micrositeGithubRepo := "robots",
-    micrositeGithubToken := Option(System.getenv().get("GITHUB_TOKEN")),
     micrositeExtraMdFiles := Map(file("README.md") -> microsites.ExtraMdFileConfig("index.md", "home")),
     micrositePalette := Map(
       "brand-primary"     -> "#424242",
