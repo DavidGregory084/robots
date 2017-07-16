@@ -120,7 +120,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">Validator</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="validate">validate: (<span class="extype" name="robots.Validator.A">A</span>) ⇒ <span class="extype" name="robots.Validator.F">F</span>[<span class="extype" name="robots.Validator.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="evidence$1">evidence$1: <a href="http://typelevel.org/cats/api/index.html#cats.Traverse" class="extype" target="_top">Traverse</a>[<span class="extype" name="robots.Validator.F">F</span>]</span>, <span name="M">M: <a href="http://typelevel.org/cats/api/index.html#cats.MonoidK" class="extype" target="_top">MonoidK</a>[<span class="extype" name="robots.Validator.F">F</span>]</span>)</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+        <span class="name">Validator</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="validate">validate: (<span class="extype" name="robots.Validator.A">A</span>) ⇒ <span class="extype" name="robots.Validator.F">F</span>[<span class="extype" name="robots.Validator.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="FF">FF: <a href="http://typelevel.org/cats/api/index.html#cats.Traverse" class="extype" target="_top">Traverse</a>[<span class="extype" name="robots.Validator.F">F</span>]</span>, <span name="M">M: <a href="http://typelevel.org/cats/api/index.html#cats.MonoidK" class="extype" target="_top">MonoidK</a>[<span class="extype" name="robots.Validator.F">F</span>]</span>)</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
       </span>
       </h4>
 
@@ -176,9 +176,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="robots.Validator#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(validate:A=&gt;F[E])(implicitevidence$1:cats.Traverse[F],implicitM:cats.MonoidK[F]):robots.Validator[F,E,A]"></a><a id="&lt;init&gt;:Validator[F,E,A]"></a>
+      <a id="&lt;init&gt;(validate:A=&gt;F[E])(implicitFF:cats.Traverse[F],implicitM:cats.MonoidK[F]):robots.Validator[F,E,A]"></a><a id="&lt;init&gt;:Validator[F,E,A]"></a>
       <span class="permalink">
-      <a href="../robots/Validator.html#&lt;init&gt;(validate:A=&gt;F[E])(implicitevidence$1:cats.Traverse[F],implicitM:cats.MonoidK[F]):robots.Validator[F,E,A]" title="Permalink">
+      <a href="../robots/Validator.html#&lt;init&gt;(validate:A=&gt;F[E])(implicitFF:cats.Traverse[F],implicitM:cats.MonoidK[F]):robots.Validator[F,E,A]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -187,7 +187,7 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">Validator</span><span class="params">(<span name="validate">validate: (<span class="extype" name="robots.Validator.A">A</span>) ⇒ <span class="extype" name="robots.Validator.F">F</span>[<span class="extype" name="robots.Validator.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/index.html#cats.Traverse" class="extype" target="_top">Traverse</a>[<span class="extype" name="robots.Validator.F">F</span>]</span>, <span name="M">M: <a href="http://typelevel.org/cats/api/index.html#cats.MonoidK" class="extype" target="_top">MonoidK</a>[<span class="extype" name="robots.Validator.F">F</span>]</span>)</span>
+        <span class="name">Validator</span><span class="params">(<span name="validate">validate: (<span class="extype" name="robots.Validator.A">A</span>) ⇒ <span class="extype" name="robots.Validator.F">F</span>[<span class="extype" name="robots.Validator.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="FF">FF: <a href="http://typelevel.org/cats/api/index.html#cats.Traverse" class="extype" target="_top">Traverse</a>[<span class="extype" name="robots.Validator.F">F</span>]</span>, <span name="M">M: <a href="http://typelevel.org/cats/api/index.html#cats.MonoidK" class="extype" target="_top">MonoidK</a>[<span class="extype" name="robots.Validator.F">F</span>]</span>)</span>
       </span>
       
       
@@ -250,9 +250,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="robots.Validator#all" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="all[M[_],B](f:A=&gt;M[B])(that:robots.Validator[F,E,B])(implicitevidence$3:cats.Foldable[M]):robots.Validator[F,E,A]"></a><a id="all[M[_],B]((A)⇒M[B])(Validator[F,E,B])(Foldable[M]):Validator[F,E,A]"></a>
+      <a id="all[M[_],B](f:A=&gt;M[B])(that:robots.Validator[F,E,B])(implicitevidence$1:cats.Foldable[M]):robots.Validator[F,E,A]"></a><a id="all[M[_],B]((A)⇒M[B])(Validator[F,E,B])(Foldable[M]):Validator[F,E,A]"></a>
       <span class="permalink">
-      <a href="../robots/Validator.html#all[M[_],B](f:A=&gt;M[B])(that:robots.Validator[F,E,B])(implicitevidence$3:cats.Foldable[M]):robots.Validator[F,E,A]" title="Permalink">
+      <a href="../robots/Validator.html#all[M[_],B](f:A=&gt;M[B])(that:robots.Validator[F,E,B])(implicitevidence$1:cats.Foldable[M]):robots.Validator[F,E,A]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -261,14 +261,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">all</span><span class="tparams">[<span name="M">M<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.Validator.A">A</span>) ⇒ <span class="extype" name="robots.Validator.all.M">M</span>[<span class="extype" name="robots.Validator.all.B">B</span>]</span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.E">E</span>, <span class="extype" name="robots.Validator.all.B">B</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="cats.Foldable">Foldable</span>[<span class="extype" name="robots.Validator.all.M">M</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.E">E</span>, <span class="extype" name="robots.Validator.A">A</span>]</span>
+        <span class="name">all</span><span class="tparams">[<span name="M">M<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.Validator.A">A</span>) ⇒ <span class="extype" name="robots.Validator.all.M">M</span>[<span class="extype" name="robots.Validator.all.B">B</span>]</span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.E">E</span>, <span class="extype" name="robots.Validator.all.B">B</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/index.html#cats.Foldable" class="extype" target="_top">Foldable</a>[<span class="extype" name="robots.Validator.all.M">M</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.E">E</span>, <span class="extype" name="robots.Validator.A">A</span>]</span>
       </span>
       
       
     </li><li name="robots.Validator#all2" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="all2[M[_],B,C](f:A=&gt;B,g:A=&gt;M[C])(that:robots.Validator[F,E,(B,C)])(implicitevidence$4:cats.Traverse[M]):robots.Validator[F,E,A]"></a><a id="all2[M[_],B,C]((A)⇒B,(A)⇒M[C])(Validator[F,E,(B,C)])(Traverse[M]):Validator[F,E,A]"></a>
+      <a id="all2[M[_],B,C](f:A=&gt;B,g:A=&gt;M[C])(that:robots.Validator[F,E,(B,C)])(implicitTM:cats.Traverse[M]):robots.Validator[F,E,A]"></a><a id="all2[M[_],B,C]((A)⇒B,(A)⇒M[C])(Validator[F,E,(B,C)])(Traverse[M]):Validator[F,E,A]"></a>
       <span class="permalink">
-      <a href="../robots/Validator.html#all2[M[_],B,C](f:A=&gt;B,g:A=&gt;M[C])(that:robots.Validator[F,E,(B,C)])(implicitevidence$4:cats.Traverse[M]):robots.Validator[F,E,A]" title="Permalink">
+      <a href="../robots/Validator.html#all2[M[_],B,C](f:A=&gt;B,g:A=&gt;M[C])(that:robots.Validator[F,E,(B,C)])(implicitTM:cats.Traverse[M]):robots.Validator[F,E,A]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -277,7 +277,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">all2</span><span class="tparams">[<span name="M">M<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="B">B</span>, <span name="C">C</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.Validator.A">A</span>) ⇒ <span class="extype" name="robots.Validator.all2.B">B</span></span>, <span name="g">g: (<span class="extype" name="robots.Validator.A">A</span>) ⇒ <span class="extype" name="robots.Validator.all2.M">M</span>[<span class="extype" name="robots.Validator.all2.C">C</span>]</span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.E">E</span>, (<span class="extype" name="robots.Validator.all2.B">B</span>, <span class="extype" name="robots.Validator.all2.C">C</span>)]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/index.html#cats.Traverse" class="extype" target="_top">Traverse</a>[<span class="extype" name="robots.Validator.all2.M">M</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.E">E</span>, <span class="extype" name="robots.Validator.A">A</span>]</span>
+        <span class="name">all2</span><span class="tparams">[<span name="M">M<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="B">B</span>, <span name="C">C</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.Validator.A">A</span>) ⇒ <span class="extype" name="robots.Validator.all2.B">B</span></span>, <span name="g">g: (<span class="extype" name="robots.Validator.A">A</span>) ⇒ <span class="extype" name="robots.Validator.all2.M">M</span>[<span class="extype" name="robots.Validator.all2.C">C</span>]</span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.E">E</span>, (<span class="extype" name="robots.Validator.all2.B">B</span>, <span class="extype" name="robots.Validator.all2.C">C</span>)]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="TM">TM: <a href="http://typelevel.org/cats/api/index.html#cats.Traverse" class="extype" target="_top">Traverse</a>[<span class="extype" name="robots.Validator.all2.M">M</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.E">E</span>, <span class="extype" name="robots.Validator.A">A</span>]</span>
       </span>
       
       
@@ -314,9 +314,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li name="robots.Validator#at" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="at[M[_],B](f:A=&gt;M[B],i:Int)(that:robots.Validator[F,E,Option[B]])(implicitevidence$5:cats.Foldable[M]):robots.Validator[F,E,A]"></a><a id="at[M[_],B]((A)⇒M[B],Int)(Validator[F,E,Option[B]])(Foldable[M]):Validator[F,E,A]"></a>
+      <a id="at[M[_],B](f:A=&gt;M[B],i:Int)(that:robots.Validator[F,E,Option[B]])(implicitFM:cats.Foldable[M]):robots.Validator[F,E,A]"></a><a id="at[M[_],B]((A)⇒M[B],Int)(Validator[F,E,Option[B]])(Foldable[M]):Validator[F,E,A]"></a>
       <span class="permalink">
-      <a href="../robots/Validator.html#at[M[_],B](f:A=&gt;M[B],i:Int)(that:robots.Validator[F,E,Option[B]])(implicitevidence$5:cats.Foldable[M]):robots.Validator[F,E,A]" title="Permalink">
+      <a href="../robots/Validator.html#at[M[_],B](f:A=&gt;M[B],i:Int)(that:robots.Validator[F,E,Option[B]])(implicitFM:cats.Foldable[M]):robots.Validator[F,E,A]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -325,7 +325,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">at</span><span class="tparams">[<span name="M">M<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.Validator.A">A</span>) ⇒ <span class="extype" name="robots.Validator.at.M">M</span>[<span class="extype" name="robots.Validator.at.B">B</span>]</span>, <span name="i">i: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.E">E</span>, <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="robots.Validator.at.B">B</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="cats.Foldable">Foldable</span>[<span class="extype" name="robots.Validator.at.M">M</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.E">E</span>, <span class="extype" name="robots.Validator.A">A</span>]</span>
+        <span class="name">at</span><span class="tparams">[<span name="M">M<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.Validator.A">A</span>) ⇒ <span class="extype" name="robots.Validator.at.M">M</span>[<span class="extype" name="robots.Validator.at.B">B</span>]</span>, <span name="i">i: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.E">E</span>, <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="robots.Validator.at.B">B</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="FM">FM: <a href="http://typelevel.org/cats/api/index.html#cats.Foldable" class="extype" target="_top">Foldable</a>[<span class="extype" name="robots.Validator.at.M">M</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.E">E</span>, <span class="extype" name="robots.Validator.A">A</span>]</span>
       </span>
       
       
@@ -422,9 +422,9 @@
               
         </dd></dl></div>
     </li><li name="robots.Validator#first" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="first[M[_],B](f:A=&gt;M[B])(that:robots.Validator[F,E,Option[B]])(implicitevidence$6:cats.Foldable[M]):robots.Validator[F,E,A]"></a><a id="first[M[_],B]((A)⇒M[B])(Validator[F,E,Option[B]])(Foldable[M]):Validator[F,E,A]"></a>
+      <a id="first[M[_],B](f:A=&gt;M[B])(that:robots.Validator[F,E,Option[B]])(implicitFM:cats.Foldable[M]):robots.Validator[F,E,A]"></a><a id="first[M[_],B]((A)⇒M[B])(Validator[F,E,Option[B]])(Foldable[M]):Validator[F,E,A]"></a>
       <span class="permalink">
-      <a href="../robots/Validator.html#first[M[_],B](f:A=&gt;M[B])(that:robots.Validator[F,E,Option[B]])(implicitevidence$6:cats.Foldable[M]):robots.Validator[F,E,A]" title="Permalink">
+      <a href="../robots/Validator.html#first[M[_],B](f:A=&gt;M[B])(that:robots.Validator[F,E,Option[B]])(implicitFM:cats.Foldable[M]):robots.Validator[F,E,A]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -433,7 +433,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">first</span><span class="tparams">[<span name="M">M<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.Validator.A">A</span>) ⇒ <span class="extype" name="robots.Validator.first.M">M</span>[<span class="extype" name="robots.Validator.first.B">B</span>]</span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.E">E</span>, <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="robots.Validator.first.B">B</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="cats.Foldable">Foldable</span>[<span class="extype" name="robots.Validator.first.M">M</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.E">E</span>, <span class="extype" name="robots.Validator.A">A</span>]</span>
+        <span class="name">first</span><span class="tparams">[<span name="M">M<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.Validator.A">A</span>) ⇒ <span class="extype" name="robots.Validator.first.M">M</span>[<span class="extype" name="robots.Validator.first.B">B</span>]</span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.E">E</span>, <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="robots.Validator.first.B">B</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="FM">FM: <a href="http://typelevel.org/cats/api/index.html#cats.Foldable" class="extype" target="_top">Foldable</a>[<span class="extype" name="robots.Validator.first.M">M</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.E">E</span>, <span class="extype" name="robots.Validator.A">A</span>]</span>
       </span>
       
       
@@ -598,9 +598,9 @@
       
       
     </li><li name="robots.Validator#over" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="over[M[_]](implicitevidence$2:cats.Foldable[M]):robots.Validator[F,E,M[A]]"></a><a id="over[M[_]](Foldable[M]):Validator[F,E,M[A]]"></a>
+      <a id="over[M[_]](implicitFM:cats.Foldable[M]):robots.Validator[F,E,M[A]]"></a><a id="over[M[_]](Foldable[M]):Validator[F,E,M[A]]"></a>
       <span class="permalink">
-      <a href="../robots/Validator.html#over[M[_]](implicitevidence$2:cats.Foldable[M]):robots.Validator[F,E,M[A]]" title="Permalink">
+      <a href="../robots/Validator.html#over[M[_]](implicitFM:cats.Foldable[M]):robots.Validator[F,E,M[A]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -609,7 +609,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">over</span><span class="tparams">[<span name="M">M<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="cats.Foldable">Foldable</span>[<span class="extype" name="robots.Validator.over.M">M</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.E">E</span>, <span class="extype" name="robots.Validator.over.M">M</span>[<span class="extype" name="robots.Validator.A">A</span>]]</span>
+        <span class="name">over</span><span class="tparams">[<span name="M">M<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="FM">FM: <a href="http://typelevel.org/cats/api/index.html#cats.Foldable" class="extype" target="_top">Foldable</a>[<span class="extype" name="robots.Validator.over.M">M</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.E">E</span>, <span class="extype" name="robots.Validator.over.M">M</span>[<span class="extype" name="robots.Validator.A">A</span>]]</span>
       </span>
       
       
