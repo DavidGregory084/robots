@@ -120,7 +120,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">Validator</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="validate">validate: (<span class="extype" name="robots.Validator.A">A</span>) ⇒ <span class="extype" name="robots.Validator.F">F</span>[<span class="extype" name="robots.Validator.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="evidence$1">evidence$1: <span class="extype" name="cats.Foldable">Foldable</span>[<span class="extype" name="robots.Validator.F">F</span>]</span>, <span name="M">M: <a href="http://typelevel.org/cats/api/index.html#cats.MonoidK" class="extype" target="_top">MonoidK</a>[<span class="extype" name="robots.Validator.F">F</span>]</span>)</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+        <span class="name">Validator</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="validate">validate: (<span class="extype" name="robots.Validator.A">A</span>) ⇒ <span class="extype" name="robots.Validator.F">F</span>[<span class="extype" name="robots.Validator.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="evidence$1">evidence$1: <a href="http://typelevel.org/cats/api/index.html#cats.Traverse" class="extype" target="_top">Traverse</a>[<span class="extype" name="robots.Validator.F">F</span>]</span>, <span name="M">M: <a href="http://typelevel.org/cats/api/index.html#cats.MonoidK" class="extype" target="_top">MonoidK</a>[<span class="extype" name="robots.Validator.F">F</span>]</span>)</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
       </span>
       </h4>
 
@@ -176,9 +176,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="robots.Validator#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(validate:A=&gt;F[E])(implicitevidence$1:cats.Foldable[F],implicitM:cats.MonoidK[F]):robots.Validator[F,E,A]"></a><a id="&lt;init&gt;:Validator[F,E,A]"></a>
+      <a id="&lt;init&gt;(validate:A=&gt;F[E])(implicitevidence$1:cats.Traverse[F],implicitM:cats.MonoidK[F]):robots.Validator[F,E,A]"></a><a id="&lt;init&gt;:Validator[F,E,A]"></a>
       <span class="permalink">
-      <a href="../robots/Validator.html#&lt;init&gt;(validate:A=&gt;F[E])(implicitevidence$1:cats.Foldable[F],implicitM:cats.MonoidK[F]):robots.Validator[F,E,A]" title="Permalink">
+      <a href="../robots/Validator.html#&lt;init&gt;(validate:A=&gt;F[E])(implicitevidence$1:cats.Traverse[F],implicitM:cats.MonoidK[F]):robots.Validator[F,E,A]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -187,7 +187,7 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">Validator</span><span class="params">(<span name="validate">validate: (<span class="extype" name="robots.Validator.A">A</span>) ⇒ <span class="extype" name="robots.Validator.F">F</span>[<span class="extype" name="robots.Validator.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="cats.Foldable">Foldable</span>[<span class="extype" name="robots.Validator.F">F</span>]</span>, <span name="M">M: <a href="http://typelevel.org/cats/api/index.html#cats.MonoidK" class="extype" target="_top">MonoidK</a>[<span class="extype" name="robots.Validator.F">F</span>]</span>)</span>
+        <span class="name">Validator</span><span class="params">(<span name="validate">validate: (<span class="extype" name="robots.Validator.A">A</span>) ⇒ <span class="extype" name="robots.Validator.F">F</span>[<span class="extype" name="robots.Validator.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/index.html#cats.Traverse" class="extype" target="_top">Traverse</a>[<span class="extype" name="robots.Validator.F">F</span>]</span>, <span name="M">M: <a href="http://typelevel.org/cats/api/index.html#cats.MonoidK" class="extype" target="_top">MonoidK</a>[<span class="extype" name="robots.Validator.F">F</span>]</span>)</span>
       </span>
       
       
@@ -367,6 +367,22 @@
       </span>
       
       
+    </li><li name="robots.Validator#dimap" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="dimap[EE,B](f:B=&gt;A)(g:E=&gt;EE):robots.Validator[F,EE,B]"></a><a id="dimap[EE,B]((B)⇒A)((E)⇒EE):Validator[F,EE,B]"></a>
+      <span class="permalink">
+      <a href="../robots/Validator.html#dimap[EE,B](f:B=&gt;A)(g:E=&gt;EE):robots.Validator[F,EE,B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">dimap</span><span class="tparams">[<span name="EE">EE</span>, <span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.Validator.dimap.B">B</span>) ⇒ <span class="extype" name="robots.Validator.A">A</span></span>)</span><span class="params">(<span name="g">g: (<span class="extype" name="robots.Validator.E">E</span>) ⇒ <span class="extype" name="robots.Validator.dimap.EE">EE</span></span>)</span><span class="result">: <a href="" class="extype" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.dimap.EE">EE</span>, <span class="extype" name="robots.Validator.dimap.B">B</span>]</span>
+      </span>
+      
+      
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -485,6 +501,22 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="robots.Validator#leftMap" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="leftMap[EE](f:E=&gt;EE):robots.Validator[F,EE,A]"></a><a id="leftMap[EE]((E)⇒EE):Validator[F,EE,A]"></a>
+      <span class="permalink">
+      <a href="../robots/Validator.html#leftMap[EE](f:E=&gt;EE):robots.Validator[F,EE,A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">leftMap</span><span class="tparams">[<span name="EE">EE</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.Validator.E">E</span>) ⇒ <span class="extype" name="robots.Validator.leftMap.EE">EE</span></span>)</span><span class="result">: <a href="" class="extype" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.leftMap.EE">EE</span>, <span class="extype" name="robots.Validator.A">A</span>]</span>
+      </span>
+      
+      
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
