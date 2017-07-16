@@ -25,6 +25,8 @@ lazy val docs = project.in(file("docs"))
     autoAPIMappings := true,
     ghpagesNoJekyll := false,
     addMappingsToSiteDir(mappings.in(ScalaUnidoc, packageDoc), micrositeDocumentationUrl),
+    git.remoteRepo := "git@github.com:DavidGregory084/robots.git",
+
     micrositeName := "Robots",
     micrositeDescription := "A helper library for validating data with Cats",
     micrositeAuthor := "David Gregory",
@@ -42,7 +44,8 @@ lazy val docs = project.in(file("docs"))
       "gray"              -> "#837F84",
       "gray-light"        -> "#E3E2E3",
       "gray-lighter"      -> "#F4F3F4",
-      "white-color"       -> "#FFFFFF")
+      "white-color"       -> "#FFFFFF"),
+    includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.yml" | "*.md"
   )
 
 lazy val commonSettings = Seq(

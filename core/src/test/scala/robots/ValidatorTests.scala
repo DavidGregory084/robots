@@ -1,6 +1,6 @@
 package robots
 
-import cats.{ Eq, Foldable, MonoidK }
+import cats.{ Eq, Traverse, MonoidK }
 import cats.data.{ NonEmptyList, Validated, ValidatedNel }
 import cats.instances.either._
 import cats.instances.list._
@@ -16,10 +16,10 @@ import org.typelevel.discipline.scalatest.Discipline
 
 class ValidatorTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers with Discipline {
 
-  implicit def arbValidator[F[_]: Foldable, E, A](implicit M: MonoidK[F], CA: Cogen[A], E: Arbitrary[F[E]]) =
+  implicit def arbValidator[F[_]: Traverse, E, A](implicit M: MonoidK[F], CA: Cogen[A], E: Arbitrary[F[E]]) =
     Arbitrary(Arbitrary.arbitrary[A => F[E]].map(f => new Validator[F, E, A](f)))
 
-  implicit def eqValidator[F[_]: Foldable, E, A](implicit A: Arbitrary[A], E: Eq[ValidatedNel[E, A]]): Eq[Validator[F, E, A]] =
+  implicit def eqValidator[F[_]: Traverse, E, A](implicit A: Arbitrary[A], E: Eq[ValidatedNel[E, A]]): Eq[Validator[F, E, A]] =
     Eq.by[Validator[F, E, A], A => ValidatedNel[E, A]](_.run)
 
   checkAll("Validator[List, Int, Int]", ContravariantTests[Validator[List, Int, ?]].contravariant[Int, Int, Int])
@@ -27,6 +27,8 @@ class ValidatorTests extends FunSuite with GeneratorDrivenPropertyChecks with Ma
   checkAll("Validator[List, Int, Int]", CartesianTests[Validator[List, Int, ?]].cartesian[Int, Int, Int])
 
   checkAll("Validator[Option, Int, Int]", ChoiceTests[Lambda[(A, B) => Validator[Option, B, A]]].choice[Int, Int, Int, Int])
+
+  checkAll("Validator[Option, Int, Int]", ProfunctorTests[Lambda[(A, B) => Validator[Option, B, A]]].profunctor[Int, Int, Int, Int, Int, Int])
 
   test("Validate using eql") {
     val eqlOne1 = Validator.eql(1, (i: Int) => Option(s"$i was not equal to 1"))
