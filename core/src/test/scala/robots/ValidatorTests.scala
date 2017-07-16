@@ -7,6 +7,7 @@ import cats.instances.list._
 import cats.instances.option._
 import cats.kernel.instances.int._
 import cats.kernel.instances.tuple._
+import cats.kernel.laws._
 import cats.laws.discipline._
 import cats.laws.discipline.eq._
 import org.scalacheck.{ Arbitrary, Cogen }
@@ -22,6 +23,10 @@ class ValidatorTests extends FunSuite with GeneratorDrivenPropertyChecks with Ma
 
   implicit def eqValidator[F[_]: Traverse, E, A](implicit A: Arbitrary[A], E: Eq[ValidatedNel[E, A]]): Eq[Validator[F, E, A]] =
     Eq.by[Validator[F, E, A], A => ValidatedNel[E, A]](_.run)
+
+  checkAll("Validator[List, Int, Int]", GroupLaws[Validator[List, Int, Int]].monoid)
+
+  checkAll("Validator[List, Int, Int]", MonoidKTests[Validator[List, Int, ?]].monoidK[Int])
 
   checkAll("Validator[List, Int, Int]", ContravariantTests[Validator[List, Int, ?]].contravariant[Int, Int, Int])
 

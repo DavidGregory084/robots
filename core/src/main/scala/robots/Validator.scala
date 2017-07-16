@@ -16,7 +16,7 @@
 
 package robots
 
-import cats.{ Applicative, ContravariantCartesian, Eq, Foldable, MonoidK, Order, Traverse }
+import cats.{ Applicative, ContravariantCartesian, Eq, Foldable, Monoid, MonoidK, Order, Traverse }
 import cats.arrow.Choice
 import cats.data.{ NonEmptyList, Validated, ValidatedNel }
 import cats.functor.Profunctor
@@ -126,8 +126,28 @@ private[robots] sealed trait ValidatorFunctions {
     lteq(a, (_: A) => e)
 
 }
- 
+
 private[robots] sealed abstract class ValidatorInstances {
+
+  implicit def robotsMonoidForValidator[F[_], E, A](
+    implicit
+    F0: Traverse[F],
+    M0: MonoidK[F]
+  ): Monoid[Validator[F, E, A]] =
+    new ValidatorMonoid[F, E, A] {
+      def F: Traverse[F] = F0
+      def M: MonoidK[F] = M0
+    }
+
+  implicit def robotsMonoidKForValidator[F[_], E, A](
+    implicit
+    F0: Traverse[F],
+    M0: MonoidK[F]
+  ): MonoidK[Validator[F, E, ?]] =
+    new ValidatorMonoidK[F, E] {
+      def F: Traverse[F] = F0
+      def M: MonoidK[F] = M0
+    }
 
   implicit def robotsContravariantCartesianForValidator[F[_], E](
     implicit
@@ -172,6 +192,30 @@ private[robots] sealed abstract class ValidatorInstances {
       def F: Traverse[F] = F0
       def M: MonoidK[F] = M0
     }
+}
+
+private trait ValidatorMonoid[F[_], E, A]
+    extends Monoid[Validator[F, E, A]] {
+  implicit def F: Traverse[F]
+  implicit def M: MonoidK[F]
+
+  def empty: Validator[F, E, A] =
+    Validator.validate[F, E, A]
+
+  def combine(x: Validator[F, E, A], y: Validator[F, E, A]): Validator[F, E, A] =
+    x and y
+}
+
+private trait ValidatorMonoidK[F[_], E]
+    extends MonoidK[Validator[F, E, ?]] {
+  implicit def F: Traverse[F]
+  implicit def M: MonoidK[F]
+
+  def empty[A]: Validator[F, E, A] =
+    Validator.validate[F, E, A]
+
+  def combineK[A](x: Validator[F, E, A], y: Validator[F, E, A]): Validator[F, E, A] =
+    x and y
 }
 
 private trait ValidatorApplicative[F[_], R]
