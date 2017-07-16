@@ -1,6 +1,6 @@
 package robots
 
-import cats.{ Eq, Traverse, MonoidK }
+import cats.{ Applicative, Eq, MonoidK, Traverse }
 import cats.data.{ NonEmptyList, Validated, ValidatedNel }
 import cats.instances.either._
 import cats.instances.list._
@@ -15,6 +15,7 @@ import org.scalatest.prop._
 import org.typelevel.discipline.scalatest.Discipline
 
 class ValidatorTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers with Discipline {
+  implicit def iso[F[_]: Applicative: MonoidK: Traverse] = CartesianTests.Isomorphisms.invariant[Validator[F, ?, Int]]
 
   implicit def arbValidator[F[_]: Traverse, E, A](implicit M: MonoidK[F], CA: Cogen[A], E: Arbitrary[F[E]]) =
     Arbitrary(Arbitrary.arbitrary[A => F[E]].map(f => new Validator[F, E, A](f)))
@@ -27,6 +28,8 @@ class ValidatorTests extends FunSuite with GeneratorDrivenPropertyChecks with Ma
   checkAll("Validator[List, Int, Int]", CartesianTests[Validator[List, Int, ?]].cartesian[Int, Int, Int])
 
   checkAll("Validator[Option, Int, Int]", ChoiceTests[Lambda[(A, B) => Validator[Option, B, A]]].choice[Int, Int, Int, Int])
+
+  checkAll("Validator[Option, Int, Int]", ApplicativeTests[Validator[Option, ?, Int]].applicative[Int, Int, Int])
 
   checkAll("Validator[Option, Int, Int]", ProfunctorTests[Lambda[(A, B) => Validator[Option, B, A]]].profunctor[Int, Int, Int, Int, Int, Int])
 

@@ -20,24 +20,20 @@ import cats.{ Applicative, ContravariantCartesian, Eq, Foldable, MonoidK, Order,
 import cats.arrow.Choice
 import cats.data.{ NonEmptyList, Validated, ValidatedNel }
 import cats.functor.Profunctor
-import cats.syntax.foldable._
-import cats.syntax.functor._
-import cats.syntax.semigroupk._
-import cats.syntax.order._
 
-final case class Validator[F[_]: Traverse, E, A](val validate: A => F[E])(implicit M: MonoidK[F]) {
+final case class Validator[F[_], E, A](val validate: A => F[E])(implicit FF: Traverse[F], M: MonoidK[F]) {
 
   def run(a: A): ValidatedNel[E, A] = {
     val fe = validate(a)
 
-    if (fe.isEmpty)
+    if (FF.isEmpty(fe))
       Validated.Valid(a)
     else
-      Validated.Invalid(NonEmptyList.fromListUnsafe(fe.toList))
+      Validated.Invalid(NonEmptyList.fromListUnsafe(FF.toList(fe)))
   }
 
-  def over[M[_]: Foldable]: Validator[F, E, M[A]] =
-    Validator(_.foldMap(validate)(M.algebra[E]))
+  def over[M[_]](implicit FM: Foldable[M]): Validator[F, E, M[A]] =
+    Validator(ma => FM.foldMap(ma)(validate)(M.algebra[E]))
 
   def optional: Validator[F, E, Option[A]] =
     Validator(_.map(validate).getOrElse(M.empty))
@@ -46,16 +42,16 @@ final case class Validator[F[_]: Traverse, E, A](val validate: A => F[E])(implic
     Validator(_.map(validate).getOrElse(e))
 
   def leftMap[EE](f: E => EE): Validator[F, EE, A] =
-    Validator(a => validate(a).map(f))
+    Validator(a => FF.map(validate(a))(f))
 
   def dimap[EE, B](f: B => A)(g: E => EE): Validator[F, EE, B] =
-    Validator(a => validate(f(a)).map(g))
+    Validator(a => FF.map(validate(f(a)))(g))
 
   def contramap[B](f: B => A): Validator[F, E, B] =
     Validator(a => validate(f(a)))
 
   def and(that: Validator[F, E, A]): Validator[F, E, A] =
-    Validator(a => this.validate(a) <+> that.validate(a))
+    Validator(a => M.combineK(this.validate(a), that.validate(a)))
 
   def or[B](that: Validator[F, E, B]): Validator[F, E, Either[A, B]] =
     Validator(_.fold(this.validate, that.validate))
@@ -69,16 +65,16 @@ final case class Validator[F[_]: Traverse, E, A](val validate: A => F[E])(implic
   def all[M[_]: Foldable, B](f: A => M[B])(that: Validator[F, E, B]): Validator[F, E, A] =
     this and that.over[M].contramap(f)
 
-  def all2[M[_]: Traverse, B, C](f: A => B, g: A => M[C])(that: Validator[F, E, (B, C)]): Validator[F, E, A] =
+  def all2[M[_], B, C](f: A => B, g: A => M[C])(that: Validator[F, E, (B, C)])(implicit TM: Traverse[M]): Validator[F, E, A] =
     this and that.over[M].contramap { a =>
-      g(a).map(c => (f(a), c))
+      TM.map(g(a))(c => (f(a), c))
     }
 
-  def at[M[_]: Foldable, B](f: A => M[B], i: Int)(that: Validator[F, E, Option[B]]): Validator[F, E, A] =
-    this and that.contramap(a => f(a).toList.lift(i))
+  def at[M[_], B](f: A => M[B], i: Int)(that: Validator[F, E, Option[B]])(implicit FM: Foldable[M]): Validator[F, E, A] =
+    this and that.contramap(a => FM.toList(f(a)).lift(i))
 
-  def first[M[_]: Foldable, B](f: A => M[B])(that: Validator[F, E, Option[B]]): Validator[F, E, A] =
-    this and that.contramap(a => f(a).toList.headOption)
+  def first[M[_], B](f: A => M[B])(that: Validator[F, E, Option[B]])(implicit FM: Foldable[M]): Validator[F, E, A] =
+    this and that.contramap(a => FM.toList(f(a)).headOption)
 }
 
 object Validator extends ValidatorInstances with ValidatorFunctions
@@ -87,47 +83,50 @@ private[robots] sealed trait ValidatorFunctions {
   def validate[F[_]: Traverse, E, A](implicit M: MonoidK[F]): Validator[F, E, A] =
     Validator(_ => M.empty)
 
+  def fail[F[_]: Traverse, E, A](e: F[E])(implicit M: MonoidK[F]): Validator[F, E, A] =
+    Validator(_ => e)
+
   private def cmp[F[_]: Traverse, E, A](ref: A, msg: A => F[E])(valid: (A, A) => Boolean)(implicit M: MonoidK[F]): Validator[F, E, A] =
     Validator(in => if (valid(in, ref)) M.empty else msg(in))
 
-  def eql[F[_]: Traverse: MonoidK, E, A: Eq](a: A, f: A => F[E]): Validator[F, E, A] =
-    cmp(a, f)(_ === _)
+  def eql[F[_]: Traverse: MonoidK, E, A](a: A, f: A => F[E])(implicit E: Eq[A]): Validator[F, E, A] =
+    cmp(a, f)(E.eqv)
 
   def eql[F[_]: Traverse: MonoidK, E, A: Eq](a: A, e: F[E]): Validator[F, E, A] =
     eql(a, (_: A) => e)
 
-  def neq[F[_]: Traverse: MonoidK, E, A: Eq](a: A, f: A => F[E]): Validator[F, E, A] =
-    cmp(a, f)(_ =!= _)
+  def neq[F[_]: Traverse: MonoidK, E, A](a: A, f: A => F[E])(implicit E: Eq[A]): Validator[F, E, A] =
+    cmp(a, f)(E.neqv)
 
   def neq[F[_]: Traverse: MonoidK, E, A: Eq](a: A, e: F[E]): Validator[F, E, A] =
     neq(a, (_: A) => e)
 
-  def gt[F[_]: Traverse: MonoidK, E, A: Order](a: A, f: A => F[E]): Validator[F, E, A] =
-    cmp(a, f)(_ > _)
+  def gt[F[_]: Traverse: MonoidK, E, A](a: A, f: A => F[E])(implicit O: Order[A]): Validator[F, E, A] =
+    cmp(a, f)(O.gt)
 
   def gt[F[_]: Traverse: MonoidK, E, A: Order](a: A, e: F[E]): Validator[F, E, A] =
     gt(a, (_: A) => e)
 
-  def gteq[F[_]: Traverse: MonoidK, E, A: Order](a: A, f: A => F[E]): Validator[F, E, A] =
-    cmp(a, f)(_ >= _)
+  def gteq[F[_]: Traverse: MonoidK, E, A](a: A, f: A => F[E])(implicit O: Order[A]): Validator[F, E, A] =
+    cmp(a, f)(O.gteqv)
 
   def gteq[F[_]: Traverse: MonoidK, E, A: Order](a: A, e: F[E]): Validator[F, E, A] =
     gteq(a, (_: A) => e)
 
-  def lt[F[_]: Traverse: MonoidK, E, A: Order](a: A, f: A => F[E]): Validator[F, E, A] =
-    cmp(a, f)(_ < _)
+  def lt[F[_]: Traverse: MonoidK, E, A](a: A, f: A => F[E])(implicit O: Order[A]): Validator[F, E, A] =
+    cmp(a, f)(O.lt)
 
   def lt[F[_]: Traverse: MonoidK, E, A: Order](a: A, e: F[E]): Validator[F, E, A] =
     lt(a, (_: A) => e)
 
-  def lteq[F[_]: Traverse: MonoidK, E, A: Order](a: A, f: A => F[E]): Validator[F, E, A] =
-    cmp(a, f)(_ <= _)
+  def lteq[F[_]: Traverse: MonoidK, E, A](a: A, f: A => F[E])(implicit O: Order[A]): Validator[F, E, A] =
+    cmp(a, f)(O.lteqv)
 
   def lteq[F[_]: Traverse: MonoidK, E, A: Order](a: A, e: F[E]): Validator[F, E, A] =
     lteq(a, (_: A) => e)
 
 }
-
+ 
 private[robots] sealed abstract class ValidatorInstances {
 
   implicit def robotsContravariantCartesianForValidator[F[_], E](
@@ -136,6 +135,28 @@ private[robots] sealed abstract class ValidatorInstances {
     M0: MonoidK[F]
   ): ContravariantCartesian[Validator[F, E, ?]] =
     new ValidatorContravariantCartesian[F, E] {
+      def F: Traverse[F] = F0
+      def M: MonoidK[F] = M0
+    }
+
+  implicit def robotsProfunctorForValidator[F[_]](
+    implicit
+    F0: Traverse[F],
+    M0: MonoidK[F]
+  ): Profunctor[Lambda[(A, E) => Validator[F, E, A]]] =
+    new ValidatorProfunctor[F] {
+      def F: Traverse[F] = F0
+      def M: MonoidK[F] = M0
+    }
+
+  implicit def robotsApplicativeForValidator[F[_], R](
+    implicit
+    A0: Applicative[F],
+    F0: Traverse[F],
+    M0: MonoidK[F]
+  ): Applicative[Validator[F, ?, R]] =
+    new ValidatorApplicative[F, R] {
+      def A: Applicative[F] = A0
       def F: Traverse[F] = F0
       def M: MonoidK[F] = M0
     }
@@ -151,16 +172,19 @@ private[robots] sealed abstract class ValidatorInstances {
       def F: Traverse[F] = F0
       def M: MonoidK[F] = M0
     }
+}
 
-  implicit def robotsProfunctorForValidator[F[_]](
-    implicit
-    F0: Traverse[F],
-    M0: MonoidK[F]
-  ): Profunctor[Lambda[(A, E) => Validator[F, E, A]]] =
-    new ValidatorProfunctor[F] {
-      def F: Traverse[F] = F0
-      def M: MonoidK[F] = M0
-    }
+private trait ValidatorApplicative[F[_], R]
+    extends Applicative[Validator[F, ?, R]] {
+  implicit def A: Applicative[F]
+  implicit def F: Traverse[F]
+  implicit def M: MonoidK[F]
+
+  def pure[A](a: A): Validator[F, A, R] =
+    Validator.fail(A.pure(a))
+
+  def ap[A, B](ff: Validator[F, A => B, R])(fa: Validator[F, A, R]): Validator[F, B, R] =
+    Validator(r => A.ap(ff.validate(r))(fa.validate(r)))
 }
 
 private trait ValidatorContravariantCartesian[F[_], E]
@@ -201,6 +225,12 @@ private trait ValidatorProfunctor[F[_]]
     extends Profunctor[Lambda[(A, E) => Validator[F, E, A]]] {
   implicit def F: Traverse[F]
   implicit def M: MonoidK[F]
+
+  override def lmap[A, B, C](fab: Validator[F, B, A])(f: C => A): Validator[F, B, C] =
+    fab.contramap(f)
+
+  override def rmap[A, B, C](fab: Validator[F, B, A])(f: B => C): Validator[F, C, A] =
+    fab.leftMap(f)
 
   def dimap[A, B, C, D](fab: Validator[F, B, A])(f: C => A)(g: B => D): Validator[F, D, C] =
     fab.dimap(f)(g)
