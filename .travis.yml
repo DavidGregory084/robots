@@ -38,7 +38,7 @@ after_success:
   - bash <(curl -s https://codecov.io/bash)
   - if [ "$PUBLISH_SITE" = "true" -a "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash
     scripts/publishMicrosite.sh; fi
-  - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" -a $(cat version.sbt) =~ "-SNAPSHOT" ]; then bash
+  - if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_PULL_REQUEST" = "false" && $(cat version.sbt) =~ "-SNAPSHOT" ]]; then bash
     scripts/publishSnapshot.sh; fi
 
 before_cache:
