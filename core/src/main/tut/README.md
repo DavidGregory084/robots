@@ -10,7 +10,13 @@ Robots is a small Scala library which aims to provide helpful utilities for vali
 
 ### Getting Started
 
-The library is at an early stage of development and does not currently have any published artifacts.
+The library is at an early stage of development and no release artifacts have yet been published.
+
+If you want to try out a snapshot you can add the following to your `build.sbt`:
+
+```scala
+libraryDependencies += "io.github.davidgregory084" %% "robots" % "0.1.0-SNAPSHOT"
+```
 
 ### Example
 
