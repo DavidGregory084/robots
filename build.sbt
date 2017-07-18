@@ -1,3 +1,6 @@
+import scala.xml.{ Elem, Node, NodeSeq }
+import scala.xml.transform.{ RewriteRule, RuleTransformer }
+
 lazy val robots = project.in(file("."))
   .settings(commonSettings)
   .settings(publishSettings)
@@ -199,6 +202,24 @@ lazy val publishSettings = Seq(
     username <- Option(System.getenv().get("SONATYPE_USERNAME"))
     password <- Option(System.getenv().get("SONATYPE_PASSWORD"))
   } yield Credentials("Sonatype Nexus Repository Manager", "oss.sonatype.org", username, password)).toSeq,
+
+  pomPostProcess := { (node: Node) =>
+    new RuleTransformer(new RewriteRule {
+      override def transform(node: Node): NodeSeq = node match {
+        case elem: Elem =>
+          val isDependency = elem.label == "dependency"
+          val isInTestScope = elem.child.exists(c => c.label == "scope" && c.text == "test")
+
+          if (isDependency && isInTestScope)
+            Nil
+          else
+            elem
+
+        case _ =>
+          node
+      }
+    }).transform(node).head
+  },
 
   releaseProcess := {
     import ReleaseTransformations._
