@@ -1,0 +1,1 @@
+coursierVerbosity := 0

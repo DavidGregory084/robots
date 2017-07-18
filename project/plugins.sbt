@@ -22,3 +22,4 @@ addSbtPlugin("com.47deg"  % "sbt-microsites" % "0.6.1")
 
 addSbtPlugin("com.eed3si9n" % "sbt-unidoc" % "0.4.0")
 
+addSbtPlugin("org.lyranthe.sbt" % "partial-unification" % "1.0.0")

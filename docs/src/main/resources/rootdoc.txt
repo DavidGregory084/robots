@@ -1,0 +1,5 @@
+This is the API documentation for [[https://davidgregory084.github.io/robots/ robots]], a Scala library which provides validation utilities.
+
+
+
+Please refer to the [[https://davidgregory084.github.io/robots/ documentation]] for further explanation and usage examples.

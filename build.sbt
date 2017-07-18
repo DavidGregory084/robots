@@ -10,7 +10,7 @@ lazy val core = project.in(file("core"))
   .settings(publishSettings)
   .settings(
     moduleName := "robots-core",
-    scalacOptions.in(Tut) ~= { _.filterNot(Set("-Ywarn-unused-import", "-Ywarn-dead-code")) },
+    scalacOptions.in(Tut) ~= { _.filterNot(Set("-Ywarn-unused:imports", "-Ywarn-unused-import", "-Ywarn-dead-code")) },
     tutTargetDirectory := file(".")
   )
 
@@ -18,21 +18,31 @@ lazy val docs = project.in(file("docs"))
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(ScalaUnidocPlugin)
   .settings(commonSettings)
+  .settings(publishSettings)
   .settings(noPublishSettings)
   .settings(
     moduleName := "robots-docs",
-    scalacOptions.in(Tut) ~= { _.filterNot(Set("-Ywarn-unused-import", "-Ywarn-dead-code")) },
-    autoAPIMappings := true,
+
     ghpagesNoJekyll := false,
-    addMappingsToSiteDir(mappings.in(ScalaUnidoc, packageDoc), micrositeDocumentationUrl),
     git.remoteRepo := "git@github.com:DavidGregory084/robots.git",
+    addMappingsToSiteDir(mappings.in(ScalaUnidoc, packageDoc), micrositeDocumentationUrl),
+
+    scalacOptions.in(Tut) ~= { _.filterNot(Set("-Ywarn-unused:imports", "-Ywarn-unused-import", "-Ywarn-dead-code")) },
+
+    scalacOptions in (ScalaUnidoc, unidoc) ++= Seq(
+      "-groups",
+      "-implicits",
+      "-sourcepath", baseDirectory.in(LocalRootProject).value.getAbsolutePath,
+      "-doc-source-url", scmInfo.value.get.browseUrl + "/tree/master€{FILE_PATH}.scala",
+      "-doc-root-content", (resourceDirectory.in(Compile).value / "rootdoc.txt").getAbsolutePath
+    ),
 
     micrositeName := "Robots",
     micrositeDescription := "A helper library for validating data with Cats",
     micrositeAuthor := "David Gregory",
     micrositeHomepage := "https://DavidGregory084.github.io/robots",
     micrositeBaseUrl := "/robots",
-    micrositeDocumentationUrl := "api/latest",
+    micrositeDocumentationUrl := "api",
     micrositeGithubOwner := "DavidGregory084",
     micrositeGithubRepo := "robots",
     micrositeExtraMdFiles := Map(file("README.md") -> microsites.ExtraMdFileConfig("index.md", "home")),
@@ -49,9 +59,7 @@ lazy val docs = project.in(file("docs"))
   )
 
 lazy val commonSettings = Seq(
-  organization := "io.github.robots",
-
-  scalaVersion := "2.12.2",
+  organization := "io.github.davidgregory084",
 
   releaseCrossBuild := true,
 
@@ -68,7 +76,6 @@ lazy val commonSettings = Seq(
   },
 
   addCompilerPlugin("org.spire-math" % "kind-projector" % "0.9.3" cross CrossVersion.binary),
-  addCompilerPlugin("io.tryp" %% "splain" % "0.2.4"),
 
   // Recommendations from: http://tpolecat.github.io/2017/04/25/scalac-flags.html
   scalacOptions ++= Seq(
@@ -84,33 +91,16 @@ lazy val commonSettings = Seq(
     "-Xcheckinit",                       // Wrap field accessors to throw an exception on uninitialized access.
     "-Xfatal-warnings",                  // Fail the compilation if there are any warnings.
     "-Xfuture",                          // Turn on future language features.
-    "-Xlint:adapted-args",               // Warn if an argument list is modified to match the receiver.
-    "-Xlint:by-name-right-associative",  // By-name parameter of right associative operator.
-    "-Xlint:delayedinit-select",         // Selecting member of DelayedInit.
-    "-Xlint:doc-detached",               // A Scaladoc comment appears to be detached from its element.
-    "-Xlint:inaccessible",               // Warn about inaccessible types in method signatures.
-    "-Xlint:infer-any",                  // Warn when a type argument is inferred to be `Any`.
-    "-Xlint:missing-interpolator",       // A string literal appears to be missing an interpolator id.
-    "-Xlint:nullary-override",           // Warn when non-nullary `def f()' overrides nullary `def f'.
-    "-Xlint:nullary-unit",               // Warn when nullary methods return Unit.
-    "-Xlint:option-implicit",            // Option.apply used implicit view.
-    "-Xlint:package-object-classes",     // Class or object defined in package object.
-    "-Xlint:poly-implicit-overload",     // Parameterized overloaded implicit methods are not visible as view bounds.
-    "-Xlint:private-shadow",             // A private field (or class parameter) shadows a superclass field.
-    "-Xlint:stars-align",                // Pattern sequence wildcard must align with sequence component.
-    "-Xlint:type-parameter-shadow",      // A local type parameter shadows a type already in scope.
-    "-Xlint:unsound-match",              // Pattern match may not be typesafe.
     "-Xmax-classfile-name", "240",       // Limit class file name length to ensure that classes don't break the limit in Docker's filesystem
     "-Yno-adapted-args",                 // Do not adapt an argument list (either by inserting () or creating a tuple) to match the receiver.
-    "-Ypartial-unification",             // Enable partial unification in type constructor inference
     "-Ywarn-dead-code",                  // Warn when dead code is identified.
     "-Ywarn-inaccessible",               // Warn about inaccessible types in method signatures.
-    "-Ywarn-infer-any",                  // Warn when a type argument is inferred to be `Any`.
     "-Ywarn-nullary-override",           // Warn when non-nullary `def f()' overrides nullary `def f'.
     "-Ywarn-nullary-unit",               // Warn when nullary methods return Unit.
     "-Ywarn-numeric-widen",              // Warn when numerics are widened.
     "-Ywarn-value-discard"               // Warn when non-Unit expression results are unused.
   ) ++ {
+    // Scalac options that are only applicable to 2.12 or above
     CrossVersion.partialVersion(scalaVersion.value) match {
       case Some((2, min)) if min >= 12 => List(
         "-Xlint:constant",               // Evaluation of a constant arithmetic expression results in an error.
@@ -127,10 +117,34 @@ lazy val commonSettings = Seq(
       )
       case _ => Nil
     }
+  } ++ {
+    // Scalac options that are only applicable to 2.11 or above
+    CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((2, min)) if min >= 11 => List(
+        "-Xlint:adapted-args",               // Warn if an argument list is modified to match the receiver.
+        "-Xlint:by-name-right-associative",  // By-name parameter of right associative operator.
+        "-Xlint:delayedinit-select",         // Selecting member of DelayedInit.
+        "-Xlint:doc-detached",               // A Scaladoc comment appears to be detached from its element.
+        "-Xlint:inaccessible",               // Warn about inaccessible types in method signatures.
+        "-Xlint:infer-any",                  // Warn when a type argument is inferred to be `Any`.
+        "-Xlint:missing-interpolator",       // A string literal appears to be missing an interpolator id.
+        "-Xlint:nullary-override",           // Warn when non-nullary `def f()' overrides nullary `def f'.
+        "-Xlint:nullary-unit",               // Warn when nullary methods return Unit.
+        "-Xlint:option-implicit",            // Option.apply used implicit view.
+        "-Xlint:package-object-classes",     // Class or object defined in package object.
+        "-Xlint:poly-implicit-overload",     // Parameterized overloaded implicit methods are not visible as view bounds.
+        "-Xlint:private-shadow",             // A private field (or class parameter) shadows a superclass field.
+        "-Xlint:stars-align",                // Pattern sequence wildcard must align with sequence component.
+        "-Xlint:type-parameter-shadow",      // A local type parameter shadows a type already in scope.
+        "-Xlint:unsound-match",              // Pattern match may not be typesafe.
+        "-Ywarn-infer-any"                   // Warn when a type argument is inferred to be `Any`.
+      )
+      case _ => List("-Xlint")
+    }
   },
 
-  scalacOptions.in(Compile, console) ~= { _.filterNot(Set("-Ywarn-unused:imports", "-Ywarn-dead-code", "-Xfatal-warnings")) },
-  scalacOptions.in(Test, console) ~= { _.filterNot(Set("-Ywarn-unused:imports", "-Ywarn-dead-code", "-Xfatal-warnings")) },
+  scalacOptions.in(Compile, console) ~= { _.filterNot(Set("-Ywarn-unused:imports", "-Ywarn-unused-import", "-Ywarn-dead-code", "-Xfatal-warnings")) },
+  scalacOptions.in(Test, console) ~= { _.filterNot(Set("-Ywarn-unused:imports", "-Ywarn-unused-import", "-Ywarn-dead-code", "-Xfatal-warnings")) },
 
   headers := {
     import de.heikoseeberger.sbtheader.license._
@@ -154,7 +168,24 @@ lazy val publishSettings = Seq(
   releasePublishArtifactsAction := PgpKeys.publishSigned.value,
   publishMavenStyle := true,
   publishArtifact.in(Test) := false,
-  pomIncludeRepository := { _ => false },
+  pomIncludeRepository := Function.const(false),
+  autoAPIMappings := true,
+  apiURL := Some(url("https://DavidGregory084.github.io/robots/api/")),
+
+  homepage := Some(url("https://github.com/DavidGregory084/robots")),
+
+  licenses := Seq("Apache 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
+
+  scmInfo := Some(ScmInfo(
+    url("https://github.com/DavidGregory084/robots"),
+    "scm:git:git@github.com:DavidGregory084/robots.git"
+  )),
+
+  developers := List(Developer(
+    "DavidGregory084", "David Gregory",
+    "davidgregory084@gmail.com",
+    url("https://twitter.com/DavidGregory084")
+  )),
 
   publishTo := {
     val nexus = "https://oss.sonatype.org/"
@@ -163,6 +194,11 @@ lazy val publishSettings = Seq(
     else
       Some("releases" at nexus + "service/local/staging/deploy/maven2")
   },
+
+  credentials ++= (for {
+    username <- Option(System.getenv().get("SONATYPE_USERNAME"))
+    password <- Option(System.getenv().get("SONATYPE_PASSWORD"))
+  } yield Credentials("Sonatype Nexus Repository Manager", "oss.sonatype.org", username, password)).toSeq,
 
   releaseProcess := {
     import ReleaseTransformations._
@@ -175,34 +211,12 @@ lazy val publishSettings = Seq(
       setReleaseVersion,
       commitReleaseVersion,
       tagRelease,
-      ReleaseStep(action = Command.process("publishSigned", _), enableCrossBuild = true),
+      publishArtifacts,
       setNextVersion,
       commitNextVersion,
       ReleaseStep(action = Command.process("sonatypeReleaseAll", _), enableCrossBuild = true),
       pushChanges
     )
-  },
-
-  pomExtra := {
-    <url>https://github.com/DavidGregory084/robots</url>
-    <licenses>
-      <license>
-        <name>Apache License, Version 2.0</name>
-          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-          <distribution>repo</distribution>
-      </license>
-    </licenses>
-    <scm>
-      <connection>scm:git:git@github.com/DavidGregory084/robots.git</connection>
-      <developerConnection>scm:git:git@github.com/DavidGregory084/robots.git</developerConnection>
-      <url>github.com/DavidGregory084/robots.git</url>
-    </scm>
-    <developers>
-      <developer>
-        <id>DavidGregory084</id>
-        <name>David Gregory</name>
-      </developer>
-    </developers>
   }
 )
 
