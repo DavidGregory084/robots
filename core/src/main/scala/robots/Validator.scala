@@ -23,7 +23,7 @@ import cats.functor.Profunctor
 
 final case class Validator[F[_], E, A](val validate: A => F[E])(implicit FF: Traverse[F], M: MonoidK[F]) {
 
-  def run[G[_]](a: A)(implicit A: ApplicativeError[G, NonEmptyList[E]]): G[A] = {
+  def run[G[_, _]](a: A)(implicit A: ApplicativeError[G[NonEmptyList[E], ?], NonEmptyList[E]]): G[NonEmptyList[E], A] = {
     val fe = validate(a)
 
     if (FF.isEmpty(fe))

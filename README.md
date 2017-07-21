@@ -22,7 +22,7 @@ libraryDependencies += "io.github.davidgregory084" %% "robots" % "0.1.0-SNAPSHOT
 
 ```scala
 import robots.Validator, Validator._
-import cats.data.{ NonEmptyList, ValidatedNel }
+import cats.data.Validated
 import cats.instances.either._
 import cats.instances.list._
 import cats.instances.int._
@@ -50,24 +50,20 @@ val documentValidator =
         else
           List("Exceeded the maximum number of columns")
     })
-
-type ValidatedResult[A] = ValidatedNel[String, A]
-type EitherNel[A, B] = Either[NonEmptyList[A], B]
-type EitherResult[A] = EitherNel[String, A]
 ```
 
 ```scala
-documentValidator.run[ValidatedResult](passing)
-// res4: ValidatedResult[Document] = Valid(Document(80,120,List(Hello, World)))
+documentValidator.run[Validated](passing)
+// res3: cats.data.Validated[cats.data.NonEmptyList[String],Document] = Valid(Document(80,120,List(Hello, World)))
 
-documentValidator.run[ValidatedResult](failing)
-// res5: ValidatedResult[Document] = Invalid(NonEmptyList(Exceeded the maximum number of lines, Exceeded the maximum number of columns))
+documentValidator.run[Validated](failing)
+// res4: cats.data.Validated[cats.data.NonEmptyList[String],Document] = Invalid(NonEmptyList(Exceeded the maximum number of lines, Exceeded the maximum number of columns))
 
-documentValidator.run[EitherResult](passing)
-// res6: EitherResult[Document] = Right(Document(80,120,List(Hello, World)))
+documentValidator.run[Either](passing)
+// res5: Either[cats.data.NonEmptyList[String],Document] = Right(Document(80,120,List(Hello, World)))
 
-documentValidator.run[EitherResult](failing)
-// res7: EitherResult[Document] = Left(NonEmptyList(Exceeded the maximum number of lines, Exceeded the maximum number of columns))
+documentValidator.run[Either](failing)
+// res6: Either[cats.data.NonEmptyList[String],Document] = Left(NonEmptyList(Exceeded the maximum number of lines, Exceeded the maximum number of columns))
 ```
 
 ### Conduct

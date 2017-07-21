@@ -22,7 +22,7 @@ libraryDependencies += "io.github.davidgregory084" %% "robots" % "0.1.0-SNAPSHOT
 
 ```tut:silent
 import robots.Validator, Validator._
-import cats.data.{ NonEmptyList, ValidatedNel }
+import cats.data.Validated
 import cats.instances.either._
 import cats.instances.list._
 import cats.instances.int._
@@ -50,20 +50,16 @@ val documentValidator =
         else
           List("Exceeded the maximum number of columns")
     })
-
-type ValidatedResult[A] = ValidatedNel[String, A]
-type EitherNel[A, B] = Either[NonEmptyList[A], B]
-type EitherResult[A] = EitherNel[String, A]
 ```
 
 ```tut:book
-documentValidator.run[ValidatedResult](passing)
+documentValidator.run[Validated](passing)
 
-documentValidator.run[ValidatedResult](failing)
+documentValidator.run[Validated](failing)
 
-documentValidator.run[EitherResult](passing)
+documentValidator.run[Either](passing)
 
-documentValidator.run[EitherResult](failing)
+documentValidator.run[Either](failing)
 ```
 
 ### Conduct
