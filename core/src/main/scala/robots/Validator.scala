@@ -16,20 +16,20 @@
 
 package robots
 
-import cats.{ Applicative, ContravariantCartesian, Eq, Foldable, Monoid, MonoidK, Order, Traverse }
+import cats.{ Applicative, ApplicativeError, ContravariantCartesian, Eq, Foldable, Monoid, MonoidK, Order, Traverse }
 import cats.arrow.Choice
-import cats.data.{ NonEmptyList, Validated, ValidatedNel }
+import cats.data.NonEmptyList
 import cats.functor.Profunctor
 
 final case class Validator[F[_], E, A](val validate: A => F[E])(implicit FF: Traverse[F], M: MonoidK[F]) {
 
-  def run(a: A): ValidatedNel[E, A] = {
+  def run[G[_]](a: A)(implicit A: ApplicativeError[G, NonEmptyList[E]]): G[A] = {
     val fe = validate(a)
 
     if (FF.isEmpty(fe))
-      Validated.Valid(a)
+      A.pure(a)
     else
-      Validated.Invalid(NonEmptyList.fromListUnsafe(FF.toList(fe)))
+      A.raiseError(NonEmptyList.fromListUnsafe(FF.toList(fe)))
   }
 
   def over[M[_]](implicit FM: Foldable[M]): Validator[F, E, M[A]] =

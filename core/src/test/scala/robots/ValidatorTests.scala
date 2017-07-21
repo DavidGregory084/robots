@@ -1,6 +1,6 @@
 package robots
 
-import cats.{ Applicative, Eq, MonoidK, Traverse }
+import cats.{ Applicative, ApplicativeError, Eq, MonoidK, Traverse }
 import cats.data.{ NonEmptyList, Validated, ValidatedNel }
 import cats.instances.either._
 import cats.instances.list._
@@ -21,8 +21,8 @@ class ValidatorTests extends FunSuite with GeneratorDrivenPropertyChecks with Ma
   implicit def arbValidator[F[_]: Traverse, E, A](implicit M: MonoidK[F], CA: Cogen[A], E: Arbitrary[F[E]]) =
     Arbitrary(Arbitrary.arbitrary[A => F[E]].map(f => new Validator[F, E, A](f)))
 
-  implicit def eqValidator[F[_]: Traverse, E, A](implicit A: Arbitrary[A], E: Eq[ValidatedNel[E, A]]): Eq[Validator[F, E, A]] =
-    Eq.by[Validator[F, E, A], A => ValidatedNel[E, A]](_.run)
+  implicit def eqValidator[F[_]: Traverse, G[_], E, A](implicit AE: ApplicativeError[G, NonEmptyList[E]], A: Arbitrary[A], E: Eq[G[A]]): Eq[Validator[F, E, A]] =
+    Eq.by[Validator[F, E, A], A => G[A]](_.run[G])
 
   checkAll("Validator[List, Int, Int]", GroupLaws[Validator[List, Int, Int]].monoid)
 
@@ -41,25 +41,25 @@ class ValidatorTests extends FunSuite with GeneratorDrivenPropertyChecks with Ma
   test("Validate using eql") {
     val eqlOne1 = Validator.eql(1, (i: Int) => Option(s"$i was not equal to 1"))
 
-    eqlOne1.run(1) shouldBe Validated.valid(1)
-    eqlOne1.run(2) shouldBe Validated.invalid(NonEmptyList.of(s"2 was not equal to 1"))
+    eqlOne1.run[ValidatedNel[String, ?]](1) shouldBe Validated.valid(1)
+    eqlOne1.run[ValidatedNel[String, ?]](2) shouldBe Validated.invalid(NonEmptyList.of(s"2 was not equal to 1"))
 
     val eqlOne2 = Validator.eql(1, Option("Was not equal to 1"))
 
-    eqlOne2.run(1) shouldBe Validated.valid(1)
-    eqlOne2.run(2) shouldBe Validated.invalid(NonEmptyList.of("Was not equal to 1"))
+    eqlOne2.run[ValidatedNel[String, ?]](1) shouldBe Validated.valid(1)
+    eqlOne2.run[ValidatedNel[String, ?]](2) shouldBe Validated.invalid(NonEmptyList.of("Was not equal to 1"))
   }
 
   test("Validate using neq") {
     val neqOne1 = Validator.neq(1, (i: Int) => Option(s"$i was equal to 1"))
 
-    neqOne1.run(2) shouldBe Validated.valid(2)
-    neqOne1.run(1) shouldBe Validated.invalid(NonEmptyList.of(s"1 was equal to 1"))
+    neqOne1.run[ValidatedNel[String, ?]](2) shouldBe Validated.valid(2)
+    neqOne1.run[ValidatedNel[String, ?]](1) shouldBe Validated.invalid(NonEmptyList.of(s"1 was equal to 1"))
 
     val neqOne2 = Validator.neq(1, Option("Was equal to 1"))
 
-    neqOne2.run(2) shouldBe Validated.valid(2)
-    neqOne2.run(1) shouldBe Validated.invalid(NonEmptyList.of("Was equal to 1"))
+    neqOne2.run[ValidatedNel[String, ?]](2) shouldBe Validated.valid(2)
+    neqOne2.run[ValidatedNel[String, ?]](1) shouldBe Validated.invalid(NonEmptyList.of("Was equal to 1"))
   }
 
   test("Validate using gt") {
@@ -67,18 +67,18 @@ class ValidatorTests extends FunSuite with GeneratorDrivenPropertyChecks with Ma
 
     forAll { i: Int =>
       if (i > 0)
-        gtZero1.run(i) shouldBe Validated.valid(i)
+        gtZero1.run[ValidatedNel[String, ?]](i) shouldBe Validated.valid(i)
       else
-        gtZero1.run(i) shouldBe Validated.invalid(NonEmptyList.of(s"$i was not greater than 0"))
+        gtZero1.run[ValidatedNel[String, ?]](i) shouldBe Validated.invalid(NonEmptyList.of(s"$i was not greater than 0"))
     }
 
     val gtZero2 = Validator.gt(0, Option("Was not greater than 0"))
 
     forAll { i: Int =>
       if (i > 0)
-        gtZero2.run(i) shouldBe Validated.valid(i)
+        gtZero2.run[ValidatedNel[String, ?]](i) shouldBe Validated.valid(i)
       else
-        gtZero2.run(i) shouldBe Validated.invalid(NonEmptyList.of("Was not greater than 0"))
+        gtZero2.run[ValidatedNel[String, ?]](i) shouldBe Validated.invalid(NonEmptyList.of("Was not greater than 0"))
     }
   }
 
@@ -87,18 +87,18 @@ class ValidatorTests extends FunSuite with GeneratorDrivenPropertyChecks with Ma
 
     forAll { i: Int =>
       if (i >= 0)
-        gteZero1.run(i) shouldBe Validated.valid(i)
+        gteZero1.run[ValidatedNel[String, ?]](i) shouldBe Validated.valid(i)
       else
-        gteZero1.run(i) shouldBe Validated.invalid(NonEmptyList.of(s"$i was not greater than or equal to 0"))
+        gteZero1.run[ValidatedNel[String, ?]](i) shouldBe Validated.invalid(NonEmptyList.of(s"$i was not greater than or equal to 0"))
     }
 
     val gteZero2 = Validator.gteq(0, Option("Was not greater than or equal to 0"))
 
     forAll { i: Int =>
       if (i >= 0)
-        gteZero2.run(i) shouldBe Validated.valid(i)
+        gteZero2.run[ValidatedNel[String, ?]](i) shouldBe Validated.valid(i)
       else
-        gteZero2.run(i) shouldBe Validated.invalid(NonEmptyList.of("Was not greater than or equal to 0"))
+        gteZero2.run[ValidatedNel[String, ?]](i) shouldBe Validated.invalid(NonEmptyList.of("Was not greater than or equal to 0"))
     }
   }
 
@@ -107,18 +107,18 @@ class ValidatorTests extends FunSuite with GeneratorDrivenPropertyChecks with Ma
 
     forAll { i: Int =>
       if (i < 0)
-        ltZero1.run(i) shouldBe Validated.valid(i)
+        ltZero1.run[ValidatedNel[String, ?]](i) shouldBe Validated.valid(i)
       else
-        ltZero1.run(i) shouldBe Validated.invalid(NonEmptyList.of(s"$i was not less than 0"))
+        ltZero1.run[ValidatedNel[String, ?]](i) shouldBe Validated.invalid(NonEmptyList.of(s"$i was not less than 0"))
     }
 
     val ltZero2 = Validator.lt(0, Option("Was not less than 0"))
 
     forAll { i: Int =>
       if (i < 0)
-        ltZero2.run(i) shouldBe Validated.valid(i)
+        ltZero2.run[ValidatedNel[String, ?]](i) shouldBe Validated.valid(i)
       else
-        ltZero2.run(i) shouldBe Validated.invalid(NonEmptyList.of("Was not less than 0"))
+        ltZero2.run[ValidatedNel[String, ?]](i) shouldBe Validated.invalid(NonEmptyList.of("Was not less than 0"))
     }
   }
 
@@ -127,18 +127,18 @@ class ValidatorTests extends FunSuite with GeneratorDrivenPropertyChecks with Ma
 
     forAll { i: Int =>
       if (i <= 0)
-        lteZero1.run(i) shouldBe Validated.valid(i)
+        lteZero1.run[ValidatedNel[String, ?]](i) shouldBe Validated.valid(i)
       else
-        lteZero1.run(i) shouldBe Validated.invalid(NonEmptyList.of(s"$i was not less than or equal to 0"))
+        lteZero1.run[ValidatedNel[String, ?]](i) shouldBe Validated.invalid(NonEmptyList.of(s"$i was not less than or equal to 0"))
     }
 
     val lteZero2 = Validator.lteq(0, Option("Was not less than or equal to 0"))
 
     forAll { i: Int =>
       if (i <= 0)
-        lteZero2.run(i) shouldBe Validated.valid(i)
+        lteZero2.run[ValidatedNel[String, ?]](i) shouldBe Validated.valid(i)
       else
-        lteZero2.run(i) shouldBe Validated.invalid(NonEmptyList.of("Was not less than or equal to 0"))
+        lteZero2.run[ValidatedNel[String, ?]](i) shouldBe Validated.invalid(NonEmptyList.of("Was not less than or equal to 0"))
     }
   }
 
@@ -148,11 +148,11 @@ class ValidatorTests extends FunSuite with GeneratorDrivenPropertyChecks with Ma
     forAll { opt: Option[Int] =>
       opt match {
         case Some(i) if i <= 0 =>
-          lteZero.run(opt) shouldBe Validated.valid(opt)
+          lteZero.run[ValidatedNel[String, ?]](opt) shouldBe Validated.valid(opt)
         case Some(i) =>
-          lteZero.run(opt) shouldBe Validated.invalid(NonEmptyList.of(s"$i was not less than or equal to 0"))
+          lteZero.run[ValidatedNel[String, ?]](opt) shouldBe Validated.invalid(NonEmptyList.of(s"$i was not less than or equal to 0"))
         case None =>
-          lteZero.run(opt) shouldBe Validated.valid(opt)
+          lteZero.run[ValidatedNel[String, ?]](opt) shouldBe Validated.valid(opt)
       }
     }
   }
@@ -163,11 +163,11 @@ class ValidatorTests extends FunSuite with GeneratorDrivenPropertyChecks with Ma
     forAll { opt: Option[Int] =>
       opt match {
         case Some(i) if i <= 0 =>
-          lteZero.run(opt) shouldBe Validated.valid(opt)
+          lteZero.run[ValidatedNel[String, ?]](opt) shouldBe Validated.valid(opt)
         case Some(_) =>
-          lteZero.run(opt) shouldBe Validated.invalid(NonEmptyList.of("Was not less than or equal to 0"))
+          lteZero.run[ValidatedNel[String, ?]](opt) shouldBe Validated.invalid(NonEmptyList.of("Was not less than or equal to 0"))
         case None =>
-          lteZero.run(opt) shouldBe Validated.invalid(NonEmptyList.of("I need an answer!"))
+          lteZero.run[ValidatedNel[String, ?]](opt) shouldBe Validated.invalid(NonEmptyList.of("I need an answer!"))
       }
     }
   }
@@ -184,8 +184,8 @@ class ValidatorTests extends FunSuite with GeneratorDrivenPropertyChecks with Ma
     val valid = Document(80, 120, Nil)
     val invalid = Document(0, 120, Nil)
 
-    documentValidator.run(valid) shouldBe Validated.Valid(valid)
-    documentValidator.run(invalid) shouldBe Validated.Invalid(NonEmptyList.of(error))
+    documentValidator.run[ValidatedNel[String, ?]](valid) shouldBe Validated.Valid(valid)
+    documentValidator.run[ValidatedNel[String, ?]](invalid) shouldBe Validated.Invalid(NonEmptyList.of(error))
   }
 
   test("Validate using has2") {
@@ -204,9 +204,9 @@ class ValidatorTests extends FunSuite with GeneratorDrivenPropertyChecks with Ma
     val valid = Document(80, 120, List("Hello", "World"))
     val invalid = Document(80, 1, List("Hello", "World"))
 
-    documentValidator.run(valid) shouldBe Validated.Valid(valid)
+    documentValidator.run[ValidatedNel[String, ?]](valid) shouldBe Validated.Valid(valid)
 
-    documentValidator.run(invalid) shouldBe Validated.Invalid(
+    documentValidator.run[ValidatedNel[String, ?]](invalid) shouldBe Validated.Invalid(
       NonEmptyList.of("The number of lines in this document exceeds the maximum of 1")
     )
   }
@@ -227,9 +227,9 @@ class ValidatorTests extends FunSuite with GeneratorDrivenPropertyChecks with Ma
     val valid = Document(80, 120, List("Hello", "World"))
     val invalid = Document(80, 1, List("Hello", "", "World"))
 
-    documentValidator.run(valid) shouldBe Validated.Valid(valid)
+    documentValidator.run[ValidatedNel[String, ?]](valid) shouldBe Validated.Valid(valid)
 
-    documentValidator.run(invalid) shouldBe Validated.Invalid(
+    documentValidator.run[ValidatedNel[String, ?]](invalid) shouldBe Validated.Invalid(
       NonEmptyList.of("Empty lines are not permitted")
     )
   }
@@ -251,9 +251,9 @@ class ValidatorTests extends FunSuite with GeneratorDrivenPropertyChecks with Ma
     val valid = Document(80, 120, List("Hello", "World"))
     val invalid = Document(4, 1, List("Hello", "", "World"))
 
-    documentValidator.run(valid) shouldBe Validated.Valid(valid)
+    documentValidator.run[ValidatedNel[String, ?]](valid) shouldBe Validated.Valid(valid)
 
-    documentValidator.run(invalid) shouldBe Validated.Invalid(
+    documentValidator.run[ValidatedNel[String, ?]](invalid) shouldBe Validated.Invalid(
       NonEmptyList.of("The line exceeds the maximum width of 4 columns")
     )
   }
@@ -274,9 +274,9 @@ class ValidatorTests extends FunSuite with GeneratorDrivenPropertyChecks with Ma
     val valid = Document(80, 120, List("Hello", "World"))
     val invalid = Document(80, 120, List("Hello"))
 
-    documentValidator.run(valid) shouldBe Validated.Valid(valid)
+    documentValidator.run[ValidatedNel[String, ?]](valid) shouldBe Validated.Valid(valid)
 
-    documentValidator.run(invalid) shouldBe Validated.Invalid(
+    documentValidator.run[ValidatedNel[String, ?]](invalid) shouldBe Validated.Invalid(
       NonEmptyList.of("A document should have at least two lines")
     )
   }
@@ -297,9 +297,9 @@ class ValidatorTests extends FunSuite with GeneratorDrivenPropertyChecks with Ma
     val valid = Document(80, 120, List("Hello", "World"))
     val invalid = Document(80, 120, List("Hi", "World"))
 
-    documentValidator.run(valid) shouldBe Validated.Valid(valid)
+    documentValidator.run[ValidatedNel[String, ?]](valid) shouldBe Validated.Valid(valid)
 
-    documentValidator.run(invalid) shouldBe Validated.Invalid(
+    documentValidator.run[ValidatedNel[String, ?]](invalid) shouldBe Validated.Invalid(
       NonEmptyList.of("A document should start with 'Hello'")
     )
   }
