@@ -2,20 +2,13 @@ package robots
 
 import cats.{ Applicative, ApplicativeError, Eq, MonoidK, Traverse }
 import cats.data.{ NonEmptyList, Validated }
-import cats.instances.either._
-import cats.instances.list._
-import cats.instances.option._
-import cats.kernel.instances.int._
-import cats.kernel.instances.tuple._
 import cats.kernel.laws._
 import cats.laws.discipline._
 import cats.laws.discipline.eq._
+import cats.tests.CatsSuite
 import org.scalacheck.{ Arbitrary, Cogen }
-import org.scalatest._
-import org.scalatest.prop._
-import org.typelevel.discipline.scalatest.Discipline
 
-class ValidatorTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers with Discipline {
+class ValidatorTests extends CatsSuite {
   implicit def iso[F[_]: Applicative: MonoidK: Traverse] = CartesianTests.Isomorphisms.invariant[Validator[F, ?, Int]]
 
   implicit def arbValidator[F[_]: Traverse, E, A](implicit M: MonoidK[F], CA: Cogen[A], E: Arbitrary[F[E]]) =

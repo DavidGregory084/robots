@@ -67,11 +67,8 @@ lazy val commonSettings = Seq(
   releaseCrossBuild := true,
 
   libraryDependencies ++= Seq(
-    "org.typelevel" %% "cats-core" % "0.9.0",
-    "org.typelevel" %% "cats-laws" % "0.9.0" % Test,
-    "org.scalatest" %% "scalatest" % "3.0.1" % Test,
-    "org.scalacheck" %% "scalacheck" % "1.13.5" % Test,
-    "org.typelevel" %% "discipline" % "0.7.3" % Test
+    "org.typelevel" %% "cats-core" % "1.0.0-MF",
+    "org.typelevel" %% "cats-testkit" % "1.0.0-MF" % Test
   ),
 
   createHeaders.in(Compile) := {
