@@ -124,16 +124,16 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">PValidator</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="validate">validate: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.F">F</span>[<span class="extype" name="robots.PValidator.E">E</span>]</span>, <span name="f">f: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.B">B</span> = <span class="symbol">identity[A]</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="FF">FF: <a href="http://typelevel.org/cats/api/index.html#cats.Traverse" class="extype" target="_top">Traverse</a>[<span class="extype" name="robots.PValidator.F">F</span>]</span>, <span name="M">M: <a href="http://typelevel.org/cats/api/index.html#cats.MonoidK" class="extype" target="_top">MonoidK</a>[<span class="extype" name="robots.PValidator.F">F</span>]</span>)</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+        <span class="name">PValidator</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="validate">validate: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.F">F</span>[<span class="extype" name="robots.PValidator.E">E</span>]</span>, <span name="f">f: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.B">B</span> = <span class="symbol">identity[A]</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="FF">FF: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.PValidator.F">F</span>]</span>, <span name="M">M: <a href="http://typelevel.org/cats/api/cats/MonoidK.html#cats.MonoidK" class="extype" name="cats.MonoidK">MonoidK</a>[<span class="extype" name="robots.PValidator.F">F</span>]</span>)</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.3/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="http://www.scala-lang.org/api/2.12.3/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/DavidGregory084/robots/tree/master/core/src/main/scala/robots/Validator.scala" target="_blank">Validator.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/DavidGregory084/robots/tree/master/core/src/main/scala/robots/PValidator.scala" target="_blank">PValidator.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Serializable" class="extype" target="_top">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Product" class="extype" target="_top">Product</a>, <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Equals" class="extype" target="_top">Equals</a>, <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Any" class="extype" target="_top">Any</a></div>
+          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.3/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.3/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a>, <a href="http://www.scala-lang.org/api/2.12.3/scala/Equals.html#scala.Equals" class="extype" name="scala.Equals">Equals</a>, <a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></div>
         </div></div>
         
 
@@ -196,7 +196,7 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">PValidator</span><span class="params">(<span name="validate">validate: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.F">F</span>[<span class="extype" name="robots.PValidator.E">E</span>]</span>, <span name="f">f: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.B">B</span> = <span class="symbol">identity[A]</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="FF">FF: <a href="http://typelevel.org/cats/api/index.html#cats.Traverse" class="extype" target="_top">Traverse</a>[<span class="extype" name="robots.PValidator.F">F</span>]</span>, <span name="M">M: <a href="http://typelevel.org/cats/api/index.html#cats.MonoidK" class="extype" target="_top">MonoidK</a>[<span class="extype" name="robots.PValidator.F">F</span>]</span>)</span>
+        <span class="name">PValidator</span><span class="params">(<span name="validate">validate: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.F">F</span>[<span class="extype" name="robots.PValidator.E">E</span>]</span>, <span name="f">f: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.B">B</span> = <span class="symbol">identity[A]</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="FF">FF: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.PValidator.F">F</span>]</span>, <span name="M">M: <a href="http://typelevel.org/cats/api/cats/MonoidK.html#cats.MonoidK" class="extype" name="cats.MonoidK">MonoidK</a>[<span class="extype" name="robots.PValidator.F">F</span>]</span>)</span>
       </span>
       
       
@@ -222,7 +222,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -238,7 +238,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Int" class="extype" target="_top">Int</a></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -297,7 +297,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -313,14 +313,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">all</span><span class="tparams">[<span name="M">M<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="C">C</span>, <span name="D">D</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.all.M">M</span>[<span class="extype" name="robots.PValidator.all.C">C</span>]</span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.all.C">C</span>, <span class="extype" name="robots.PValidator.all.D">D</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/index.html#cats.Traverse" class="extype" target="_top">Traverse</a>[<span class="extype" name="robots.PValidator.all.M">M</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
+        <span class="name">all</span><span class="tparams">[<span name="M">M<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="C">C</span>, <span name="D">D</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.all.M">M</span>[<span class="extype" name="robots.PValidator.all.C">C</span>]</span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.all.C">C</span>, <span class="extype" name="robots.PValidator.all.D">D</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.PValidator.all.M">M</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
       </span>
       
       
     </li><li name="robots.PValidator#all2" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="all2[M[_],C,D,G](f:A=&gt;C,g:A=&gt;M[D])(that:robots.PValidator[F,E,(C,D),G])(implicitTM:cats.Traverse[M]):robots.PValidator[F,E,A,B]"></a><a id="all2[M[_],C,D,G]((A)⇒C,(A)⇒M[D])(PValidator[F,E,(C,D),G])(Traverse[M]):PValidator[F,E,A,B]"></a>
+      <a id="all2[M[_],C,D](f:A=&gt;C,g:A=&gt;M[D])(that:robots.PValidator[F,E,(C,D),_])(implicitTM:cats.Traverse[M]):robots.PValidator[F,E,A,B]"></a><a id="all2[M[_],C,D]((A)⇒C,(A)⇒M[D])(PValidator[F,E,(C,D),_])(Traverse[M]):PValidator[F,E,A,B]"></a>
       <span class="permalink">
-      <a href="../robots/PValidator.html#all2[M[_],C,D,G](f:A=&gt;C,g:A=&gt;M[D])(that:robots.PValidator[F,E,(C,D),G])(implicitTM:cats.Traverse[M]):robots.PValidator[F,E,A,B]" title="Permalink">
+      <a href="../robots/PValidator.html#all2[M[_],C,D](f:A=&gt;C,g:A=&gt;M[D])(that:robots.PValidator[F,E,(C,D),_])(implicitTM:cats.Traverse[M]):robots.PValidator[F,E,A,B]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -329,14 +329,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">all2</span><span class="tparams">[<span name="M">M<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="C">C</span>, <span name="D">D</span>, <span name="G">G</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.all2.C">C</span></span>, <span name="g">g: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.all2.M">M</span>[<span class="extype" name="robots.PValidator.all2.D">D</span>]</span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, (<span class="extype" name="robots.PValidator.all2.C">C</span>, <span class="extype" name="robots.PValidator.all2.D">D</span>), <span class="extype" name="robots.PValidator.all2.G">G</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="TM">TM: <a href="http://typelevel.org/cats/api/index.html#cats.Traverse" class="extype" target="_top">Traverse</a>[<span class="extype" name="robots.PValidator.all2.M">M</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
+        <span class="name">all2</span><span class="tparams">[<span name="M">M<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="C">C</span>, <span name="D">D</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.all2.C">C</span></span>, <span name="g">g: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.all2.M">M</span>[<span class="extype" name="robots.PValidator.all2.D">D</span>]</span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, (<span class="extype" name="robots.PValidator.all2.C">C</span>, <span class="extype" name="robots.PValidator.all2.D">D</span>), _]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="TM">TM: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.PValidator.all2.M">M</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
       </span>
       
       
     </li><li name="robots.PValidator#and" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="and[C](that:robots.PValidator[F,E,A,C]):robots.PValidator[F,E,A,B]"></a><a id="and[C](PValidator[F,E,A,C]):PValidator[F,E,A,B]"></a>
+      <a id="and(that:robots.PValidator[F,E,A,_]):robots.PValidator[F,E,A,B]"></a><a id="and(PValidator[F,E,A,_]):PValidator[F,E,A,B]"></a>
       <span class="permalink">
-      <a href="../robots/PValidator.html#and[C](that:robots.PValidator[F,E,A,C]):robots.PValidator[F,E,A,B]" title="Permalink">
+      <a href="../robots/PValidator.html#and(that:robots.PValidator[F,E,A,_]):robots.PValidator[F,E,A,B]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -345,7 +345,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">and</span><span class="tparams">[<span name="C">C</span>]</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.and.C">C</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
+        <span class="name">and</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, _]</span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
       </span>
       
       
@@ -366,9 +366,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li name="robots.PValidator#at" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="at[M[_],C,D](f:A=&gt;M[C],i:Int)(that:robots.PValidator[F,E,Option[C],D])(implicitTM:cats.Traverse[M]):robots.PValidator[F,E,A,B]"></a><a id="at[M[_],C,D]((A)⇒M[C],Int)(PValidator[F,E,Option[C],D])(Traverse[M]):PValidator[F,E,A,B]"></a>
+      <a id="at[M[_],C](f:A=&gt;M[C],i:Int)(that:robots.PValidator[F,E,Option[C],_])(implicitTM:cats.Traverse[M]):robots.PValidator[F,E,A,B]"></a><a id="at[M[_],C]((A)⇒M[C],Int)(PValidator[F,E,Option[C],_])(Traverse[M]):PValidator[F,E,A,B]"></a>
       <span class="permalink">
-      <a href="../robots/PValidator.html#at[M[_],C,D](f:A=&gt;M[C],i:Int)(that:robots.PValidator[F,E,Option[C],D])(implicitTM:cats.Traverse[M]):robots.PValidator[F,E,A,B]" title="Permalink">
+      <a href="../robots/PValidator.html#at[M[_],C](f:A=&gt;M[C],i:Int)(that:robots.PValidator[F,E,Option[C],_])(implicitTM:cats.Traverse[M]):robots.PValidator[F,E,A,B]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -377,7 +377,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">at</span><span class="tparams">[<span name="M">M<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="C">C</span>, <span name="D">D</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.at.M">M</span>[<span class="extype" name="robots.PValidator.at.C">C</span>]</span>, <span name="i">i: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="robots.PValidator.at.C">C</span>], <span class="extype" name="robots.PValidator.at.D">D</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="TM">TM: <a href="http://typelevel.org/cats/api/index.html#cats.Traverse" class="extype" target="_top">Traverse</a>[<span class="extype" name="robots.PValidator.at.M">M</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
+        <span class="name">at</span><span class="tparams">[<span name="M">M<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="C">C</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.at.M">M</span>[<span class="extype" name="robots.PValidator.at.C">C</span>]</span>, <span name="i">i: <a href="http://www.scala-lang.org/api/2.12.3/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <a href="http://www.scala-lang.org/api/2.12.3/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="robots.PValidator.at.C">C</span>], _]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="TM">TM: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.PValidator.at.M">M</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
       </span>
       
       
@@ -393,10 +393,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
@@ -447,7 +447,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="implicit">ensuring</span><span class="params">(<span name="cond">cond: (<a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>, <span name="msg">msg: ⇒ <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
+        <span class="implicit">ensuring</span><span class="params">(<span name="cond">cond: (<a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.3/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>, <span name="msg">msg: ⇒ <a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt class="implicit">Implicit</dt><dd>
@@ -467,7 +467,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="implicit">ensuring</span><span class="params">(<span name="cond">cond: (<a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
+        <span class="implicit">ensuring</span><span class="params">(<span name="cond">cond: (<a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.3/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt class="implicit">Implicit</dt><dd>
@@ -487,7 +487,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="implicit">ensuring</span><span class="params">(<span name="cond">cond: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>, <span name="msg">msg: ⇒ <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
+        <span class="implicit">ensuring</span><span class="params">(<span name="cond">cond: <a href="http://www.scala-lang.org/api/2.12.3/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>, <span name="msg">msg: ⇒ <a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt class="implicit">Implicit</dt><dd>
@@ -507,7 +507,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="implicit">ensuring</span><span class="params">(<span name="cond">cond: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
+        <span class="implicit">ensuring</span><span class="params">(<span name="cond">cond: <a href="http://www.scala-lang.org/api/2.12.3/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt class="implicit">Implicit</dt><dd>
@@ -527,7 +527,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -559,10 +559,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="symbol">classOf[java.lang.Throwable]</span>
@@ -570,9 +570,9 @@
               
         </dd></dl></div>
     </li><li name="robots.PValidator#first" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="first[M[_],C,D](f:A=&gt;M[C])(that:robots.PValidator[F,E,Option[C],D])(implicitFM:cats.Foldable[M]):robots.PValidator[F,E,A,B]"></a><a id="first[M[_],C,D]((A)⇒M[C])(PValidator[F,E,Option[C],D])(Foldable[M]):PValidator[F,E,A,B]"></a>
+      <a id="first[M[_],C](f:A=&gt;M[C])(that:robots.PValidator[F,E,Option[C],_])(implicitFM:cats.Foldable[M]):robots.PValidator[F,E,A,B]"></a><a id="first[M[_],C]((A)⇒M[C])(PValidator[F,E,Option[C],_])(Foldable[M]):PValidator[F,E,A,B]"></a>
       <span class="permalink">
-      <a href="../robots/PValidator.html#first[M[_],C,D](f:A=&gt;M[C])(that:robots.PValidator[F,E,Option[C],D])(implicitFM:cats.Foldable[M]):robots.PValidator[F,E,A,B]" title="Permalink">
+      <a href="../robots/PValidator.html#first[M[_],C](f:A=&gt;M[C])(that:robots.PValidator[F,E,Option[C],_])(implicitFM:cats.Foldable[M]):robots.PValidator[F,E,A,B]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -581,7 +581,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">first</span><span class="tparams">[<span name="M">M<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="C">C</span>, <span name="D">D</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.first.M">M</span>[<span class="extype" name="robots.PValidator.first.C">C</span>]</span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="robots.PValidator.first.C">C</span>], <span class="extype" name="robots.PValidator.first.D">D</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="FM">FM: <a href="http://typelevel.org/cats/api/index.html#cats.Foldable" class="extype" target="_top">Foldable</a>[<span class="extype" name="robots.PValidator.first.M">M</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
+        <span class="name">first</span><span class="tparams">[<span name="M">M<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="C">C</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.first.M">M</span>[<span class="extype" name="robots.PValidator.first.C">C</span>]</span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <a href="http://www.scala-lang.org/api/2.12.3/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="robots.PValidator.first.C">C</span>], _]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="FM">FM: <a href="http://typelevel.org/cats/api/cats/Foldable.html#cats.Foldable" class="extype" name="cats.Foldable">Foldable</a>[<span class="extype" name="robots.PValidator.first.M">M</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
       </span>
       
       
@@ -625,9 +625,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="robots.PValidator#has" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="has[C,D](f:A=&gt;C)(that:robots.PValidator[F,E,C,D]):robots.PValidator[F,E,A,B]"></a><a id="has[C,D]((A)⇒C)(PValidator[F,E,C,D]):PValidator[F,E,A,B]"></a>
+      <a id="has[C](f:A=&gt;C)(that:robots.PValidator[F,E,C,_]):robots.PValidator[F,E,A,B]"></a><a id="has[C]((A)⇒C)(PValidator[F,E,C,_]):PValidator[F,E,A,B]"></a>
       <span class="permalink">
-      <a href="../robots/PValidator.html#has[C,D](f:A=&gt;C)(that:robots.PValidator[F,E,C,D]):robots.PValidator[F,E,A,B]" title="Permalink">
+      <a href="../robots/PValidator.html#has[C](f:A=&gt;C)(that:robots.PValidator[F,E,C,_]):robots.PValidator[F,E,A,B]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -636,14 +636,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">has</span><span class="tparams">[<span name="C">C</span>, <span name="D">D</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.has.C">C</span></span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.has.C">C</span>, <span class="extype" name="robots.PValidator.has.D">D</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
+        <span class="name">has</span><span class="tparams">[<span name="C">C</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.has.C">C</span></span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.has.C">C</span>, _]</span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
       </span>
       
       
     </li><li name="robots.PValidator#has2" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="has2[C,D,G](f:A=&gt;C,g:A=&gt;D)(that:robots.PValidator[F,E,(C,D),G]):robots.PValidator[F,E,A,B]"></a><a id="has2[C,D,G]((A)⇒C,(A)⇒D)(PValidator[F,E,(C,D),G]):PValidator[F,E,A,B]"></a>
+      <a id="has2[C,D](f:A=&gt;C,g:A=&gt;D)(that:robots.PValidator[F,E,(C,D),_]):robots.PValidator[F,E,A,B]"></a><a id="has2[C,D]((A)⇒C,(A)⇒D)(PValidator[F,E,(C,D),_]):PValidator[F,E,A,B]"></a>
       <span class="permalink">
-      <a href="../robots/PValidator.html#has2[C,D,G](f:A=&gt;C,g:A=&gt;D)(that:robots.PValidator[F,E,(C,D),G]):robots.PValidator[F,E,A,B]" title="Permalink">
+      <a href="../robots/PValidator.html#has2[C,D](f:A=&gt;C,g:A=&gt;D)(that:robots.PValidator[F,E,(C,D),_]):robots.PValidator[F,E,A,B]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -652,7 +652,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">has2</span><span class="tparams">[<span name="C">C</span>, <span name="D">D</span>, <span name="G">G</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.has2.C">C</span></span>, <span name="g">g: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.has2.D">D</span></span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, (<span class="extype" name="robots.PValidator.has2.C">C</span>, <span class="extype" name="robots.PValidator.has2.D">D</span>), <span class="extype" name="robots.PValidator.has2.G">G</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
+        <span class="name">has2</span><span class="tparams">[<span name="C">C</span>, <span name="D">D</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.has2.C">C</span></span>, <span name="g">g: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.has2.D">D</span></span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, (<span class="extype" name="robots.PValidator.has2.C">C</span>, <span class="extype" name="robots.PValidator.has2.D">D</span>), _]</span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.B">B</span>]</span>
       </span>
       
       
@@ -668,7 +668,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -716,7 +716,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -732,7 +732,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -748,7 +748,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -764,7 +764,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">optional</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="robots.PValidator.A">A</span>], <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="robots.PValidator.B">B</span>]]</span>
+        <span class="name">optional</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <a href="http://www.scala-lang.org/api/2.12.3/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="robots.PValidator.A">A</span>], <a href="http://www.scala-lang.org/api/2.12.3/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="robots.PValidator.B">B</span>]]</span>
       </span>
       
       
@@ -796,7 +796,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">over</span><span class="tparams">[<span name="M">M<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="TM">TM: <a href="http://typelevel.org/cats/api/index.html#cats.Traverse" class="extype" target="_top">Traverse</a>[<span class="extype" name="robots.PValidator.over.M">M</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.over.M">M</span>[<span class="extype" name="robots.PValidator.A">A</span>], <span class="extype" name="robots.PValidator.over.M">M</span>[<span class="extype" name="robots.PValidator.B">B</span>]]</span>
+        <span class="name">over</span><span class="tparams">[<span name="M">M<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="TM">TM: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.PValidator.over.M">M</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.over.M">M</span>[<span class="extype" name="robots.PValidator.A">A</span>], <span class="extype" name="robots.PValidator.over.M">M</span>[<span class="extype" name="robots.PValidator.B">B</span>]]</span>
       </span>
       
       
@@ -812,7 +812,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">required</span><span class="params">(<span name="e">e: <span class="extype" name="robots.PValidator.F">F</span>[<span class="extype" name="robots.PValidator.E">E</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="robots.PValidator.A">A</span>], <span class="extype" name="robots.PValidator.B">B</span>]</span>
+        <span class="name">required</span><span class="params">(<span name="e">e: <span class="extype" name="robots.PValidator.F">F</span>[<span class="extype" name="robots.PValidator.E">E</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <a href="http://www.scala-lang.org/api/2.12.3/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="robots.PValidator.A">A</span>], <span class="extype" name="robots.PValidator.B">B</span>]</span>
       </span>
       
       
@@ -828,7 +828,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">run</span><span class="tparams">[<span name="G">G<span class="tparams">[<span name="_">_</span>, <span name="_">_</span>]</span></span>]</span><span class="params">(<span name="a">a: <span class="extype" name="robots.PValidator.A">A</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="A">A: <a href="http://typelevel.org/cats/api/index.html#cats.ApplicativeError" class="extype" target="_top">ApplicativeError</a>[[β$0$]<span class="extype" name="robots.PValidator.run.G">G</span>[<a href="http://typelevel.org/cats/api/index.html#cats.data.NonEmptyList" class="extype" target="_top">NonEmptyList</a>[<span class="extype" name="robots.PValidator.E">E</span>], <span class="extype" name="robots.PValidator.&lt;refinement&gt;.Λ$.β$0$">β$0$</span>], <a href="http://typelevel.org/cats/api/index.html#cats.data.NonEmptyList" class="extype" target="_top">NonEmptyList</a>[<span class="extype" name="robots.PValidator.E">E</span>]]</span>)</span><span class="result">: <span class="extype" name="robots.PValidator.run.G">G</span>[<a href="http://typelevel.org/cats/api/index.html#cats.data.NonEmptyList" class="extype" target="_top">NonEmptyList</a>[<span class="extype" name="robots.PValidator.E">E</span>], <span class="extype" name="robots.PValidator.B">B</span>]</span>
+        <span class="name">run</span><span class="tparams">[<span name="G">G<span class="tparams">[<span name="_">_</span>, <span name="_">_</span>]</span></span>]</span><span class="params">(<span name="a">a: <span class="extype" name="robots.PValidator.A">A</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="A">A: <a href="http://typelevel.org/cats/api/cats/ApplicativeError.html#cats.ApplicativeError" class="extype" name="cats.ApplicativeError">ApplicativeError</a>[[β$0$]<span class="extype" name="robots.PValidator.run.G">G</span>[<a href="http://typelevel.org/cats/api/cats/data/NonEmptyList.html#cats.data.NonEmptyList" class="extype" name="cats.data.NonEmptyList">NonEmptyList</a>[<span class="extype" name="robots.PValidator.E">E</span>], <span class="extype" name="robots.PValidator.&lt;refinement&gt;.Λ$.β$0$">β$0$</span>], <a href="http://typelevel.org/cats/api/cats/data/NonEmptyList.html#cats.data.NonEmptyList" class="extype" name="cats.data.NonEmptyList">NonEmptyList</a>[<span class="extype" name="robots.PValidator.E">E</span>]]</span>)</span><span class="result">: <span class="extype" name="robots.PValidator.run.G">G</span>[<a href="http://typelevel.org/cats/api/cats/data/NonEmptyList.html#cats.data.NonEmptyList" class="extype" name="cats.data.NonEmptyList">NonEmptyList</a>[<span class="extype" name="robots.PValidator.E">E</span>], <span class="extype" name="robots.PValidator.B">B</span>]</span>
       </span>
       
       
@@ -876,7 +876,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -898,7 +898,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Long" class="extype" target="_top">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.3/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.3/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -920,7 +920,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Long" class="extype" target="_top">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.3/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -961,17 +961,17 @@
 
         <div id="inheritedMembers">
         <div class="parent" name="scala.Serializable">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.3/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
             </div><div class="parent" name="java.io.Serializable">
               <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
             </div><div class="parent" name="scala.Product">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Product" class="extype" target="_top">Product</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.3/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a></h3>
             </div><div class="parent" name="scala.Equals">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Equals" class="extype" target="_top">Equals</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.3/scala/Equals.html#scala.Equals" class="extype" name="scala.Equals">Equals</a></h3>
             </div><div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Any" class="extype" target="_top">Any</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></h3>
             </div>
         <div class="conversion" name="scala.Predef.any2stringadd">
               <h3>Inherited by implicit conversion any2stringadd from
