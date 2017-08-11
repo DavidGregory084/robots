@@ -33,17 +33,17 @@ final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B = 
   def map[C](g: B => C): PValidator[F, E, A, C] = copy(f = g compose f)
 
   def over[M[_]](implicit TM: Traverse[M]): PValidator[F, E, M[A], M[B]] =
-    PValidator[F, E, M[A], M[A]] { ma =>
+    Validator[F, E, M[A]] { ma =>
       TM.foldMap(ma)(validate)(M.algebra[E])
     }.map(ma => TM.map(ma)(f))
 
   def optional: PValidator[F, E, Option[A], Option[B]] =
-    PValidator[F, E, Option[A], Option[A]] { opt =>
+    Validator[F, E, Option[A]] { opt =>
       opt.map(validate).getOrElse(M.empty)
     }.map(_.map(f))
 
   def required(e: F[E]): PValidator[F, E, Option[A], B] =
-    PValidator[F, E, Option[A], Option[A]] { opt =>
+    Validator[F, E, Option[A]] { opt =>
       opt.map(validate).getOrElse(e)
     }.map(opt => f(opt.get))
 
@@ -56,29 +56,29 @@ final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B = 
   def contramap[Z](g: Z => A): PValidator[F, E, Z, B] =
     PValidator(a => validate(g(a)), g andThen f)
 
-  def and[C](that: PValidator[F, E, A, C]): PValidator[F, E, A, B] =
+  def and(that: PValidator[F, E, A, _]): PValidator[F, E, A, B] =
     PValidator(a => M.combineK(this.validate(a), that.validate(a)), f)
 
   def or[C](that: PValidator[F, E, C, B]): PValidator[F, E, Either[A, C], B] =
     PValidator(_.fold(this.validate, that.validate), _.fold(this.f, that.f))
 
-  def has[C, D](f: A => C)(that: PValidator[F, E, C, D]): PValidator[F, E, A, B] =
+  def has[C](f: A => C)(that: PValidator[F, E, C, _]): PValidator[F, E, A, B] =
     this and that.contramap(f)
 
-  def has2[C, D, G](f: A => C, g: A => D)(that: PValidator[F, E, (C, D), G]): PValidator[F, E, A, B] =
+  def has2[C, D](f: A => C, g: A => D)(that: PValidator[F, E, (C, D), _]): PValidator[F, E, A, B] =
     this and that.contramap { a => (f(a), g(a)) }
 
   def all[M[_]: Traverse, C, D](f: A => M[C])(that: PValidator[F, E, C, D]): PValidator[F, E, A, B] =
     this and that.over[M].contramap(f)
 
-  def all2[M[_], C, D, G](f: A => C, g: A => M[D])(that: PValidator[F, E, (C, D), G])(implicit TM: Traverse[M]): PValidator[F, E, A, B] =
+  def all2[M[_], C, D](f: A => C, g: A => M[D])(that: PValidator[F, E, (C, D), _])(implicit TM: Traverse[M]): PValidator[F, E, A, B] =
     this and that.over[M].contramap { a =>
       TM.map(g(a))(c => (f(a), c))
     }
 
-  def at[M[_], C, D](f: A => M[C], i: Int)(that: PValidator[F, E, Option[C], D])(implicit TM: Traverse[M]): PValidator[F, E, A, B] =
+  def at[M[_], C](f: A => M[C], i: Int)(that: PValidator[F, E, Option[C], _])(implicit TM: Traverse[M]): PValidator[F, E, A, B] =
     this and that.contramap(a => TM.toList(f(a)).lift(i))
 
-  def first[M[_], C, D](f: A => M[C])(that: PValidator[F, E, Option[C], D])(implicit FM: Foldable[M]): PValidator[F, E, A, B] =
+  def first[M[_], C](f: A => M[C])(that: PValidator[F, E, Option[C], _])(implicit FM: Foldable[M]): PValidator[F, E, A, B] =
     this and that.contramap(a => FM.toList(f(a)).headOption)
 }
