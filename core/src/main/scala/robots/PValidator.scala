@@ -32,6 +32,9 @@ final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B = 
 
   def map[C](g: B => C): PValidator[F, E, A, C] = copy(f = g compose f)
 
+  def map2[C, D](that: PValidator[F, E, A, C])(g: (B, C) => D): PValidator[F, E, A, D] =
+    this.product(that).map(Function.tupled(g))
+
   def over[M[_]](implicit TM: Traverse[M]): PValidator[F, E, M[A], M[B]] =
     Validator[F, E, M[A]] { ma =>
       TM.foldMap(ma)(validate)(M.algebra[E])
