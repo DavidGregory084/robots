@@ -59,6 +59,11 @@ final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B = 
   def and(that: PValidator[F, E, A, _]): PValidator[F, E, A, B] =
     PValidator(a => M.combineK(this.validate(a), that.validate(a)), f)
 
+  def product[C](that: PValidator[F, E, A, C]): PValidator[F, E, A, (B, C)] =
+    PValidator(a => M.combineK(this.validate(a), that.validate(a)), { a =>
+      (this.f(a), that.f(a))
+    })
+
   def or[C](that: PValidator[F, E, C, B]): PValidator[F, E, Either[A, C], B] =
     PValidator(_.fold(this.validate, that.validate), _.fold(this.f, that.f))
 
