@@ -68,7 +68,7 @@ final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B = 
   def has2[C, D](f: A => C, g: A => D)(that: PValidator[F, E, (C, D), _]): PValidator[F, E, A, B] =
     this and that.contramap { a => (f(a), g(a)) }
 
-  def all[M[_]: Traverse, C, D](f: A => M[C])(that: PValidator[F, E, C, D]): PValidator[F, E, A, B] =
+  def all[M[_]: Traverse, C](f: A => M[C])(that: PValidator[F, E, C, _]): PValidator[F, E, A, B] =
     this and that.over[M].contramap(f)
 
   def all2[M[_], C, D](f: A => C, g: A => M[D])(that: PValidator[F, E, (C, D), _])(implicit TM: Traverse[M]): PValidator[F, E, A, B] =
