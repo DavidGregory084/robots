@@ -88,9 +88,15 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li class="current-entities indented1">
-                        <a class="object" href="Validator$.html" title=""></a>
-                        <a class="class" href="Validator.html" title=""></a>
-                        <a href="Validator.html" title="">
+                        <span class="separator"></span>
+                        <a class="class" href="PValidator.html" title=""></a>
+                        <a href="PValidator.html" title="">
+                          PValidator
+                        </a>
+                      </li><li class="current-entities indented1">
+                        <span class="separator"></span>
+                        <a class="object" href="package$$Validator$.html" title=""></a>
+                        <a href="package$$Validator$.html" title="">
                           Validator
                         </a>
                       </li>
@@ -121,7 +127,12 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"></div>
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/DavidGregory084/robots/tree/master/core/src/main/scala/robots/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
+          <span class="toggle">
+            Linear Supertypes
+          </span>
+          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Any" class="extype" target="_top">Any</a></div>
+        </div></div>
         
 
       <div id="mbrsel">
@@ -139,10 +150,22 @@
             <ol>
               
               <li class="alpha in"><span>Alphabetic</span></li>
-              
+              <li class="inherit out"><span>By Inheritance</span></li>
             </ol>
           </div>
-          
+          <div class="ancestors">
+                  <span class="filtertype">Inherited<br />
+                  </span>
+                  <ol id="linearization">
+                    <li class="in" name="robots"><span>robots</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  </ol>
+                </div><div class="ancestors">
+              <span class="filtertype"></span>
+              <ol>
+                <li class="hideall out"><span>Hide All</span></li>
+                <li class="showall in"><span>Show All</span></li>
+              </ol>
+            </div>
           <div id="visbl">
               <span class="filtertype">Visibility</span>
               <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
@@ -156,10 +179,10 @@
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="robots.Validator" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="Validator[F[_],E,A]extendsProductwithSerializable"></a><a id="Validator[F[_],E,A]:Validator[F,E,A]"></a>
+              <ol><li name="robots.PValidator" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="PValidator[F[_],E,A,B]extendsProductwithSerializable"></a><a id="PValidator[F[_],E,A,B]:PValidator[F,E,A,B]"></a>
       <span class="permalink">
-      <a href="../robots/index.html#Validator[F[_],E,A]extendsProductwithSerializable" title="Permalink">
+      <a href="../robots/index.html#PValidator[F[_],E,A,B]extendsProductwithSerializable" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -168,9 +191,25 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="Validator.html">
-              <span class="name">Validator</span>
-            </a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="validate">validate: (<span class="extype" name="robots.Validator.A">A</span>) ⇒ <span class="extype" name="robots.Validator.F">F</span>[<span class="extype" name="robots.Validator.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="FF">FF: <a href="http://typelevel.org/cats/api/index.html#cats.Traverse" class="extype" target="_top">Traverse</a>[<span class="extype" name="robots.Validator.F">F</span>]</span>, <span name="M">M: <a href="http://typelevel.org/cats/api/index.html#cats.MonoidK" class="extype" target="_top">MonoidK</a>[<span class="extype" name="robots.Validator.F">F</span>]</span>)</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+        <a title="" href="PValidator.html">
+              <span class="name">PValidator</span>
+            </a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="validate">validate: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.F">F</span>[<span class="extype" name="robots.PValidator.E">E</span>]</span>, <span name="f">f: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.B">B</span> = <span class="symbol">identity[A]</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="FF">FF: <a href="http://typelevel.org/cats/api/index.html#cats.Traverse" class="extype" target="_top">Traverse</a>[<span class="extype" name="robots.PValidator.F">F</span>]</span>, <span name="M">M: <a href="http://typelevel.org/cats/api/index.html#cats.MonoidK" class="extype" target="_top">MonoidK</a>[<span class="extype" name="robots.PValidator.F">F</span>]</span>)</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      
+      
+    </li><li name="robots.Validator" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Validator[F[_],E,A]=robots.PValidator[F,E,A,A]"></a><a id="Validator[F[_],E,A]:Validator[F,E,A]"></a>
+      <span class="permalink">
+      <a href="../robots/index.html#Validator[F[_],E,A]=robots.PValidator[F,E,A,A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Validator</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="result alias"> = <a href="PValidator.html" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.E">E</span>, <span class="extype" name="robots.Validator.A">A</span>, <span class="extype" name="robots.Validator.A">A</span>]</span>
       </span>
       
       
@@ -194,9 +233,9 @@
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="Validator$.html">
+        <a title="" href="package$$Validator$.html">
               <span class="name">Validator</span>
-            </a><span class="result"> extends <span class="extype" name="robots.ValidatorInstances">ValidatorInstances</span> with <span class="extype" name="robots.ValidatorFunctions">ValidatorFunctions</span> with <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+            </a>
       </span>
       
       
@@ -210,7 +249,11 @@
         </div>
 
         <div id="inheritedMembers">
-        
+        <div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.2/index.html#scala.Any" class="extype" target="_top">Any</a></h3>
+            </div>
         
         </div>
 
