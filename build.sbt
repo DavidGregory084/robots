@@ -13,7 +13,7 @@ lazy val core = project.in(file("core"))
   .settings(publishSettings)
   .settings(
     moduleName := "robots-core",
-    scalacOptions.in(Tut) ~= { _.filterNot(Set("-Ywarn-unused:imports", "-Ywarn-unused-import", "-Ywarn-dead-code")) },
+    scalacOptions.in(Tut) ~= filterConsoleScalacOptions,
     tutTargetDirectory := file(".")
   )
 
@@ -30,7 +30,7 @@ lazy val docs = project.in(file("docs"))
     git.remoteRepo := "git@github.com:DavidGregory084/robots.git",
     addMappingsToSiteDir(mappings.in(ScalaUnidoc, packageDoc), micrositeDocumentationUrl),
 
-    scalacOptions.in(Tut) ~= { _.filterNot(Set("-Ywarn-unused:imports", "-Ywarn-unused-import", "-Ywarn-dead-code")) },
+    scalacOptions.in(Tut) ~= filterConsoleScalacOptions,
 
     scalacOptions in (ScalaUnidoc, unidoc) ++= Seq(
       "-groups",
