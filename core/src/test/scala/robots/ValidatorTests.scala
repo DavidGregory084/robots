@@ -9,7 +9,6 @@ import cats.tests.CatsSuite
 import org.scalacheck.{ Arbitrary, Cogen }
 
 class ValidatorTests extends CatsSuite {
-  implicit def iso[F[_]: MonoidK: Traverse] = CartesianTests.Isomorphisms.invariant[PValidator[F, Int, ?, Int]]
 
   implicit def arbPValidator[F[_]: Traverse, E, A, B](implicit M: MonoidK[F], CA: Cogen[A], E: Arbitrary[F[E]], B: Arbitrary[B]): Arbitrary[PValidator[F, E, A, B]] =
     Arbitrary {
@@ -23,6 +22,8 @@ class ValidatorTests extends CatsSuite {
     Eq.by[PValidator[F, E, A, B], A => G[NonEmptyList[E], B]](_.run[G])
 
   checkAll("PValidator[List, Int, Int, Int]", ApplicativeTests[PValidator[List, Int, Int, ?]].applicative[Int, Int, Int])
+
+  checkAll("PValidator[List, Int, Int, Int]", CartesianTests[PValidator[List, Int, Int, ?]].cartesian[Int, Int, Int])
 
   checkAll("PValidator[List, Int, Int, Int]", ChoiceTests[PValidator[List, Int, ?, ?]].choice[Int, Int, Int, Int])
 
