@@ -21,7 +21,7 @@ import cats.arrow.{ Category, Choice }
 import cats.functor.{ Contravariant, Profunctor }
 import cats.data.NonEmptyList
 
-final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B = identity[A] _)(implicit FF: Traverse[F], M: MonoidK[F]) {
+final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B)(implicit FF: Traverse[F], M: MonoidK[F]) {
 
   def run[G[_, _]](a: A)(implicit A: ApplicativeError[G[NonEmptyList[E], ?], NonEmptyList[E]]): G[NonEmptyList[E], B] = {
     val fe = validate(a)
