@@ -2,11 +2,14 @@ package robots
 
 import cats.{ ApplicativeError, Eq, MonoidK, Traverse }
 import cats.data.{ NonEmptyList, Validated }
+import cats.kernel.laws._
+import cats.laws.discipline._
 import cats.laws.discipline.eq._
 import cats.tests.CatsSuite
 import org.scalacheck.{ Arbitrary, Cogen }
 
 class ValidatorTests extends CatsSuite {
+  implicit def iso[F[_]: MonoidK: Traverse] = CartesianTests.Isomorphisms.invariant[PValidator[F, Int, ?, Int]]
 
   implicit def arbPValidator[F[_]: Traverse, E, A, B](implicit M: MonoidK[F], CA: Cogen[A], E: Arbitrary[F[E]], B: Arbitrary[B]): Arbitrary[PValidator[F, E, A, B]] =
     Arbitrary {
@@ -18,6 +21,18 @@ class ValidatorTests extends CatsSuite {
 
   implicit def eqPValidator[F[_]: Traverse, G[_, _], E, A, B](implicit AE: ApplicativeError[G[NonEmptyList[E], ?], NonEmptyList[E]], A: Arbitrary[A], E: Eq[G[NonEmptyList[E], B]]): Eq[PValidator[F, E, A, B]] =
     Eq.by[PValidator[F, E, A, B], A => G[NonEmptyList[E], B]](_.run[G])
+
+  checkAll("PValidator[List, Int, Int, Int]", ApplicativeTests[PValidator[List, Int, Int, ?]].applicative[Int, Int, Int])
+
+  checkAll("PValidator[List, Int, Int, Int]", ChoiceTests[PValidator[List, Int, ?, ?]].choice[Int, Int, Int, Int])
+
+  checkAll("PValidator[List, Int, Int, Int]", ContravariantTests[PValidator[List, Int, ?, Int]].contravariant[Int, Int, Int])
+
+  checkAll("PValidator[List, Int, Int, Int]", GroupLaws[PValidator[List, Int, Int, Int]].semigroup)
+
+  checkAll("PValidator[List, Int, Int, Int]", ProfunctorTests[PValidator[List, Int, ?, ?]].profunctor[Int, Int, Int, Int, Int, Int])
+
+  checkAll("PValidator[List, Int, Int, Int]", SemigroupKTests[PValidator[List, Int, ?, Int]].semigroupK[Int])
 
   test("Validate using eql") {
     val eqlOne1 = Validator.eql(1, (i: Int) => Option(s"$i was not equal to 1"))
@@ -287,5 +302,30 @@ class ValidatorTests extends CatsSuite {
     documentValidator.run[Validated](invalid) should ===(Validated.Invalid(
       NonEmptyList.of("A document should start with 'Hello'")
     ))
+  }
+
+  test("Produce a validator that always fails using fail") {
+    val validator = Validator.fail[List, String, Int](List("It's just wrong, okay?"))
+
+    forAll { int: Int =>
+      validator.run[Validated](int) should ===(Validated.Invalid(NonEmptyList.of("It's just wrong, okay?")))
+    }
+  }
+
+  test("Map error messages using leftMap") {
+    val greaterThanZero = Validator.gt(0, (i: Int) => List(s"$i was not greater than 0"))
+    val listGreaterThanZero = greaterThanZero.over[List]
+
+    val results = listGreaterThanZero
+      .leftMap(_.toUpperCase)
+      .run[Validated](List(0, 1, -4, -20, 2, 3))
+
+    val expected = Validated.Invalid(NonEmptyList.of(
+      "0 WAS NOT GREATER THAN 0",
+      "-4 WAS NOT GREATER THAN 0",
+      "-20 WAS NOT GREATER THAN 0"
+    ))
+
+    results should ===(expected)
   }
 }

@@ -20,7 +20,7 @@ package object robots {
   type Validator[F[_], E, A] = PValidator[F, E, A, A]
 
   object Validator {
-    def apply[F[_], E, A](validate: A => F[E])(implicit FF: Traverse[F], M: MonoidK[F]): Validator[F, E, A] =
+    def apply[F[_]: Traverse, E, A](validate: A => F[E])(implicit M: MonoidK[F]): Validator[F, E, A] =
       PValidator[F, E, A, A](validate)
 
     def validate[F[_]: Traverse, E, A](implicit M: MonoidK[F]): Validator[F, E, A] =
