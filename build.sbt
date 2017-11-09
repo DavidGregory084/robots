@@ -64,25 +64,24 @@ lazy val docs = project.in(file("docs"))
 lazy val commonSettings = Seq(
   organization := "io.github.davidgregory084",
 
+  organizationName := "David Gregory",
+
   releaseCrossBuild := true,
 
   libraryDependencies ++= Seq(
-    "org.typelevel" %% "cats-core" % "1.0.0-MF",
-    "org.typelevel" %% "cats-testkit" % "1.0.0-MF" % Test
+    "org.typelevel" %% "cats-core" % "1.0.0-RC1",
+    "org.typelevel" %% "cats-testkit" % "1.0.0-RC1" % Test
   ),
 
-  createHeaders.in(Compile) := {
-    createHeaders.in(Compile).triggeredBy(compile.in(Compile)).value
+  headerCreate.in(Compile) := {
+    headerCreate.in(Compile).triggeredBy(compile.in(Compile)).value
   },
 
-  addCompilerPlugin("org.spire-math" % "kind-projector" % "0.9.3" cross CrossVersion.binary),
+  addCompilerPlugin("org.spire-math" % "kind-projector" % "0.9.4" cross CrossVersion.binary),
 
-  headers := {
-    import de.heikoseeberger.sbtheader.license._
-    Map("scala" -> Apache2_0("2017", "David Gregory and the Robots project contributors"))
-  },
+  headerLicense := Some(HeaderLicense.ALv2("2017", "David Gregory and the Robots project contributors")),
 
-  unmanagedSources.in(Compile, createHeaders) ++= (sourceDirectory.in(Compile).value / "boilerplate" ** "*.template").get,
+  unmanagedSources.in(Compile, headerCreate) ++= (sourceDirectory.in(Compile).value / "boilerplate" ** "*.template").get,
 
   coursierVerbosity := {
     val travisBuild = isTravisBuild.in(Global).value
@@ -105,7 +104,9 @@ lazy val publishSettings = Seq(
 
   homepage := Some(url("https://github.com/DavidGregory084/robots")),
 
-  licenses := Seq("Apache 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
+  startYear := Some(2017),
+
+  licenses += ("Apache 2.0", url("https://www.apache.org/licenses/LICENSE-2.0.txt")),
 
   scmInfo := Some(ScmInfo(
     url("https://github.com/DavidGregory084/robots"),
@@ -163,14 +164,19 @@ lazy val publishSettings = Seq(
       publishArtifacts,
       setNextVersion,
       commitNextVersion,
-      ReleaseStep(action = Command.process("sonatypeReleaseAll", _), enableCrossBuild = true),
+      ReleaseStep(
+        action = state => state.copy(
+          remainingCommands = Exec("sonatypeReleaseAll", None) +: state.remainingCommands
+        ),
+        enableCrossBuild = true
+      ),
       pushChanges
     )
   }
 )
 
 lazy val noPublishSettings = Seq(
-  publish := (),
-  publishLocal := (),
+  publish := {},
+  publishLocal := {},
   publishArtifact := false
 )

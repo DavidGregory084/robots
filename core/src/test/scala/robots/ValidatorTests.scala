@@ -2,7 +2,7 @@ package robots
 
 import cats.{ ApplicativeError, Eq, MonoidK, Traverse }
 import cats.data.{ NonEmptyList, Validated }
-import cats.kernel.laws._
+import cats.kernel.laws.discipline._
 import cats.laws.discipline._
 import cats.laws.discipline.eq._
 import cats.tests.CatsSuite
@@ -23,13 +23,13 @@ class ValidatorTests extends CatsSuite {
 
   checkAll("PValidator[List, Int, Int, Int]", ApplicativeTests[PValidator[List, Int, Int, ?]].applicative[Int, Int, Int])
 
-  checkAll("PValidator[List, Int, Int, Int]", CartesianTests[PValidator[List, Int, Int, ?]].cartesian[Int, Int, Int])
+  checkAll("PValidator[List, Int, Int, Int]", SemigroupalTests[PValidator[List, Int, Int, ?]].semigroupal[Int, Int, Int])
 
   checkAll("PValidator[List, Int, Int, Int]", ChoiceTests[PValidator[List, Int, ?, ?]].choice[Int, Int, Int, Int])
 
   checkAll("PValidator[List, Int, Int, Int]", ContravariantTests[PValidator[List, Int, ?, Int]].contravariant[Int, Int, Int])
 
-  checkAll("PValidator[List, Int, Int, Int]", GroupLaws[PValidator[List, Int, Int, Int]].semigroup)
+  checkAll("PValidator[List, Int, Int, Int]", SemigroupTests[PValidator[List, Int, Int, Int]].semigroup)
 
   checkAll("PValidator[List, Int, Int, Int]", ProfunctorTests[PValidator[List, Int, ?, ?]].profunctor[Int, Int, Int, Int, Int, Int])
 
@@ -208,8 +208,7 @@ class ValidatorTests extends CatsSuite {
     documentValidator.run[Validated](valid) should ===(Validated.Valid(valid))
 
     documentValidator.run[Validated](invalid) should ===(Validated.Invalid(
-      NonEmptyList.of("The number of lines in this document exceeds the maximum of 1")
-    ))
+      NonEmptyList.of("The number of lines in this document exceeds the maximum of 1")))
   }
 
   test("Validate using all") {
@@ -231,8 +230,7 @@ class ValidatorTests extends CatsSuite {
     documentValidator.run[Validated](valid) should ===(Validated.Valid(valid))
 
     documentValidator.run[Validated](invalid) should ===(Validated.Invalid(
-      NonEmptyList.of("Empty lines are not permitted")
-    ))
+      NonEmptyList.of("Empty lines are not permitted")))
   }
 
   test("Validate using all2") {
@@ -255,8 +253,7 @@ class ValidatorTests extends CatsSuite {
     documentValidator.run[Validated](valid) should ===(Validated.Valid(valid))
 
     documentValidator.run[Validated](invalid) should ===(Validated.Invalid(
-      NonEmptyList.of("The line exceeds the maximum width of 4 columns")
-    ))
+      NonEmptyList.of("The line exceeds the maximum width of 4 columns")))
   }
 
   test("Validate using at") {
@@ -278,8 +275,7 @@ class ValidatorTests extends CatsSuite {
     documentValidator.run[Validated](valid) should ===(Validated.Valid(valid))
 
     documentValidator.run[Validated](invalid) should ===(Validated.Invalid(
-      NonEmptyList.of("A document should have at least two lines")
-    ))
+      NonEmptyList.of("A document should have at least two lines")))
   }
 
   test("Validate using first") {
@@ -301,8 +297,7 @@ class ValidatorTests extends CatsSuite {
     documentValidator.run[Validated](valid) should ===(Validated.Valid(valid))
 
     documentValidator.run[Validated](invalid) should ===(Validated.Invalid(
-      NonEmptyList.of("A document should start with 'Hello'")
-    ))
+      NonEmptyList.of("A document should start with 'Hello'")))
   }
 
   test("Produce a validator that always fails using fail") {
@@ -324,8 +319,7 @@ class ValidatorTests extends CatsSuite {
     val expected = Validated.Invalid(NonEmptyList.of(
       "0 WAS NOT GREATER THAN 0",
       "-4 WAS NOT GREATER THAN 0",
-      "-20 WAS NOT GREATER THAN 0"
-    ))
+      "-20 WAS NOT GREATER THAN 0"))
 
     results should ===(expected)
   }

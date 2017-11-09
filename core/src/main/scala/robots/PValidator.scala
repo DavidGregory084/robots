@@ -17,8 +17,8 @@
 package robots
 
 import cats.{ Applicative, ApplicativeError, Foldable, MonoidK, Semigroup, SemigroupK, Traverse }
-import cats.arrow.{ Category, Choice }
-import cats.functor.{ Contravariant, Profunctor }
+import cats.arrow.{ Category, Choice, Profunctor }
+import cats.Contravariant
 import cats.data.NonEmptyList
 
 final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B)(implicit FF: Traverse[F], M: MonoidK[F]) {
@@ -91,11 +91,16 @@ final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B)(i
       TM.map(g(a))(c => (f(a), c))
     }
 
-  def at[M[_], C](f: A => M[C], i: Int)(that: PValidator[F, E, Option[C], _])(implicit TM: Traverse[M]): PValidator[F, E, A, B] =
-    this and that.contramap(a => TM.toList(f(a)).lift(i))
+  def allIndexed[M[_], C](g: A => M[C])(that: PValidator[F, E, (C, Int), _])(implicit TM: Traverse[M]): PValidator[F, E, A, B] =
+    this and that.over[M].contramap { a =>
+      TM.zipWithIndex(g(a))
+    }
+
+  def at[M[_], C](f: A => M[C], i: Long)(that: PValidator[F, E, Option[C], _])(implicit TM: Traverse[M]): PValidator[F, E, A, B] =
+    this and that.contramap(a => TM.get(f(a))(i))
 
   def first[M[_], C](f: A => M[C])(that: PValidator[F, E, Option[C], _])(implicit FM: Foldable[M]): PValidator[F, E, A, B] =
-    this and that.contramap(a => FM.toList(f(a)).headOption)
+    this and that.contramap(a => FM.get(f(a))(0))
 }
 
 object PValidator extends PValidatorInstances
@@ -105,8 +110,7 @@ private[robots] sealed abstract class PValidatorInstances {
   implicit def robotsApplicativeForPValidator[F[_], E, A](
     implicit
     F0: Traverse[F],
-    M0: MonoidK[F]
-  ): Applicative[PValidator[F, E, A, ?]] =
+    M0: MonoidK[F]): Applicative[PValidator[F, E, A, ?]] =
     new PValidatorApplicative[F, E, A] {
       def F: Traverse[F] = F0
       def M: MonoidK[F] = M0
@@ -115,8 +119,7 @@ private[robots] sealed abstract class PValidatorInstances {
   implicit def robotsChoiceForPValidator[F[_], E](
     implicit
     F0: Traverse[F],
-    M0: MonoidK[F]
-  ): Choice[PValidator[F, E, ?, ?]] =
+    M0: MonoidK[F]): Choice[PValidator[F, E, ?, ?]] =
     new PValidatorChoice[F, E] {
       def F: Traverse[F] = F0
       def M: MonoidK[F] = M0
@@ -125,8 +128,7 @@ private[robots] sealed abstract class PValidatorInstances {
   implicit def robotsContravariantForPValidator[F[_], E, B](
     implicit
     F0: Traverse[F],
-    M0: MonoidK[F]
-  ): Contravariant[PValidator[F, E, ?, B]] =
+    M0: MonoidK[F]): Contravariant[PValidator[F, E, ?, B]] =
     new PValidatorContravariant[F, E, B] {
       def F: Traverse[F] = F0
       def M: MonoidK[F] = M0
@@ -135,8 +137,7 @@ private[robots] sealed abstract class PValidatorInstances {
   implicit def robotsProfunctorForPValidator[F[_], E](
     implicit
     F0: Traverse[F],
-    M0: MonoidK[F]
-  ): Profunctor[PValidator[F, E, ?, ?]] =
+    M0: MonoidK[F]): Profunctor[PValidator[F, E, ?, ?]] =
     new PValidatorProfunctor[F, E] {
       def F: Traverse[F] = F0
       def M: MonoidK[F] = M0
@@ -145,8 +146,7 @@ private[robots] sealed abstract class PValidatorInstances {
   implicit def robotsSemigroupForPValidator[F[_], E, A, B](
     implicit
     F0: Traverse[F],
-    M0: MonoidK[F]
-  ): Semigroup[PValidator[F, E, A, B]] =
+    M0: MonoidK[F]): Semigroup[PValidator[F, E, A, B]] =
     new PValidatorSemigroup[F, E, A, B] {
       def F: Traverse[F] = F0
       def M: MonoidK[F] = M0
@@ -155,8 +155,7 @@ private[robots] sealed abstract class PValidatorInstances {
   implicit def robotsSemigroupKForPValidator[F[_], E, B](
     implicit
     F0: Traverse[F],
-    M0: MonoidK[F]
-  ): SemigroupK[PValidator[F, E, ?, B]] =
+    M0: MonoidK[F]): SemigroupK[PValidator[F, E, ?, B]] =
     new PValidatorSemigroupK[F, E, B] {
       def F: Traverse[F] = F0
       def M: MonoidK[F] = M0
@@ -164,7 +163,7 @@ private[robots] sealed abstract class PValidatorInstances {
 }
 
 private trait PValidatorApplicative[F[_], E, A]
-    extends Applicative[PValidator[F, E, A, ?]] {
+  extends Applicative[PValidator[F, E, A, ?]] {
   implicit def F: Traverse[F]
   implicit def M: MonoidK[F]
 
@@ -176,7 +175,7 @@ private trait PValidatorApplicative[F[_], E, A]
 }
 
 private trait PValidatorCategory[F[_], E]
-    extends Category[PValidator[F, E, ?, ?]] {
+  extends Category[PValidator[F, E, ?, ?]] {
   implicit def F: Traverse[F]
   implicit def M: MonoidK[F]
 
@@ -185,24 +184,22 @@ private trait PValidatorCategory[F[_], E]
 
   def compose[A, B, C](
     f: PValidator[F, E, B, C],
-    g: PValidator[F, E, A, B]
-  ): PValidator[F, E, A, C] = g andThen f
+    g: PValidator[F, E, A, B]): PValidator[F, E, A, C] = g andThen f
 }
 
 private trait PValidatorChoice[F[_], E]
-    extends PValidatorCategory[F, E]
-    with Choice[PValidator[F, E, ?, ?]] {
+  extends PValidatorCategory[F, E]
+  with Choice[PValidator[F, E, ?, ?]] {
   implicit def F: Traverse[F]
   implicit def M: MonoidK[F]
 
   def choice[A, B, C](
     f: PValidator[F, E, A, C],
-    g: PValidator[F, E, B, C]
-  ): PValidator[F, E, Either[A, B], C] = f or g
+    g: PValidator[F, E, B, C]): PValidator[F, E, Either[A, B], C] = f or g
 }
 
 private trait PValidatorContravariant[F[_], E, B]
-    extends Contravariant[PValidator[F, E, ?, B]] {
+  extends Contravariant[PValidator[F, E, ?, B]] {
   implicit def F: Traverse[F]
   implicit def M: MonoidK[F]
 
@@ -211,7 +208,7 @@ private trait PValidatorContravariant[F[_], E, B]
 }
 
 private trait PValidatorProfunctor[F[_], E]
-    extends Profunctor[PValidator[F, E, ?, ?]] {
+  extends Profunctor[PValidator[F, E, ?, ?]] {
   implicit def F: Traverse[F]
   implicit def M: MonoidK[F]
 
@@ -226,7 +223,7 @@ private trait PValidatorProfunctor[F[_], E]
 }
 
 private trait PValidatorSemigroup[F[_], E, A, B]
-    extends Semigroup[PValidator[F, E, A, B]] {
+  extends Semigroup[PValidator[F, E, A, B]] {
   implicit def F: Traverse[F]
   implicit def M: MonoidK[F]
 
@@ -235,7 +232,7 @@ private trait PValidatorSemigroup[F[_], E, A, B]
 }
 
 private trait PValidatorSemigroupK[F[_], E, B]
-    extends SemigroupK[PValidator[F, E, ?, B]] {
+  extends SemigroupK[PValidator[F, E, ?, B]] {
   implicit def F: Traverse[F]
   implicit def M: MonoidK[F]
 
