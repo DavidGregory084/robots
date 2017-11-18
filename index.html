@@ -52,16 +52,16 @@
 </code></pre>
 </div>
 
-<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">documentValidator</span><span class="o">.</span><span class="n">run</span><span class="o">[</span><span class="kt">Validated</span><span class="o">](</span><span class="n">passing</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">documentValidator</span><span class="o">.</span><span class="n">runNel</span><span class="o">[</span><span class="kt">Validated</span><span class="o">](</span><span class="n">passing</span><span class="o">)</span>
 <span class="c1">// res3: cats.data.Validated[cats.data.NonEmptyList[String],Document] = Valid(Document(80,120,List(Hello, World)))
 </span>
-<span class="n">documentValidator</span><span class="o">.</span><span class="n">run</span><span class="o">[</span><span class="kt">Validated</span><span class="o">](</span><span class="n">failing</span><span class="o">)</span>
+<span class="n">documentValidator</span><span class="o">.</span><span class="n">runNel</span><span class="o">[</span><span class="kt">Validated</span><span class="o">](</span><span class="n">failing</span><span class="o">)</span>
 <span class="c1">// res4: cats.data.Validated[cats.data.NonEmptyList[String],Document] = Invalid(NonEmptyList(Exceeded the maximum number of lines, Exceeded the maximum number of columns))
 </span>
-<span class="n">documentValidator</span><span class="o">.</span><span class="n">run</span><span class="o">[</span><span class="kt">Either</span><span class="o">](</span><span class="n">passing</span><span class="o">)</span>
+<span class="n">documentValidator</span><span class="o">.</span><span class="n">runNel</span><span class="o">[</span><span class="kt">Either</span><span class="o">](</span><span class="n">passing</span><span class="o">)</span>
 <span class="c1">// res5: Either[cats.data.NonEmptyList[String],Document] = Right(Document(80,120,List(Hello, World)))
 </span>
-<span class="n">documentValidator</span><span class="o">.</span><span class="n">run</span><span class="o">[</span><span class="kt">Either</span><span class="o">](</span><span class="n">failing</span><span class="o">)</span>
+<span class="n">documentValidator</span><span class="o">.</span><span class="n">runNel</span><span class="o">[</span><span class="kt">Either</span><span class="o">](</span><span class="n">failing</span><span class="o">)</span>
 <span class="c1">// res6: Either[cats.data.NonEmptyList[String],Document] = Left(NonEmptyList(Exceeded the maximum number of lines, Exceeded the maximum number of columns))
 </span></code></pre>
 </div>
