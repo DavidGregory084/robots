@@ -22,8 +22,16 @@ import cats.Contravariant
 import cats.data.NonEmptyList
 
 final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B)(implicit FF: Traverse[F], M: MonoidK[F]) {
+  def run[G[_]](a: A)(implicit A: ApplicativeError[G, F[E]]): G[B] = {
+    val fe = validate(a)
 
-  def run[G[_, _]](a: A)(implicit A: ApplicativeError[G[NonEmptyList[E], ?], NonEmptyList[E]]): G[NonEmptyList[E], B] = {
+    if (FF.isEmpty(fe))
+      A.pure(f(a))
+    else
+      A.raiseError(fe)
+  }
+
+  def runNel[G[_, _]](a: A)(implicit A: ApplicativeError[G[NonEmptyList[E], ?], NonEmptyList[E]]): G[NonEmptyList[E], B] = {
     val fe = validate(a)
 
     if (FF.isEmpty(fe))

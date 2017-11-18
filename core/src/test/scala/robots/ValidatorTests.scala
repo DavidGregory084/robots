@@ -19,7 +19,7 @@ class ValidatorTests extends CatsSuite {
     }
 
   implicit def eqPValidator[F[_]: Traverse, G[_, _], E, A, B](implicit AE: ApplicativeError[G[NonEmptyList[E], ?], NonEmptyList[E]], A: Arbitrary[A], E: Eq[G[NonEmptyList[E], B]]): Eq[PValidator[F, E, A, B]] =
-    Eq.by[PValidator[F, E, A, B], A => G[NonEmptyList[E], B]](_.run[G])
+    Eq.by[PValidator[F, E, A, B], A => G[NonEmptyList[E], B]](_.runNel[G])
 
   checkAll("PValidator[List, Int, Int, Int]", ApplicativeTests[PValidator[List, Int, Int, ?]].applicative[Int, Int, Int])
 
@@ -38,25 +38,31 @@ class ValidatorTests extends CatsSuite {
   test("Validate using eql") {
     val eqlOne1 = Validator.eql(1, (i: Int) => Option(s"$i was not equal to 1"))
 
-    eqlOne1.run[Validated](1) should ===(Validated.valid(1))
-    eqlOne1.run[Validated](2) should ===(Validated.invalid(NonEmptyList.of(s"2 was not equal to 1")))
+    eqlOne1.run[Validated[Option[String], ?]](1) should ===(Validated.valid(1))
+    eqlOne1.run[Validated[Option[String], ?]](2) should ===(Validated.invalid(Option(s"2 was not equal to 1")))
+
+    eqlOne1.runNel[Validated](1) should ===(Validated.valid(1))
+    eqlOne1.runNel[Validated](2) should ===(Validated.invalid(NonEmptyList.of(s"2 was not equal to 1")))
 
     val eqlOne2 = Validator.eql(1, Option("Was not equal to 1"))
 
-    eqlOne2.run[Validated](1) should ===(Validated.valid(1))
-    eqlOne2.run[Validated](2) should ===(Validated.invalid(NonEmptyList.of("Was not equal to 1")))
+    eqlOne2.run[Validated[Option[String], ?]](1) should ===(Validated.valid(1))
+    eqlOne2.run[Validated[Option[String], ?]](2) should ===(Validated.invalid(Option(s"Was not equal to 1")))
+
+    eqlOne2.runNel[Validated](1) should ===(Validated.valid(1))
+    eqlOne2.runNel[Validated](2) should ===(Validated.invalid(NonEmptyList.of("Was not equal to 1")))
   }
 
   test("Validate using neq") {
     val neqOne1 = Validator.neq(1, (i: Int) => Option(s"$i was equal to 1"))
 
-    neqOne1.run[Validated](2) should ===(Validated.valid(2))
-    neqOne1.run[Validated](1) should ===(Validated.invalid(NonEmptyList.of(s"1 was equal to 1")))
+    neqOne1.runNel[Validated](2) should ===(Validated.valid(2))
+    neqOne1.runNel[Validated](1) should ===(Validated.invalid(NonEmptyList.of(s"1 was equal to 1")))
 
     val neqOne2 = Validator.neq(1, Option("Was equal to 1"))
 
-    neqOne2.run[Validated](2) should ===(Validated.valid(2))
-    neqOne2.run[Validated](1) should ===(Validated.invalid(NonEmptyList.of("Was equal to 1")))
+    neqOne2.runNel[Validated](2) should ===(Validated.valid(2))
+    neqOne2.runNel[Validated](1) should ===(Validated.invalid(NonEmptyList.of("Was equal to 1")))
   }
 
   test("Validate using gt") {
@@ -64,18 +70,18 @@ class ValidatorTests extends CatsSuite {
 
     forAll { i: Int =>
       if (i > 0)
-        gtZero1.run[Validated](i) should ===(Validated.valid(i))
+        gtZero1.runNel[Validated](i) should ===(Validated.valid(i))
       else
-        gtZero1.run[Validated](i) should ===(Validated.invalid(NonEmptyList.of(s"$i was not greater than 0")))
+        gtZero1.runNel[Validated](i) should ===(Validated.invalid(NonEmptyList.of(s"$i was not greater than 0")))
     }
 
     val gtZero2 = Validator.gt(0, Option("Was not greater than 0"))
 
     forAll { i: Int =>
       if (i > 0)
-        gtZero2.run[Validated](i) should ===(Validated.valid(i))
+        gtZero2.runNel[Validated](i) should ===(Validated.valid(i))
       else
-        gtZero2.run[Validated](i) should ===(Validated.invalid(NonEmptyList.of("Was not greater than 0")))
+        gtZero2.runNel[Validated](i) should ===(Validated.invalid(NonEmptyList.of("Was not greater than 0")))
     }
   }
 
@@ -84,18 +90,18 @@ class ValidatorTests extends CatsSuite {
 
     forAll { i: Int =>
       if (i >= 0)
-        gteZero1.run[Validated](i) should ===(Validated.valid(i))
+        gteZero1.runNel[Validated](i) should ===(Validated.valid(i))
       else
-        gteZero1.run[Validated](i) should ===(Validated.invalid(NonEmptyList.of(s"$i was not greater than or equal to 0")))
+        gteZero1.runNel[Validated](i) should ===(Validated.invalid(NonEmptyList.of(s"$i was not greater than or equal to 0")))
     }
 
     val gteZero2 = Validator.gteq(0, Option("Was not greater than or equal to 0"))
 
     forAll { i: Int =>
       if (i >= 0)
-        gteZero2.run[Validated](i) should ===(Validated.valid(i))
+        gteZero2.runNel[Validated](i) should ===(Validated.valid(i))
       else
-        gteZero2.run[Validated](i) should ===(Validated.invalid(NonEmptyList.of("Was not greater than or equal to 0")))
+        gteZero2.runNel[Validated](i) should ===(Validated.invalid(NonEmptyList.of("Was not greater than or equal to 0")))
     }
   }
 
@@ -104,18 +110,18 @@ class ValidatorTests extends CatsSuite {
 
     forAll { i: Int =>
       if (i < 0)
-        ltZero1.run[Validated](i) should ===(Validated.valid(i))
+        ltZero1.runNel[Validated](i) should ===(Validated.valid(i))
       else
-        ltZero1.run[Validated](i) should ===(Validated.invalid(NonEmptyList.of(s"$i was not less than 0")))
+        ltZero1.runNel[Validated](i) should ===(Validated.invalid(NonEmptyList.of(s"$i was not less than 0")))
     }
 
     val ltZero2 = Validator.lt(0, Option("Was not less than 0"))
 
     forAll { i: Int =>
       if (i < 0)
-        ltZero2.run[Validated](i) should ===(Validated.valid(i))
+        ltZero2.runNel[Validated](i) should ===(Validated.valid(i))
       else
-        ltZero2.run[Validated](i) should ===(Validated.invalid(NonEmptyList.of("Was not less than 0")))
+        ltZero2.runNel[Validated](i) should ===(Validated.invalid(NonEmptyList.of("Was not less than 0")))
     }
   }
 
@@ -124,18 +130,18 @@ class ValidatorTests extends CatsSuite {
 
     forAll { i: Int =>
       if (i <= 0)
-        lteZero1.run[Validated](i) should ===(Validated.valid(i))
+        lteZero1.runNel[Validated](i) should ===(Validated.valid(i))
       else
-        lteZero1.run[Validated](i) should ===(Validated.invalid(NonEmptyList.of(s"$i was not less than or equal to 0")))
+        lteZero1.runNel[Validated](i) should ===(Validated.invalid(NonEmptyList.of(s"$i was not less than or equal to 0")))
     }
 
     val lteZero2 = Validator.lteq(0, Option("Was not less than or equal to 0"))
 
     forAll { i: Int =>
       if (i <= 0)
-        lteZero2.run[Validated](i) should ===(Validated.valid(i))
+        lteZero2.runNel[Validated](i) should ===(Validated.valid(i))
       else
-        lteZero2.run[Validated](i) should ===(Validated.invalid(NonEmptyList.of("Was not less than or equal to 0")))
+        lteZero2.runNel[Validated](i) should ===(Validated.invalid(NonEmptyList.of("Was not less than or equal to 0")))
     }
   }
 
@@ -145,11 +151,11 @@ class ValidatorTests extends CatsSuite {
     forAll { opt: Option[Int] =>
       opt match {
         case Some(i) if i <= 0 =>
-          lteZero.run[Validated](opt) should ===(Validated.valid(opt))
+          lteZero.runNel[Validated](opt) should ===(Validated.valid(opt))
         case Some(i) =>
-          lteZero.run[Validated](opt) should ===(Validated.invalid(NonEmptyList.of(s"$i was not less than or equal to 0")))
+          lteZero.runNel[Validated](opt) should ===(Validated.invalid(NonEmptyList.of(s"$i was not less than or equal to 0")))
         case None =>
-          lteZero.run[Validated](opt) should ===(Validated.valid(opt))
+          lteZero.runNel[Validated](opt) should ===(Validated.valid(opt))
       }
     }
   }
@@ -160,11 +166,11 @@ class ValidatorTests extends CatsSuite {
     forAll { opt: Option[Int] =>
       opt match {
         case Some(i) if i <= 0 =>
-          lteZero.run[Validated](opt) should ===(Validated.valid(i))
+          lteZero.runNel[Validated](opt) should ===(Validated.valid(i))
         case Some(_) =>
-          lteZero.run[Validated](opt) should ===(Validated.invalid(NonEmptyList.of("Was not less than or equal to 0")))
+          lteZero.runNel[Validated](opt) should ===(Validated.invalid(NonEmptyList.of("Was not less than or equal to 0")))
         case None =>
-          lteZero.run[Validated](opt) should ===(Validated.invalid(NonEmptyList.of("I need an answer!")))
+          lteZero.runNel[Validated](opt) should ===(Validated.invalid(NonEmptyList.of("I need an answer!")))
       }
     }
   }
@@ -185,8 +191,8 @@ class ValidatorTests extends CatsSuite {
     val valid = Document(80, 120, Nil)
     val invalid = Document(0, 120, Nil)
 
-    documentValidator.run[Validated](valid) should ===(Validated.Valid(valid))
-    documentValidator.run[Validated](invalid) should ===(Validated.Invalid(NonEmptyList.of(error)))
+    documentValidator.runNel[Validated](valid) should ===(Validated.Valid(valid))
+    documentValidator.runNel[Validated](invalid) should ===(Validated.Invalid(NonEmptyList.of(error)))
   }
 
   test("Validate using has2") {
@@ -205,9 +211,9 @@ class ValidatorTests extends CatsSuite {
     val valid = Document(80, 120, List("Hello", "World"))
     val invalid = Document(80, 1, List("Hello", "World"))
 
-    documentValidator.run[Validated](valid) should ===(Validated.Valid(valid))
+    documentValidator.runNel[Validated](valid) should ===(Validated.Valid(valid))
 
-    documentValidator.run[Validated](invalid) should ===(Validated.Invalid(
+    documentValidator.runNel[Validated](invalid) should ===(Validated.Invalid(
       NonEmptyList.of("The number of lines in this document exceeds the maximum of 1")))
   }
 
@@ -227,9 +233,9 @@ class ValidatorTests extends CatsSuite {
     val valid = Document(80, 120, List("Hello", "World"))
     val invalid = Document(80, 1, List("Hello", "", "World"))
 
-    documentValidator.run[Validated](valid) should ===(Validated.Valid(valid))
+    documentValidator.runNel[Validated](valid) should ===(Validated.Valid(valid))
 
-    documentValidator.run[Validated](invalid) should ===(Validated.Invalid(
+    documentValidator.runNel[Validated](invalid) should ===(Validated.Invalid(
       NonEmptyList.of("Empty lines are not permitted")))
   }
 
@@ -250,10 +256,33 @@ class ValidatorTests extends CatsSuite {
     val valid = Document(80, 120, List("Hello", "World"))
     val invalid = Document(4, 1, List("Hello", "", "World"))
 
-    documentValidator.run[Validated](valid) should ===(Validated.Valid(valid))
+    documentValidator.runNel[Validated](valid) should ===(Validated.Valid(valid))
 
-    documentValidator.run[Validated](invalid) should ===(Validated.Invalid(
+    documentValidator.runNel[Validated](invalid) should ===(Validated.Invalid(
       NonEmptyList.of("The line exceeds the maximum width of 4 columns")))
+  }
+
+  test("Validate using allIndexed") {
+    val stringLengthValidator =
+      Validator[Option, String, (String, Int)] {
+        case (str, idx) =>
+          if (str.length == idx)
+            None
+          else
+            Some("Length should match index")
+      }
+
+    val documentValidator =
+      Validator.validate[Option, String, Document]
+        .allIndexed(_.lines)(stringLengthValidator)
+
+    val valid = Document(0, 0, List("", "a", "bc", "def"))
+    val invalid = Document(0, 0, List("", "ab", "cd"))
+
+    documentValidator.runNel[Validated](valid) should ===(Validated.Valid(valid))
+
+    documentValidator.runNel[Validated](invalid) should ===(Validated.Invalid(
+      NonEmptyList.of("Length should match index")))
   }
 
   test("Validate using at") {
@@ -272,9 +301,9 @@ class ValidatorTests extends CatsSuite {
     val valid = Document(80, 120, List("Hello", "World"))
     val invalid = Document(80, 120, List("Hello"))
 
-    documentValidator.run[Validated](valid) should ===(Validated.Valid(valid))
+    documentValidator.runNel[Validated](valid) should ===(Validated.Valid(valid))
 
-    documentValidator.run[Validated](invalid) should ===(Validated.Invalid(
+    documentValidator.runNel[Validated](invalid) should ===(Validated.Invalid(
       NonEmptyList.of("A document should have at least two lines")))
   }
 
@@ -294,9 +323,9 @@ class ValidatorTests extends CatsSuite {
     val valid = Document(80, 120, List("Hello", "World"))
     val invalid = Document(80, 120, List("Hi", "World"))
 
-    documentValidator.run[Validated](valid) should ===(Validated.Valid(valid))
+    documentValidator.runNel[Validated](valid) should ===(Validated.Valid(valid))
 
-    documentValidator.run[Validated](invalid) should ===(Validated.Invalid(
+    documentValidator.runNel[Validated](invalid) should ===(Validated.Invalid(
       NonEmptyList.of("A document should start with 'Hello'")))
   }
 
@@ -304,7 +333,7 @@ class ValidatorTests extends CatsSuite {
     val validator = Validator.fail[List, String, Int](List("It's just wrong, okay?"))
 
     forAll { int: Int =>
-      validator.run[Validated](int) should ===(Validated.Invalid(NonEmptyList.of("It's just wrong, okay?")))
+      validator.runNel[Validated](int) should ===(Validated.Invalid(NonEmptyList.of("It's just wrong, okay?")))
     }
   }
 
@@ -314,7 +343,7 @@ class ValidatorTests extends CatsSuite {
 
     val results = listGreaterThanZero
       .leftMap(_.toUpperCase)
-      .run[Validated](List(0, 1, -4, -20, 2, 3))
+      .runNel[Validated](List(0, 1, -4, -20, 2, 3))
 
     val expected = Validated.Invalid(NonEmptyList.of(
       "0 WAS NOT GREATER THAN 0",
