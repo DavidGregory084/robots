@@ -53,16 +53,16 @@ val documentValidator =
 ```
 
 ```scala
-documentValidator.run[Validated](passing)
+documentValidator.runNel[Validated](passing)
 // res3: cats.data.Validated[cats.data.NonEmptyList[String],Document] = Valid(Document(80,120,List(Hello, World)))
 
-documentValidator.run[Validated](failing)
+documentValidator.runNel[Validated](failing)
 // res4: cats.data.Validated[cats.data.NonEmptyList[String],Document] = Invalid(NonEmptyList(Exceeded the maximum number of lines, Exceeded the maximum number of columns))
 
-documentValidator.run[Either](passing)
+documentValidator.runNel[Either](passing)
 // res5: Either[cats.data.NonEmptyList[String],Document] = Right(Document(80,120,List(Hello, World)))
 
-documentValidator.run[Either](failing)
+documentValidator.runNel[Either](failing)
 // res6: Either[cats.data.NonEmptyList[String],Document] = Left(NonEmptyList(Exceeded the maximum number of lines, Exceeded the maximum number of columns))
 ```
 

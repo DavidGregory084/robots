@@ -53,13 +53,13 @@ val documentValidator =
 ```
 
 ```tut:book
-documentValidator.run[Validated](passing)
+documentValidator.runNel[Validated](passing)
 
-documentValidator.run[Validated](failing)
+documentValidator.runNel[Validated](failing)
 
-documentValidator.run[Either](passing)
+documentValidator.runNel[Either](passing)
 
-documentValidator.run[Either](failing)
+documentValidator.runNel[Either](failing)
 ```
 
 ### Conduct
