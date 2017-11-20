@@ -1,6 +1,6 @@
 package robots
 
-import cats.{ ApplicativeError, Eq, MonoidK, Traverse }
+import cats.{ ~>, ApplicativeError, Eq, MonoidK, Traverse }
 import cats.data.{ NonEmptyList, Validated }
 import cats.kernel.laws.discipline._
 import cats.laws.discipline._
@@ -38,8 +38,14 @@ class ValidatorTests extends CatsSuite {
   test("Validate using eql") {
     val eqlOne1 = Validator.eql(1, (i: Int) => Option(s"$i was not equal to 1"))
 
+    eqlOne1.run_[Option](1) should ===(Some(1))
+    eqlOne1.run_[Option](2) should ===(None)
+
     eqlOne1.run[Validated[Option[String], ?]](1) should ===(Validated.valid(1))
     eqlOne1.run[Validated[Option[String], ?]](2) should ===(Validated.invalid(Option(s"2 was not equal to 1")))
+
+    eqlOne1.runK[Either[List[String], ?], List](1)(λ[Option ~> List](_.toList)) should ===(Right(1))
+    eqlOne1.runK[Either[List[String], ?], List](2)(λ[Option ~> List](_.toList)) should ===(Left(List("2 was not equal to 1")))
 
     eqlOne1.runNel[Validated](1) should ===(Validated.valid(1))
     eqlOne1.runNel[Validated](2) should ===(Validated.invalid(NonEmptyList.of(s"2 was not equal to 1")))

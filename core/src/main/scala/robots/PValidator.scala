@@ -16,29 +16,32 @@
 
 package robots
 
-import cats.{ Applicative, ApplicativeError, Foldable, MonoidK, Semigroup, SemigroupK, Traverse }
+import cats.{ ~>, Applicative, ApplicativeError, Foldable, MonoidK, Semigroup, SemigroupK, Traverse }
 import cats.arrow.{ Category, Choice, Profunctor }
 import cats.Contravariant
 import cats.data.NonEmptyList
 
 final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B)(implicit FF: Traverse[F], M: MonoidK[F]) {
-  def run[G[_]](a: A)(implicit A: ApplicativeError[G, F[E]]): G[B] = {
+  def runWith[G[_], EE](a: A)(g: F[E] => EE)(implicit A: ApplicativeError[G, EE]): G[B] = {
     val fe = validate(a)
 
     if (FF.isEmpty(fe))
       A.pure(f(a))
     else
-      A.raiseError(fe)
+      A.raiseError(g(fe))
   }
 
-  def runNel[G[_, _]](a: A)(implicit A: ApplicativeError[G[NonEmptyList[E], ?], NonEmptyList[E]]): G[NonEmptyList[E], B] = {
-    val fe = validate(a)
+  def run[G[_]](a: A)(implicit A: ApplicativeError[G, F[E]]): G[B] =
+    runWith(a)(identity)
 
-    if (FF.isEmpty(fe))
-      A.pure(f(a))
-    else
-      A.raiseError(NonEmptyList.fromListUnsafe(FF.toList(fe)))
-  }
+  def run_[G[_]](a: A)(implicit A: ApplicativeError[G, Unit]): G[B] =
+    runWith(a)(_ => ())
+
+  def runK[G[_] , H[_]](a: A)(g: F ~> H)(implicit A: ApplicativeError[G, H[E]]): G[B] =
+    runWith(a)(g.apply)
+
+  def runNel[G[_, _]](a: A)(implicit A: ApplicativeError[G[NonEmptyList[E], ?], NonEmptyList[E]]): G[NonEmptyList[E], B] =
+    runWith(a)(fe => NonEmptyList.fromListUnsafe(FF.toList(fe)))
 
   def andThen[C](that: PValidator[F, E, B, C]): PValidator[F, E, A, C] =
     PValidator[F, E, A, C]({ a =>

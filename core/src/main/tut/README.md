@@ -53,6 +53,7 @@ val documentValidator =
 ```
 
 ```tut:book
+// Works well with `Either` and `Validated`
 documentValidator.runNel[Validated](passing)
 
 documentValidator.runNel[Validated](failing)
@@ -60,6 +61,21 @@ documentValidator.runNel[Validated](failing)
 documentValidator.runNel[Either](passing)
 
 documentValidator.runNel[Either](failing)
+
+// You can brjng any `MonadError`
+import cats.data.Ior
+
+documentValidator.run[Ior[List[String], ?]](passing)
+
+documentValidator.run[Ior[List[String], ?]](failing)
+
+// Even ones that discard errors
+import cats.instances.option._
+
+documentValidator.run_[Option](passing)
+
+documentValidator.run_[Option](failing)
+
 ```
 
 ### Conduct

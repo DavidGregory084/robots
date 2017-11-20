@@ -53,17 +53,38 @@ val documentValidator =
 ```
 
 ```scala
+// Works well with `Either` and `Validated`
 documentValidator.runNel[Validated](passing)
-// res3: cats.data.Validated[cats.data.NonEmptyList[String],Document] = Valid(Document(80,120,List(Hello, World)))
+// res4: cats.data.Validated[cats.data.NonEmptyList[String],Document] = Valid(Document(80,120,List(Hello, World)))
 
 documentValidator.runNel[Validated](failing)
-// res4: cats.data.Validated[cats.data.NonEmptyList[String],Document] = Invalid(NonEmptyList(Exceeded the maximum number of lines, Exceeded the maximum number of columns))
+// res5: cats.data.Validated[cats.data.NonEmptyList[String],Document] = Invalid(NonEmptyList(Exceeded the maximum number of lines, Exceeded the maximum number of columns))
 
 documentValidator.runNel[Either](passing)
-// res5: Either[cats.data.NonEmptyList[String],Document] = Right(Document(80,120,List(Hello, World)))
+// res6: Either[cats.data.NonEmptyList[String],Document] = Right(Document(80,120,List(Hello, World)))
 
 documentValidator.runNel[Either](failing)
-// res6: Either[cats.data.NonEmptyList[String],Document] = Left(NonEmptyList(Exceeded the maximum number of lines, Exceeded the maximum number of columns))
+// res7: Either[cats.data.NonEmptyList[String],Document] = Left(NonEmptyList(Exceeded the maximum number of lines, Exceeded the maximum number of columns))
+
+// You can brjng any `MonadError`
+import cats.data.Ior
+// import cats.data.Ior
+
+documentValidator.run[Ior[List[String], ?]](passing)
+// res9: cats.data.Ior[List[String],Document] = Right(Document(80,120,List(Hello, World)))
+
+documentValidator.run[Ior[List[String], ?]](failing)
+// res10: cats.data.Ior[List[String],Document] = Left(List(Exceeded the maximum number of lines, Exceeded the maximum number of columns))
+
+// Even ones that discard errors
+import cats.instances.option._
+// import cats.instances.option._
+
+documentValidator.run_[Option](passing)
+// res12: Option[Document] = Some(Document(80,120,List(Hello, World)))
+
+documentValidator.run_[Option](failing)
+// res13: Option[Document] = None
 ```
 
 ### Conduct
