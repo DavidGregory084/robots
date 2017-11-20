@@ -52,17 +52,38 @@
 </code></pre>
 </div>
 
-<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">documentValidator</span><span class="o">.</span><span class="n">runNel</span><span class="o">[</span><span class="kt">Validated</span><span class="o">](</span><span class="n">passing</span><span class="o">)</span>
-<span class="c1">// res3: cats.data.Validated[cats.data.NonEmptyList[String],Document] = Valid(Document(80,120,List(Hello, World)))
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="c1">// Works well with `Either` and `Validated`
+</span><span class="n">documentValidator</span><span class="o">.</span><span class="n">runNel</span><span class="o">[</span><span class="kt">Validated</span><span class="o">](</span><span class="n">passing</span><span class="o">)</span>
+<span class="c1">// res4: cats.data.Validated[cats.data.NonEmptyList[String],Document] = Valid(Document(80,120,List(Hello, World)))
 </span>
 <span class="n">documentValidator</span><span class="o">.</span><span class="n">runNel</span><span class="o">[</span><span class="kt">Validated</span><span class="o">](</span><span class="n">failing</span><span class="o">)</span>
-<span class="c1">// res4: cats.data.Validated[cats.data.NonEmptyList[String],Document] = Invalid(NonEmptyList(Exceeded the maximum number of lines, Exceeded the maximum number of columns))
+<span class="c1">// res5: cats.data.Validated[cats.data.NonEmptyList[String],Document] = Invalid(NonEmptyList(Exceeded the maximum number of lines, Exceeded the maximum number of columns))
 </span>
 <span class="n">documentValidator</span><span class="o">.</span><span class="n">runNel</span><span class="o">[</span><span class="kt">Either</span><span class="o">](</span><span class="n">passing</span><span class="o">)</span>
-<span class="c1">// res5: Either[cats.data.NonEmptyList[String],Document] = Right(Document(80,120,List(Hello, World)))
+<span class="c1">// res6: Either[cats.data.NonEmptyList[String],Document] = Right(Document(80,120,List(Hello, World)))
 </span>
 <span class="n">documentValidator</span><span class="o">.</span><span class="n">runNel</span><span class="o">[</span><span class="kt">Either</span><span class="o">](</span><span class="n">failing</span><span class="o">)</span>
-<span class="c1">// res6: Either[cats.data.NonEmptyList[String],Document] = Left(NonEmptyList(Exceeded the maximum number of lines, Exceeded the maximum number of columns))
+<span class="c1">// res7: Either[cats.data.NonEmptyList[String],Document] = Left(NonEmptyList(Exceeded the maximum number of lines, Exceeded the maximum number of columns))
+</span>
+<span class="c1">// You can brjng any `MonadError`
+</span><span class="k">import</span> <span class="nn">cats.data.Ior</span>
+<span class="c1">// import cats.data.Ior
+</span>
+<span class="n">documentValidator</span><span class="o">.</span><span class="n">run</span><span class="o">[</span><span class="kt">Ior</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>, <span class="kt">?</span><span class="o">]](</span><span class="n">passing</span><span class="o">)</span>
+<span class="c1">// res9: cats.data.Ior[List[String],Document] = Right(Document(80,120,List(Hello, World)))
+</span>
+<span class="n">documentValidator</span><span class="o">.</span><span class="n">run</span><span class="o">[</span><span class="kt">Ior</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>, <span class="kt">?</span><span class="o">]](</span><span class="n">failing</span><span class="o">)</span>
+<span class="c1">// res10: cats.data.Ior[List[String],Document] = Left(List(Exceeded the maximum number of lines, Exceeded the maximum number of columns))
+</span>
+<span class="c1">// Even ones that discard errors
+</span><span class="k">import</span> <span class="nn">cats.instances.option._</span>
+<span class="c1">// import cats.instances.option._
+</span>
+<span class="n">documentValidator</span><span class="o">.</span><span class="n">run_</span><span class="o">[</span><span class="kt">Option</span><span class="o">](</span><span class="n">passing</span><span class="o">)</span>
+<span class="c1">// res12: Option[Document] = Some(Document(80,120,List(Hello, World)))
+</span>
+<span class="n">documentValidator</span><span class="o">.</span><span class="n">run_</span><span class="o">[</span><span class="kt">Option</span><span class="o">](</span><span class="n">failing</span><span class="o">)</span>
+<span class="c1">// res13: Option[Document] = None
 </span></code></pre>
 </div>
 
