@@ -3,6 +3,7 @@
 [![Build Status](https://api.travis-ci.org/DavidGregory084/robots.svg)](https://travis-ci.org/DavidGregory084/robots)
 [![Coverage Status](http://codecov.io/github/DavidGregory084/robots/coverage.svg?branch=master)](http://codecov.io/github/DavidGregory084/robots?branch=master)
 [![License](https://img.shields.io/github/license/DavidGregory084/robots.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Latest Version](https://img.shields.io/maven-central/v/io.github.davidgregory084/robots-core_2.12.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22io.github.davidgregory084%22%20AND%20a%3A%22robots-core_2.12%22)
 
 ### Overview
 
@@ -10,12 +11,10 @@ Robots is a small Scala library which aims to provide helpful utilities for vali
 
 ### Getting Started
 
-The library is at an early stage of development and no release artifacts have yet been published.
-
-If you want to try out a snapshot you can add the following to your `build.sbt`:
+Add the following to your `build.sbt`:
 
 ```scala
-libraryDependencies += "io.github.davidgregory084" %% "robots" % "0.1.0-SNAPSHOT"
+libraryDependencies += "io.github.davidgregory084" %% "robots" % "0.1.0-RC1"
 ```
 
 ### Example
