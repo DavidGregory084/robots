@@ -73,6 +73,15 @@ lazy val commonSettings = Seq(
     "org.typelevel" %% "cats-testkit" % "1.0.0-RC1" % Test
   ),
 
+  libraryDependencies ++= {
+    scalaBinaryVersion.value match {
+      case "2.10" =>
+        compilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full) :: Nil
+      case _ =>
+        Nil
+    }
+  },
+
   headerCreate.in(Compile) := {
     headerCreate.in(Compile).triggeredBy(compile.in(Compile)).value
   },

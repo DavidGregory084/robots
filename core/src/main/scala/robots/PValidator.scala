@@ -37,7 +37,7 @@ final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B)(i
   def run_[G[_]](a: A)(implicit A: ApplicativeError[G, Unit]): G[B] =
     runWith(a)(_ => ())
 
-  def runK[G[_] , H[_]](a: A)(g: F ~> H)(implicit A: ApplicativeError[G, H[E]]): G[B] =
+  def runK[G[_], H[_]](a: A)(g: F ~> H)(implicit A: ApplicativeError[G, H[E]]): G[B] =
     runWith(a)(g.apply)
 
   def runNel[G[_, _]](a: A)(implicit A: ApplicativeError[G[NonEmptyList[E], ?], NonEmptyList[E]]): G[NonEmptyList[E], B] =
