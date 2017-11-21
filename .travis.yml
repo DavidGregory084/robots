@@ -3,7 +3,6 @@ language: scala
 scala:
   - 2.10.6
   - 2.11.11
-  - 2.12.4
 
 jdk:
   - oraclejdk8
@@ -15,10 +14,6 @@ matrix:
   include:
   - scala: 2.12.4
     env: PUBLISH_SITE=true
-  # Remove the 2.12 job that doesn't publish the site
-  exclude:
-  - scala: 2.12.4
-    env:
 
 before_install:
  - if [ "$PUBLISH_SITE" = "true" -a "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash
