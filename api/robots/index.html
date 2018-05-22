@@ -86,13 +86,13 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li class="current-entities indented1">
-                        <a class="object" href="PValidator$.html" title=""></a>
-                        <a class="class" href="PValidator.html" title=""></a>
-                        <a href="PValidator.html" title="">PValidator</a>
+                        <a class="object" href="PValidator$.html" title="The companion object for PValidator provides various type class instances for PValidator."></a>
+                        <a class="class" href="PValidator.html" title="PValidator wraps up a validation function validate: A =&gt; F[E] which validates the input A and returns a structure of error messages F[E]."></a>
+                        <a href="PValidator.html" title="PValidator wraps up a validation function validate: A =&gt; F[E] which validates the input A and returns a structure of error messages F[E].">PValidator</a>
                       </li><li class="current-entities indented1">
                         <span class="separator"></span>
-                        <a class="object" href="package$$Validator$.html" title=""></a>
-                        <a href="package$$Validator$.html" title="">Validator</a>
+                        <a class="object" href="package$$Validator$.html" title="The companion object for Validator provides a number of functions for constructing simple validators."></a>
+                        <a href="package$$Validator$.html" title="The companion object for Validator provides a number of functions for constructing simple validators.">Validator</a>
                       </li>
               </ul>
             </div>
@@ -173,7 +173,7 @@
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="robots.PValidator" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+              <ol><li name="robots.PValidator" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="PValidator[F[_],E,A,B]extendsProductwithSerializable"></a><a id="PValidator[F[_],E,A,B]:PValidator[F,E,A,B]"></a>
       <span class="permalink">
       <a href="../robots/index.html#PValidator[F[_],E,A,B]extendsProductwithSerializable" title="Permalink">
@@ -185,10 +185,13 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="PValidator.html"><span class="name">PValidator</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="validate">validate: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.F">F</span>[<span class="extype" name="robots.PValidator.E">E</span>]</span>, <span name="f">f: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.B">B</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="FF">FF: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.PValidator.F">F</span>]</span>, <span name="M">M: <a href="http://typelevel.org/cats/api/cats/MonoidK.html#cats.MonoidK" class="extype" name="cats.MonoidK">MonoidK</a>[<span class="extype" name="robots.PValidator.F">F</span>]</span>)</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="PValidator wraps up a validation function validate: A =&gt; F[E] which validates the input A and returns a structure of error messages F[E]." href="PValidator.html"><span class="name">PValidator</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="validate">validate: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.F">F</span>[<span class="extype" name="robots.PValidator.E">E</span>]</span>, <span name="f">f: (<span class="extype" name="robots.PValidator.A">A</span>) ⇒ <span class="extype" name="robots.PValidator.B">B</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="FF">FF: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.PValidator.F">F</span>]</span>, <span name="M">M: <a href="http://typelevel.org/cats/api/cats/MonoidK.html#cats.MonoidK" class="extype" name="cats.MonoidK">MonoidK</a>[<span class="extype" name="robots.PValidator.F">F</span>]</span>)</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt"><code>PValidator</code> wraps up a validation function <code>validate: A =&gt; F[E]</code> which validates the input <code>A</code> and returns a structure
+of error messages <code>F[E]</code>.</p><div class="fullcomment"><div class="comment cmt"><p><code>PValidator</code> wraps up a validation function <code>validate: A =&gt; F[E]</code> which validates the input <code>A</code> and returns a structure
+of error messages <code>F[E]</code>.</p><p>The <code>P</code> in <code>PValidator</code> denotes the fact that this validation is polymorphic, in the sense that its input does not have to be of the same type as its output.</p><p>This may be useful when a successful validation provides some knowledge about the value that is being validated that can be used to refine its type.</p><p>For example, a <code>required</code> validator makes use of the fact that it has ensured that an <code>Option[A]</code> is not empty to safely unwrap the option's inner value.
+</p></div></div>
     </li><li name="robots.Validator" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="Validator[F[_],E,A]=robots.PValidator[F,E,A,A]"></a><a id="Validator[F[_],E,A]:Validator[F,E,A]"></a>
       <span class="permalink">
@@ -204,7 +207,8 @@
         <span class="name">Validator</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="result alias"> = <a href="PValidator.html" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.Validator.F">F</span>, <span class="extype" name="robots.Validator.E">E</span>, <span class="extype" name="robots.Validator.A">A</span>, <span class="extype" name="robots.Validator.A">A</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">A <code>Validator[F[_], E, A]</code> wraps a validation function <code>A =&gt; F[E]</code> and provides functions to accumulate the results of this validation into different structures
+and to combine validations together so that validations for properties of an object can be combined together to form a validator for the entire object.</p>
     </li></ol>
             </div>
 
@@ -225,11 +229,11 @@
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="PValidator$.html"><span class="name">PValidator</span></a><span class="result"> extends <span class="extype" name="robots.PValidatorInstances">PValidatorInstances</span> with <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="The companion object for PValidator provides various type class instances for PValidator." href="PValidator$.html"><span class="name">PValidator</span></a><span class="result"> extends <span class="extype" name="robots.PValidatorInstances">PValidatorInstances</span> with <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
-      
-    </li><li name="robots.Validator" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">The companion object for <code>PValidator</code> provides various type class instances for <code>PValidator</code>.</p>
+    </li><li name="robots.Validator" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="Validator"></a><a id="Validator:Validator"></a>
       <span class="permalink">
       <a href="../robots/index.html#Validator" title="Permalink">
@@ -241,10 +245,11 @@
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="package$$Validator$.html"><span class="name">Validator</span></a>
+        <a title="The companion object for Validator provides a number of functions for constructing simple validators." href="package$$Validator$.html"><span class="name">Validator</span></a>
       </span>
       
-      
+      <p class="shortcomment cmt">The companion object for <code>Validator</code> provides a number of functions for constructing simple validators.</p><div class="fullcomment"><div class="comment cmt"><p>The companion object for <code>Validator</code> provides a number of functions for constructing simple validators.</p><p>Validators for comparisons and equality checking can be constructed for types with <code>Order</code> and <code>Eq</code> instances, respectively.</p><p>There are also functions provided for constructing validators which always pass and which always fail.
+</p></div></div>
     </li>
               </ol>
             </div>

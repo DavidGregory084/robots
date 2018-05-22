@@ -86,13 +86,13 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li class="current-entities indented1">
-                        <a class="object" href="PValidator$.html" title=""></a>
-                        <a class="class" href="PValidator.html" title=""></a>
-                        <a href="PValidator.html" title="">PValidator</a>
+                        <a class="object" href="PValidator$.html" title="The companion object for PValidator provides various type class instances for PValidator."></a>
+                        <a class="class" href="PValidator.html" title="PValidator wraps up a validation function validate: A =&gt; F[E] which validates the input A and returns a structure of error messages F[E]."></a>
+                        <a href="PValidator.html" title="PValidator wraps up a validation function validate: A =&gt; F[E] which validates the input A and returns a structure of error messages F[E].">PValidator</a>
                       </li><li class="current-entities indented1">
                         <span class="separator"></span>
-                        <a class="object" href="" title=""></a>
-                        <a href="" title="">Validator</a>
+                        <a class="object" href="" title="The companion object for Validator provides a number of functions for constructing simple validators."></a>
+                        <a href="" title="The companion object for Validator provides a number of functions for constructing simple validators.">Validator</a>
                       </li>
               </ul>
             </div>
@@ -121,7 +121,8 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/DavidGregory084/robots/tree/master/core/src/main/scala/robots/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>The companion object for <code>Validator</code> provides a number of functions for constructing simple validators.</p><p>Validators for comparisons and equality checking can be constructed for types with <code>Order</code> and <code>Eq</code> instances, respectively.</p><p>There are also functions provided for constructing validators which always pass and which always fail.
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/DavidGregory084/robots/tree/master/core/src/main/scala/robots/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -241,7 +242,7 @@
         <span class="name">apply</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="validate">validate: (<span class="extype" name="robots.Validator.apply.A">A</span>) ⇒ <span class="extype" name="robots.Validator.apply.F">F</span>[<span class="extype" name="robots.Validator.apply.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.Validator.apply.F">F</span>]</span>, <span name="M">M: <a href="http://typelevel.org/cats/api/cats/MonoidK.html#cats.MonoidK" class="extype" name="cats.MonoidK">MonoidK</a>[<span class="extype" name="robots.Validator.apply.F">F</span>]</span>)</span><span class="result">: <a href="index.html#Validator[F[_],E,A]=robots.PValidator[F,E,A,A]" class="extmbr" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.apply.F">F</span>, <span class="extype" name="robots.Validator.apply.E">E</span>, <span class="extype" name="robots.Validator.apply.A">A</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Construct a validator by wrapping up a function <code>A =&gt; F[E]</code>.</p>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
@@ -298,7 +299,7 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="robots.Validator#eql" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="robots.Validator#eql" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eql[F[_],E,A](a:A,e:F[E])(implicitevidence$7:cats.Traverse[F],implicitevidence$8:cats.MonoidK[F],implicitevidence$9:cats.Eq[A]):robots.package.Validator[F,E,A]"></a><a id="eql[F[_],E,A](A,F[E])(Traverse[F],MonoidK[F],Eq[A]):Validator[F,E,A]"></a>
       <span class="permalink">
       <a href="../robots/package$$Validator$.html#eql[F[_],E,A](a:A,e:F[E])(implicitevidence$7:cats.Traverse[F],implicitevidence$8:cats.MonoidK[F],implicitevidence$9:cats.Eq[A]):robots.package.Validator[F,E,A]" title="Permalink">
@@ -313,8 +314,9 @@
         <span class="name">eql</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="robots.Validator.eql.A">A</span></span>, <span name="e">e: <span class="extype" name="robots.Validator.eql.F">F</span>[<span class="extype" name="robots.Validator.eql.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.Validator.eql.F">F</span>]</span>, <span name="arg1">arg1: <a href="http://typelevel.org/cats/api/cats/MonoidK.html#cats.MonoidK" class="extype" name="cats.MonoidK">MonoidK</a>[<span class="extype" name="robots.Validator.eql.F">F</span>]</span>, <span name="arg2">arg2: <span class="extype" name="cats.Eq">Eq</span>[<span class="extype" name="robots.Validator.eql.A">A</span>]</span>)</span><span class="result">: <a href="index.html#Validator[F[_],E,A]=robots.PValidator[F,E,A,A]" class="extmbr" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.eql.F">F</span>, <span class="extype" name="robots.Validator.eql.E">E</span>, <span class="extype" name="robots.Validator.eql.A">A</span>]</span>
       </span>
       
-      
-    </li><li name="robots.Validator#eql" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Construct a validator for <code>A</code> which validates that the input is equal to the reference value <code>a</code> according to the <code>Eq</code> instance for <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Construct a validator for <code>A</code> which validates that the input is equal to the reference value <code>a</code> according to the <code>Eq</code> instance for <code>A</code>.</p><p>If the validation fails the error messages <code>e</code> are returned.
+</p></div></div>
+    </li><li name="robots.Validator#eql" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eql[F[_],E,A](a:A,f:A=&gt;F[E])(implicitevidence$5:cats.Traverse[F],implicitevidence$6:cats.MonoidK[F],implicitE:cats.Eq[A]):robots.package.Validator[F,E,A]"></a><a id="eql[F[_],E,A](A,(A)⇒F[E])(Traverse[F],MonoidK[F],Eq[A]):Validator[F,E,A]"></a>
       <span class="permalink">
       <a href="../robots/package$$Validator$.html#eql[F[_],E,A](a:A,f:A=&gt;F[E])(implicitevidence$5:cats.Traverse[F],implicitevidence$6:cats.MonoidK[F],implicitE:cats.Eq[A]):robots.package.Validator[F,E,A]" title="Permalink">
@@ -329,7 +331,8 @@
         <span class="name">eql</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="robots.Validator.eql.A">A</span></span>, <span name="f">f: (<span class="extype" name="robots.Validator.eql.A">A</span>) ⇒ <span class="extype" name="robots.Validator.eql.F">F</span>[<span class="extype" name="robots.Validator.eql.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.Validator.eql.F">F</span>]</span>, <span name="arg1">arg1: <a href="http://typelevel.org/cats/api/cats/MonoidK.html#cats.MonoidK" class="extype" name="cats.MonoidK">MonoidK</a>[<span class="extype" name="robots.Validator.eql.F">F</span>]</span>, <span name="E">E: <span class="extype" name="cats.Eq">Eq</span>[<span class="extype" name="robots.Validator.eql.A">A</span>]</span>)</span><span class="result">: <a href="index.html#Validator[F[_],E,A]=robots.PValidator[F,E,A,A]" class="extmbr" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.eql.F">F</span>, <span class="extype" name="robots.Validator.eql.E">E</span>, <span class="extype" name="robots.Validator.eql.A">A</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Construct a validator for <code>A</code> which validates that the input is equal to the reference value <code>a</code> according to the <code>Eq</code> instance for <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Construct a validator for <code>A</code> which validates that the input is equal to the reference value <code>a</code> according to the <code>Eq</code> instance for <code>A</code>.</p><p>If the validation fails the function <code>f</code> is used to construct validation error messages based upon the input.
+</p></div></div>
     </li><li name="scala.AnyRef#equals" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="equals(x$1:Any):Boolean"></a><a id="equals(Any):Boolean"></a>
       <span class="permalink">
@@ -361,7 +364,7 @@
         <span class="name">fail</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="e">e: <span class="extype" name="robots.Validator.fail.F">F</span>[<span class="extype" name="robots.Validator.fail.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.Validator.fail.F">F</span>]</span>, <span name="M">M: <a href="http://typelevel.org/cats/api/cats/MonoidK.html#cats.MonoidK" class="extype" name="cats.MonoidK">MonoidK</a>[<span class="extype" name="robots.Validator.fail.F">F</span>]</span>)</span><span class="result">: <a href="index.html#Validator[F[_],E,A]=robots.PValidator[F,E,A,A]" class="extmbr" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.fail.F">F</span>, <span class="extype" name="robots.Validator.fail.E">E</span>, <span class="extype" name="robots.Validator.fail.A">A</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Construct a validator for <code>A</code> which always fails with the given error messages.</p>
     </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <span class="permalink">
@@ -403,7 +406,7 @@
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="robots.Validator#gt" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="robots.Validator#gt" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="gt[F[_],E,A](a:A,e:F[E])(implicitevidence$17:cats.Traverse[F],implicitevidence$18:cats.MonoidK[F],implicitevidence$19:cats.Order[A]):robots.package.Validator[F,E,A]"></a><a id="gt[F[_],E,A](A,F[E])(Traverse[F],MonoidK[F],Order[A]):Validator[F,E,A]"></a>
       <span class="permalink">
       <a href="../robots/package$$Validator$.html#gt[F[_],E,A](a:A,e:F[E])(implicitevidence$17:cats.Traverse[F],implicitevidence$18:cats.MonoidK[F],implicitevidence$19:cats.Order[A]):robots.package.Validator[F,E,A]" title="Permalink">
@@ -418,8 +421,9 @@
         <span class="name">gt</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="robots.Validator.gt.A">A</span></span>, <span name="e">e: <span class="extype" name="robots.Validator.gt.F">F</span>[<span class="extype" name="robots.Validator.gt.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.Validator.gt.F">F</span>]</span>, <span name="arg1">arg1: <a href="http://typelevel.org/cats/api/cats/MonoidK.html#cats.MonoidK" class="extype" name="cats.MonoidK">MonoidK</a>[<span class="extype" name="robots.Validator.gt.F">F</span>]</span>, <span name="arg2">arg2: <span class="extype" name="cats.Order">Order</span>[<span class="extype" name="robots.Validator.gt.A">A</span>]</span>)</span><span class="result">: <a href="index.html#Validator[F[_],E,A]=robots.PValidator[F,E,A,A]" class="extmbr" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.gt.F">F</span>, <span class="extype" name="robots.Validator.gt.E">E</span>, <span class="extype" name="robots.Validator.gt.A">A</span>]</span>
       </span>
       
-      
-    </li><li name="robots.Validator#gt" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Construct a validator for <code>A</code> which validates that the input is greater than the reference value <code>a</code> according to the <code>Order</code> instance for <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Construct a validator for <code>A</code> which validates that the input is greater than the reference value <code>a</code> according to the <code>Order</code> instance for <code>A</code>.</p><p>If the validation fails the error messages <code>e</code> are returned.
+</p></div></div>
+    </li><li name="robots.Validator#gt" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="gt[F[_],E,A](a:A,f:A=&gt;F[E])(implicitevidence$15:cats.Traverse[F],implicitevidence$16:cats.MonoidK[F],implicitO:cats.Order[A]):robots.package.Validator[F,E,A]"></a><a id="gt[F[_],E,A](A,(A)⇒F[E])(Traverse[F],MonoidK[F],Order[A]):Validator[F,E,A]"></a>
       <span class="permalink">
       <a href="../robots/package$$Validator$.html#gt[F[_],E,A](a:A,f:A=&gt;F[E])(implicitevidence$15:cats.Traverse[F],implicitevidence$16:cats.MonoidK[F],implicitO:cats.Order[A]):robots.package.Validator[F,E,A]" title="Permalink">
@@ -434,8 +438,9 @@
         <span class="name">gt</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="robots.Validator.gt.A">A</span></span>, <span name="f">f: (<span class="extype" name="robots.Validator.gt.A">A</span>) ⇒ <span class="extype" name="robots.Validator.gt.F">F</span>[<span class="extype" name="robots.Validator.gt.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.Validator.gt.F">F</span>]</span>, <span name="arg1">arg1: <a href="http://typelevel.org/cats/api/cats/MonoidK.html#cats.MonoidK" class="extype" name="cats.MonoidK">MonoidK</a>[<span class="extype" name="robots.Validator.gt.F">F</span>]</span>, <span name="O">O: <span class="extype" name="cats.Order">Order</span>[<span class="extype" name="robots.Validator.gt.A">A</span>]</span>)</span><span class="result">: <a href="index.html#Validator[F[_],E,A]=robots.PValidator[F,E,A,A]" class="extmbr" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.gt.F">F</span>, <span class="extype" name="robots.Validator.gt.E">E</span>, <span class="extype" name="robots.Validator.gt.A">A</span>]</span>
       </span>
       
-      
-    </li><li name="robots.Validator#gteq" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Construct a validator for <code>A</code> which validates that the input is greater than the reference value <code>a</code> according to the <code>Order</code> instance for <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Construct a validator for <code>A</code> which validates that the input is greater than the reference value <code>a</code> according to the <code>Order</code> instance for <code>A</code>.</p><p>If the validation fails the function <code>f</code> is used to construct validation error messages based upon the input.
+</p></div></div>
+    </li><li name="robots.Validator#gteq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="gteq[F[_],E,A](a:A,e:F[E])(implicitevidence$22:cats.Traverse[F],implicitevidence$23:cats.MonoidK[F],implicitevidence$24:cats.Order[A]):robots.package.Validator[F,E,A]"></a><a id="gteq[F[_],E,A](A,F[E])(Traverse[F],MonoidK[F],Order[A]):Validator[F,E,A]"></a>
       <span class="permalink">
       <a href="../robots/package$$Validator$.html#gteq[F[_],E,A](a:A,e:F[E])(implicitevidence$22:cats.Traverse[F],implicitevidence$23:cats.MonoidK[F],implicitevidence$24:cats.Order[A]):robots.package.Validator[F,E,A]" title="Permalink">
@@ -450,8 +455,9 @@
         <span class="name">gteq</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="robots.Validator.gteq.A">A</span></span>, <span name="e">e: <span class="extype" name="robots.Validator.gteq.F">F</span>[<span class="extype" name="robots.Validator.gteq.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.Validator.gteq.F">F</span>]</span>, <span name="arg1">arg1: <a href="http://typelevel.org/cats/api/cats/MonoidK.html#cats.MonoidK" class="extype" name="cats.MonoidK">MonoidK</a>[<span class="extype" name="robots.Validator.gteq.F">F</span>]</span>, <span name="arg2">arg2: <span class="extype" name="cats.Order">Order</span>[<span class="extype" name="robots.Validator.gteq.A">A</span>]</span>)</span><span class="result">: <a href="index.html#Validator[F[_],E,A]=robots.PValidator[F,E,A,A]" class="extmbr" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.gteq.F">F</span>, <span class="extype" name="robots.Validator.gteq.E">E</span>, <span class="extype" name="robots.Validator.gteq.A">A</span>]</span>
       </span>
       
-      
-    </li><li name="robots.Validator#gteq" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Construct a validator for <code>A</code> which validates that the input is greater than or equal to the reference value <code>a</code> according to the <code>Order</code> instance for <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Construct a validator for <code>A</code> which validates that the input is greater than or equal to the reference value <code>a</code> according to the <code>Order</code> instance for <code>A</code>.</p><p>If the validation fails the error messages <code>e</code> are returned.
+</p></div></div>
+    </li><li name="robots.Validator#gteq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="gteq[F[_],E,A](a:A,f:A=&gt;F[E])(implicitevidence$20:cats.Traverse[F],implicitevidence$21:cats.MonoidK[F],implicitO:cats.Order[A]):robots.package.Validator[F,E,A]"></a><a id="gteq[F[_],E,A](A,(A)⇒F[E])(Traverse[F],MonoidK[F],Order[A]):Validator[F,E,A]"></a>
       <span class="permalink">
       <a href="../robots/package$$Validator$.html#gteq[F[_],E,A](a:A,f:A=&gt;F[E])(implicitevidence$20:cats.Traverse[F],implicitevidence$21:cats.MonoidK[F],implicitO:cats.Order[A]):robots.package.Validator[F,E,A]" title="Permalink">
@@ -466,7 +472,8 @@
         <span class="name">gteq</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="robots.Validator.gteq.A">A</span></span>, <span name="f">f: (<span class="extype" name="robots.Validator.gteq.A">A</span>) ⇒ <span class="extype" name="robots.Validator.gteq.F">F</span>[<span class="extype" name="robots.Validator.gteq.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.Validator.gteq.F">F</span>]</span>, <span name="arg1">arg1: <a href="http://typelevel.org/cats/api/cats/MonoidK.html#cats.MonoidK" class="extype" name="cats.MonoidK">MonoidK</a>[<span class="extype" name="robots.Validator.gteq.F">F</span>]</span>, <span name="O">O: <span class="extype" name="cats.Order">Order</span>[<span class="extype" name="robots.Validator.gteq.A">A</span>]</span>)</span><span class="result">: <a href="index.html#Validator[F[_],E,A]=robots.PValidator[F,E,A,A]" class="extmbr" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.gteq.F">F</span>, <span class="extype" name="robots.Validator.gteq.E">E</span>, <span class="extype" name="robots.Validator.gteq.A">A</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Construct a validator for <code>A</code> which validates that the input is greater than or equal to the reference value <code>a</code> according to the <code>Order</code> instance for <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Construct a validator for <code>A</code> which validates that the input is greater than or equal to the reference value <code>a</code> according to the <code>Order</code> instance for <code>A</code>.</p><p>If the validation fails the function <code>f</code> is used to construct validation error messages based upon the input.
+</p></div></div>
     </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hashCode():Int"></a>
       <span class="permalink">
@@ -502,7 +509,7 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="robots.Validator#lt" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="robots.Validator#lt" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="lt[F[_],E,A](a:A,e:F[E])(implicitevidence$27:cats.Traverse[F],implicitevidence$28:cats.MonoidK[F],implicitevidence$29:cats.Order[A]):robots.package.Validator[F,E,A]"></a><a id="lt[F[_],E,A](A,F[E])(Traverse[F],MonoidK[F],Order[A]):Validator[F,E,A]"></a>
       <span class="permalink">
       <a href="../robots/package$$Validator$.html#lt[F[_],E,A](a:A,e:F[E])(implicitevidence$27:cats.Traverse[F],implicitevidence$28:cats.MonoidK[F],implicitevidence$29:cats.Order[A]):robots.package.Validator[F,E,A]" title="Permalink">
@@ -517,8 +524,9 @@
         <span class="name">lt</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="robots.Validator.lt.A">A</span></span>, <span name="e">e: <span class="extype" name="robots.Validator.lt.F">F</span>[<span class="extype" name="robots.Validator.lt.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.Validator.lt.F">F</span>]</span>, <span name="arg1">arg1: <a href="http://typelevel.org/cats/api/cats/MonoidK.html#cats.MonoidK" class="extype" name="cats.MonoidK">MonoidK</a>[<span class="extype" name="robots.Validator.lt.F">F</span>]</span>, <span name="arg2">arg2: <span class="extype" name="cats.Order">Order</span>[<span class="extype" name="robots.Validator.lt.A">A</span>]</span>)</span><span class="result">: <a href="index.html#Validator[F[_],E,A]=robots.PValidator[F,E,A,A]" class="extmbr" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.lt.F">F</span>, <span class="extype" name="robots.Validator.lt.E">E</span>, <span class="extype" name="robots.Validator.lt.A">A</span>]</span>
       </span>
       
-      
-    </li><li name="robots.Validator#lt" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Construct a validator for <code>A</code> which validates that the input is less than the reference value <code>a</code> according to the <code>Order</code> instance for <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Construct a validator for <code>A</code> which validates that the input is less than the reference value <code>a</code> according to the <code>Order</code> instance for <code>A</code>.</p><p>If the validation fails the error messages <code>e</code> are returned.
+</p></div></div>
+    </li><li name="robots.Validator#lt" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="lt[F[_],E,A](a:A,f:A=&gt;F[E])(implicitevidence$25:cats.Traverse[F],implicitevidence$26:cats.MonoidK[F],implicitO:cats.Order[A]):robots.package.Validator[F,E,A]"></a><a id="lt[F[_],E,A](A,(A)⇒F[E])(Traverse[F],MonoidK[F],Order[A]):Validator[F,E,A]"></a>
       <span class="permalink">
       <a href="../robots/package$$Validator$.html#lt[F[_],E,A](a:A,f:A=&gt;F[E])(implicitevidence$25:cats.Traverse[F],implicitevidence$26:cats.MonoidK[F],implicitO:cats.Order[A]):robots.package.Validator[F,E,A]" title="Permalink">
@@ -533,8 +541,9 @@
         <span class="name">lt</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="robots.Validator.lt.A">A</span></span>, <span name="f">f: (<span class="extype" name="robots.Validator.lt.A">A</span>) ⇒ <span class="extype" name="robots.Validator.lt.F">F</span>[<span class="extype" name="robots.Validator.lt.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.Validator.lt.F">F</span>]</span>, <span name="arg1">arg1: <a href="http://typelevel.org/cats/api/cats/MonoidK.html#cats.MonoidK" class="extype" name="cats.MonoidK">MonoidK</a>[<span class="extype" name="robots.Validator.lt.F">F</span>]</span>, <span name="O">O: <span class="extype" name="cats.Order">Order</span>[<span class="extype" name="robots.Validator.lt.A">A</span>]</span>)</span><span class="result">: <a href="index.html#Validator[F[_],E,A]=robots.PValidator[F,E,A,A]" class="extmbr" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.lt.F">F</span>, <span class="extype" name="robots.Validator.lt.E">E</span>, <span class="extype" name="robots.Validator.lt.A">A</span>]</span>
       </span>
       
-      
-    </li><li name="robots.Validator#lteq" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Construct a validator for <code>A</code> which validates that the input is less than the reference value <code>a</code> according to the <code>Order</code> instance for <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Construct a validator for <code>A</code> which validates that the input is less than the reference value <code>a</code> according to the <code>Order</code> instance for <code>A</code>.</p><p>If the validation fails the function <code>f</code> is used to construct validation error messages based upon the input.
+</p></div></div>
+    </li><li name="robots.Validator#lteq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="lteq[F[_],E,A](a:A,e:F[E])(implicitevidence$32:cats.Traverse[F],implicitevidence$33:cats.MonoidK[F],implicitevidence$34:cats.Order[A]):robots.package.Validator[F,E,A]"></a><a id="lteq[F[_],E,A](A,F[E])(Traverse[F],MonoidK[F],Order[A]):Validator[F,E,A]"></a>
       <span class="permalink">
       <a href="../robots/package$$Validator$.html#lteq[F[_],E,A](a:A,e:F[E])(implicitevidence$32:cats.Traverse[F],implicitevidence$33:cats.MonoidK[F],implicitevidence$34:cats.Order[A]):robots.package.Validator[F,E,A]" title="Permalink">
@@ -549,8 +558,9 @@
         <span class="name">lteq</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="robots.Validator.lteq.A">A</span></span>, <span name="e">e: <span class="extype" name="robots.Validator.lteq.F">F</span>[<span class="extype" name="robots.Validator.lteq.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.Validator.lteq.F">F</span>]</span>, <span name="arg1">arg1: <a href="http://typelevel.org/cats/api/cats/MonoidK.html#cats.MonoidK" class="extype" name="cats.MonoidK">MonoidK</a>[<span class="extype" name="robots.Validator.lteq.F">F</span>]</span>, <span name="arg2">arg2: <span class="extype" name="cats.Order">Order</span>[<span class="extype" name="robots.Validator.lteq.A">A</span>]</span>)</span><span class="result">: <a href="index.html#Validator[F[_],E,A]=robots.PValidator[F,E,A,A]" class="extmbr" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.lteq.F">F</span>, <span class="extype" name="robots.Validator.lteq.E">E</span>, <span class="extype" name="robots.Validator.lteq.A">A</span>]</span>
       </span>
       
-      
-    </li><li name="robots.Validator#lteq" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Construct a validator for <code>A</code> which validates that the input is less than or equal to the reference value <code>a</code> according to the <code>Order</code> instance for <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Construct a validator for <code>A</code> which validates that the input is less than or equal to the reference value <code>a</code> according to the <code>Order</code> instance for <code>A</code>.</p><p>If the validation fails the error messages <code>e</code> are returned.
+</p></div></div>
+    </li><li name="robots.Validator#lteq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="lteq[F[_],E,A](a:A,f:A=&gt;F[E])(implicitevidence$30:cats.Traverse[F],implicitevidence$31:cats.MonoidK[F],implicitO:cats.Order[A]):robots.package.Validator[F,E,A]"></a><a id="lteq[F[_],E,A](A,(A)⇒F[E])(Traverse[F],MonoidK[F],Order[A]):Validator[F,E,A]"></a>
       <span class="permalink">
       <a href="../robots/package$$Validator$.html#lteq[F[_],E,A](a:A,f:A=&gt;F[E])(implicitevidence$30:cats.Traverse[F],implicitevidence$31:cats.MonoidK[F],implicitO:cats.Order[A]):robots.package.Validator[F,E,A]" title="Permalink">
@@ -565,7 +575,8 @@
         <span class="name">lteq</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="robots.Validator.lteq.A">A</span></span>, <span name="f">f: (<span class="extype" name="robots.Validator.lteq.A">A</span>) ⇒ <span class="extype" name="robots.Validator.lteq.F">F</span>[<span class="extype" name="robots.Validator.lteq.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.Validator.lteq.F">F</span>]</span>, <span name="arg1">arg1: <a href="http://typelevel.org/cats/api/cats/MonoidK.html#cats.MonoidK" class="extype" name="cats.MonoidK">MonoidK</a>[<span class="extype" name="robots.Validator.lteq.F">F</span>]</span>, <span name="O">O: <span class="extype" name="cats.Order">Order</span>[<span class="extype" name="robots.Validator.lteq.A">A</span>]</span>)</span><span class="result">: <a href="index.html#Validator[F[_],E,A]=robots.PValidator[F,E,A,A]" class="extmbr" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.lteq.F">F</span>, <span class="extype" name="robots.Validator.lteq.E">E</span>, <span class="extype" name="robots.Validator.lteq.A">A</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Construct a validator for <code>A</code> which validates that the input is less than or equal to the reference value <code>a</code> according to the <code>Order</code> instance for <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Construct a validator for <code>A</code> which validates that the input is less than or equal to the reference value <code>a</code> according to the <code>Order</code> instance for <code>A</code>.</p><p>If the validation fails the function <code>f</code> is used to construct validation error messages based upon the input.
+</p></div></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -582,7 +593,7 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="robots.Validator#neq" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="robots.Validator#neq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="neq[F[_],E,A](a:A,e:F[E])(implicitevidence$12:cats.Traverse[F],implicitevidence$13:cats.MonoidK[F],implicitevidence$14:cats.Eq[A]):robots.package.Validator[F,E,A]"></a><a id="neq[F[_],E,A](A,F[E])(Traverse[F],MonoidK[F],Eq[A]):Validator[F,E,A]"></a>
       <span class="permalink">
       <a href="../robots/package$$Validator$.html#neq[F[_],E,A](a:A,e:F[E])(implicitevidence$12:cats.Traverse[F],implicitevidence$13:cats.MonoidK[F],implicitevidence$14:cats.Eq[A]):robots.package.Validator[F,E,A]" title="Permalink">
@@ -597,8 +608,9 @@
         <span class="name">neq</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="robots.Validator.neq.A">A</span></span>, <span name="e">e: <span class="extype" name="robots.Validator.neq.F">F</span>[<span class="extype" name="robots.Validator.neq.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.Validator.neq.F">F</span>]</span>, <span name="arg1">arg1: <a href="http://typelevel.org/cats/api/cats/MonoidK.html#cats.MonoidK" class="extype" name="cats.MonoidK">MonoidK</a>[<span class="extype" name="robots.Validator.neq.F">F</span>]</span>, <span name="arg2">arg2: <span class="extype" name="cats.Eq">Eq</span>[<span class="extype" name="robots.Validator.neq.A">A</span>]</span>)</span><span class="result">: <a href="index.html#Validator[F[_],E,A]=robots.PValidator[F,E,A,A]" class="extmbr" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.neq.F">F</span>, <span class="extype" name="robots.Validator.neq.E">E</span>, <span class="extype" name="robots.Validator.neq.A">A</span>]</span>
       </span>
       
-      
-    </li><li name="robots.Validator#neq" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Construct a validator for <code>A</code> which validates that the input is not equal to the reference value <code>a</code> according to the <code>Eq</code> instance for <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Construct a validator for <code>A</code> which validates that the input is not equal to the reference value <code>a</code> according to the <code>Eq</code> instance for <code>A</code>.</p><p>If the validation fails the error messages <code>e</code> are returned.
+</p></div></div>
+    </li><li name="robots.Validator#neq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="neq[F[_],E,A](a:A,f:A=&gt;F[E])(implicitevidence$10:cats.Traverse[F],implicitevidence$11:cats.MonoidK[F],implicitE:cats.Eq[A]):robots.package.Validator[F,E,A]"></a><a id="neq[F[_],E,A](A,(A)⇒F[E])(Traverse[F],MonoidK[F],Eq[A]):Validator[F,E,A]"></a>
       <span class="permalink">
       <a href="../robots/package$$Validator$.html#neq[F[_],E,A](a:A,f:A=&gt;F[E])(implicitevidence$10:cats.Traverse[F],implicitevidence$11:cats.MonoidK[F],implicitE:cats.Eq[A]):robots.package.Validator[F,E,A]" title="Permalink">
@@ -613,7 +625,8 @@
         <span class="name">neq</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="robots.Validator.neq.A">A</span></span>, <span name="f">f: (<span class="extype" name="robots.Validator.neq.A">A</span>) ⇒ <span class="extype" name="robots.Validator.neq.F">F</span>[<span class="extype" name="robots.Validator.neq.E">E</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.Validator.neq.F">F</span>]</span>, <span name="arg1">arg1: <a href="http://typelevel.org/cats/api/cats/MonoidK.html#cats.MonoidK" class="extype" name="cats.MonoidK">MonoidK</a>[<span class="extype" name="robots.Validator.neq.F">F</span>]</span>, <span name="E">E: <span class="extype" name="cats.Eq">Eq</span>[<span class="extype" name="robots.Validator.neq.A">A</span>]</span>)</span><span class="result">: <a href="index.html#Validator[F[_],E,A]=robots.PValidator[F,E,A,A]" class="extmbr" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.neq.F">F</span>, <span class="extype" name="robots.Validator.neq.E">E</span>, <span class="extype" name="robots.Validator.neq.A">A</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Construct a validator for <code>A</code> which validates that the input is not equal to the reference value <code>a</code> according to the <code>Eq</code> instance for <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Construct a validator for <code>A</code> which validates that the input is not equal to the reference value <code>a</code> according to the <code>Eq</code> instance for <code>A</code>.</p><p>If the validation fails the function <code>f</code> is used to construct validation error messages based upon the input.
+</p></div></div>
     </li><li name="scala.AnyRef#notify" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notify():Unit"></a>
       <span class="permalink">
@@ -684,7 +697,7 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="robots.Validator#validate" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="robots.Validator#validate" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="validate[F[_],E,A](implicitevidence$2:cats.Traverse[F],implicitM:cats.MonoidK[F]):robots.package.Validator[F,E,A]"></a><a id="validate[F[_],E,A](Traverse[F],MonoidK[F]):Validator[F,E,A]"></a>
       <span class="permalink">
       <a href="../robots/package$$Validator$.html#validate[F[_],E,A](implicitevidence$2:cats.Traverse[F],implicitM:cats.MonoidK[F]):robots.package.Validator[F,E,A]" title="Permalink">
@@ -699,7 +712,8 @@
         <span class="name">validate</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/cats/Traverse.html#cats.Traverse" class="extype" name="cats.Traverse">Traverse</a>[<span class="extype" name="robots.Validator.validate.F">F</span>]</span>, <span name="M">M: <a href="http://typelevel.org/cats/api/cats/MonoidK.html#cats.MonoidK" class="extype" name="cats.MonoidK">MonoidK</a>[<span class="extype" name="robots.Validator.validate.F">F</span>]</span>)</span><span class="result">: <a href="index.html#Validator[F[_],E,A]=robots.PValidator[F,E,A,A]" class="extmbr" name="robots.Validator">Validator</a>[<span class="extype" name="robots.Validator.validate.F">F</span>, <span class="extype" name="robots.Validator.validate.E">E</span>, <span class="extype" name="robots.Validator.validate.A">A</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Construct a validator for <code>A</code> which always passes.</p><div class="fullcomment"><div class="comment cmt"><p>Construct a validator for <code>A</code> which always passes. Usually used as the basis for a more complex validator.
+</p></div></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <span class="permalink">
