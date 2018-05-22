@@ -83,7 +83,7 @@ Contributors are expected to follow the [Typelevel Code of Conduct](http://typel
 
 ### Acknowledgements
 
-Thanks to Brendan Maginnis ([@brendanator](https://github.com/brendanator)) for the design which inspired this library.
+Thanks to Dave Gurnell ([@davegurnell](https://github.com/davegurnell)) and Brendan Maginnis ([@brendanator](https://github.com/brendanator)) for the design which inspired this library.
 
 ### License
 

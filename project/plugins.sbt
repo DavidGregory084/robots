@@ -10,7 +10,7 @@ addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.5.1")
 
 addSbtPlugin("org.scalariform" % "sbt-scalariform" % "1.8.0")
 
-addSbtPlugin("io.get-coursier" % "sbt-coursier" % "1.0.0-RC11")
+addSbtPlugin("io.get-coursier" % "sbt-coursier" % "1.0.3")
 
 addSbtPlugin("com.dwijnand" % "sbt-travisci" % "1.1.1")
 
