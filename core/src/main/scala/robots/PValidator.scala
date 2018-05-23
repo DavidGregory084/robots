@@ -20,6 +20,8 @@ import cats.{ ~>, Applicative, ApplicativeError, Foldable, MonoidK, Semigroup, S
 import cats.arrow.{ Category, Choice, Profunctor }
 import cats.Contravariant
 import cats.data.NonEmptyList
+import cats.instances.list._
+import monocle._
 
 /**
  * `PValidator` wraps up a validation function `validate: A => F[E]` which validates the input `A` and returns a structure
@@ -30,6 +32,8 @@ import cats.data.NonEmptyList
  * This may be useful when a successful validation provides some knowledge about the value that is being validated that can be used to refine its type.
  *
  * For example, a `required` validator makes use of the fact that it has ensured that an `Option[A]` is not empty to safely unwrap the option's inner value.
+ *
+ * The function `f: A => B` is applied as a post-processing step after validation succeeds in order to make use of this new knowledge about the input.
  */
 final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B)(implicit FF: Traverse[F], M: MonoidK[F]) {
   /**
@@ -164,6 +168,16 @@ final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B)(i
     this and that.contramap(f)
 
   /**
+   * Combine this validator with a validator `that` which validates an inner value extracted using the lens `l`.
+   */
+  def has[C, X, Y](l: PLens[B, C, X, Y])(that: PValidator[F, E, X, Y]): PValidator[F, E, A, C] =
+    this andThen PValidator({ b =>
+      that.validate(l.get(b))
+    }, { b =>
+      l.modify(that.f)(b)
+    })
+
+  /**
    * Combine this validator with a validator `that` which validates a tuple of inner values extracted using the functions `f` and `g`.
    */
   def has2[C, D](f: A => C, g: A => D)(that: PValidator[F, E, (C, D), _]): PValidator[F, E, A, B] =
@@ -174,6 +188,17 @@ final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B)(i
    */
   def all[M[_]: Traverse, C](f: A => M[C])(that: PValidator[F, E, C, _]): PValidator[F, E, A, B] =
     this and that.over[M].contramap(f)
+
+  /**
+   * Combine this validator with a validator `that` which validates elements of a traversable structure extracted using the traversal `t`.
+   */
+  def all[C, X, Y](t: PTraversal[B, C, X, Y])(that: PValidator[F, E, X, Y]): PValidator[F, E, A, C] =
+    this andThen PValidator({ b =>
+      val targets = t.getAll(b)
+      that.over[List].validate(targets)
+    }, { b =>
+      t.modify(that.f)(b)
+    })
 
   /**
    * Combine this validator with a validator `that` which validates tuples of a single inner value extracted using the function `f` and elements of a traversable structure extracted using the function `g`.
@@ -192,6 +217,17 @@ final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B)(i
     }
 
   /**
+   * Combine this validator with a validator `that` which validates tuples of elements and their indices in a traversable structure extracted using the traversal `t`.
+   */
+  def allIndexed[C, X, Y](t: PTraversal[B, C, (X, Int), Y])(that: PValidator[F, E, (X, Int), Y]): PValidator[F, E, A, C] =
+    this andThen PValidator({ b =>
+      val targets = t.getAll(b)
+      that.over[List].validate(targets)
+    }, { b =>
+      t.modify(that.f)(b)
+    })
+
+  /**
    * Combine this validator with a validator `that` which validates an optional value at index `i` of a traversable structure extracted using the function `f`.
    */
   def at[M[_], C](f: A => M[C], i: Long)(that: PValidator[F, E, Option[C], _])(implicit TM: Traverse[M]): PValidator[F, E, A, B] =
@@ -205,8 +241,8 @@ final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B)(i
 }
 
 /**
-  * The companion object for `PValidator` provides various type class instances for `PValidator`.
-  */
+ * The companion object for `PValidator` provides various type class instances for `PValidator`.
+ */
 object PValidator extends PValidatorInstances
 
 private[robots] sealed abstract class PValidatorInstances {

@@ -7,6 +7,8 @@ import cats.laws.discipline._
 import cats.laws.discipline.eq._
 import cats.tests.CatsSuite
 import org.scalacheck.{ Arbitrary, Cogen }
+import monocle.function.Each.each
+import monocle.macros.Lenses
 
 class ValidatorTests extends CatsSuite {
 
@@ -181,7 +183,7 @@ class ValidatorTests extends CatsSuite {
     }
   }
 
-  case class Document(maxColumn: Int, maxLines: Int, lines: List[String])
+  @Lenses case class Document(maxColumn: Int, maxLines: Int, lines: List[String])
 
   object Document {
     implicit val eqDocument: Eq[Document] = Eq.fromUniversalEquals
@@ -194,11 +196,17 @@ class ValidatorTests extends CatsSuite {
       Validator.validate[Option, String, Document]
         .has(_.maxColumn)(Validator.gt(0, Option(error)))
 
+    val documentValidatorLens =
+      Validator.validate[Option, String, Document]
+        .has(Document.maxColumn)(Validator.gt(0, Option(error)))
+
     val valid = Document(80, 120, Nil)
     val invalid = Document(0, 120, Nil)
 
     documentValidator.runNel[Validated](valid) should ===(Validated.Valid(valid))
     documentValidator.runNel[Validated](invalid) should ===(Validated.Invalid(NonEmptyList.of(error)))
+    documentValidatorLens.runNel[Validated](valid) should ===(Validated.Valid(valid))
+    documentValidatorLens.runNel[Validated](invalid) should ===(Validated.Invalid(NonEmptyList.of(error)))
   }
 
   test("Validate using has2") {
@@ -236,12 +244,21 @@ class ValidatorTests extends CatsSuite {
       Validator.validate[Option, String, Document]
         .all(_.lines)(emptyLineValidator)
 
+    val documentValidatorLens =
+      Validator.validate[Option, String, Document]
+        .all(Document.lines composeTraversal each)(emptyLineValidator)
+
     val valid = Document(80, 120, List("Hello", "World"))
     val invalid = Document(80, 1, List("Hello", "", "World"))
 
     documentValidator.runNel[Validated](valid) should ===(Validated.Valid(valid))
 
     documentValidator.runNel[Validated](invalid) should ===(Validated.Invalid(
+      NonEmptyList.of("Empty lines are not permitted")))
+
+    documentValidatorLens.runNel[Validated](valid) should ===(Validated.Valid(valid))
+
+    documentValidatorLens.runNel[Validated](invalid) should ===(Validated.Invalid(
       NonEmptyList.of("Empty lines are not permitted")))
   }
 
@@ -278,9 +295,24 @@ class ValidatorTests extends CatsSuite {
             Some("Length should match index")
       }
 
+    import monocle.Traversal
+    import cats.Applicative
+
+    def eachWithIndex[F[_]: Traverse, A]: Traversal[F[A], (A, Int)] = new Traversal[F[A], (A, Int)] {
+      def modifyF[G[_]: Applicative](f: ((A, Int)) => G[(A, Int)])(s: F[A]): G[F[A]] = {
+        Traverse[F].zipWithIndex(s).traverse { in =>
+          f(in).map { case (a, _) => a }
+        }
+      }
+    }
+
     val documentValidator =
       Validator.validate[Option, String, Document]
         .allIndexed(_.lines)(stringLengthValidator)
+
+    val documentValidatorLens =
+      Validator.validate[Option, String, Document]
+        .allIndexed(Document.lines composeTraversal eachWithIndex)(stringLengthValidator)
 
     val valid = Document(0, 0, List("", "a", "bc", "def"))
     val invalid = Document(0, 0, List("", "ab", "cd"))
@@ -288,6 +320,11 @@ class ValidatorTests extends CatsSuite {
     documentValidator.runNel[Validated](valid) should ===(Validated.Valid(valid))
 
     documentValidator.runNel[Validated](invalid) should ===(Validated.Invalid(
+      NonEmptyList.of("Length should match index")))
+
+    documentValidatorLens.runNel[Validated](valid) should ===(Validated.Valid(valid))
+
+    documentValidatorLens.runNel[Validated](invalid) should ===(Validated.Invalid(
       NonEmptyList.of("Length should match index")))
   }
 

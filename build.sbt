@@ -7,6 +7,8 @@ lazy val robots = project.in(file("."))
   .settings(noPublishSettings)
   .aggregate(core, docs)
 
+val monocleVersion = "1.5.0-cats"
+
 lazy val core = project.in(file("core"))
   .enablePlugins(TutPlugin)
   .settings(commonSettings)
@@ -14,6 +16,11 @@ lazy val core = project.in(file("core"))
   .settings(
     moduleName := "robots-core",
     scalacOptions.in(Tut) ~= filterConsoleScalacOptions,
+    addCompilerPlugin("org.scalamacros" %% "paradise" % "2.1.0" % Test cross CrossVersion.full),
+    libraryDependencies ++= Seq(
+      "com.github.julien-truffaut" %%  "monocle-core" % monocleVersion,
+      "com.github.julien-truffaut" %%  "monocle-macro" % monocleVersion % Test
+    ),
     tutTargetDirectory := file(".")
   )
 
