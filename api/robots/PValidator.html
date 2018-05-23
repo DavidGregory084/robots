@@ -124,7 +124,7 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p><code>PValidator</code> wraps up a validation function <code>validate: A =&gt; F[E]</code> which validates the input <code>A</code> and returns a structure
-of error messages <code>F[E]</code>.</p><p>The <code>P</code> in <code>PValidator</code> denotes the fact that this validation is polymorphic, in the sense that its input does not have to be of the same type as its output.</p><p>This may be useful when a successful validation provides some knowledge about the value that is being validated that can be used to refine its type.</p><p>For example, a <code>required</code> validator makes use of the fact that it has ensured that an <code>Option[A]</code> is not empty to safely unwrap the option's inner value.
+of error messages <code>F[E]</code>.</p><p>The <code>P</code> in <code>PValidator</code> denotes the fact that this validation is polymorphic, in the sense that its input does not have to be of the same type as its output.</p><p>This may be useful when a successful validation provides some knowledge about the value that is being validated that can be used to refine its type.</p><p>For example, a <code>required</code> validator makes use of the fact that it has ensured that an <code>Option[A]</code> is not empty to safely unwrap the option's inner value.</p><p>The function <code>f: A =&gt; B</code> is applied as a post-processing step after validation succeeds in order to make use of this new knowledge about the input.
 </p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/DavidGregory084/robots/tree/master/core/src/main/scala/robots/PValidator.scala" target="_blank">PValidator.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
@@ -298,6 +298,22 @@ of error messages <code>F[E]</code>.</p><p>The <code>P</code> in <code>PValidato
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="robots.PValidator#all" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="all[C,X,Y](t:monocle.PTraversal[B,C,X,Y])(that:robots.PValidator[F,E,X,Y]):robots.PValidator[F,E,A,C]"></a><a id="all[C,X,Y](PTraversal[B,C,X,Y])(PValidator[F,E,X,Y]):PValidator[F,E,A,C]"></a>
+      <span class="permalink">
+      <a href="../robots/PValidator.html#all[C,X,Y](t:monocle.PTraversal[B,C,X,Y])(that:robots.PValidator[F,E,X,Y]):robots.PValidator[F,E,A,C]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">all</span><span class="tparams">[<span name="C">C</span>, <span name="X">X</span>, <span name="Y">Y</span>]</span><span class="params">(<span name="t">t: <a href="https://julien-truffaut.github.io/Monocle/api/monocle/PTraversal.html#monocle.PTraversal" class="extype" name="monocle.PTraversal">PTraversal</a>[<span class="extype" name="robots.PValidator.B">B</span>, <span class="extype" name="robots.PValidator.all.C">C</span>, <span class="extype" name="robots.PValidator.all.X">X</span>, <span class="extype" name="robots.PValidator.all.Y">Y</span>]</span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.all.X">X</span>, <span class="extype" name="robots.PValidator.all.Y">Y</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.all.C">C</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Combine this validator with a validator <code>that</code> which validates elements of a traversable structure extracted using the traversal <code>t</code>.</p>
+    </li><li name="robots.PValidator#all" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="all[M[_],C](f:A=&gt;M[C])(that:robots.PValidator[F,E,C,_])(implicitevidence$1:cats.Traverse[M]):robots.PValidator[F,E,A,B]"></a><a id="all[M[_],C]((A)⇒M[C])(PValidator[F,E,C,_])(Traverse[M]):PValidator[F,E,A,B]"></a>
       <span class="permalink">
       <a href="../robots/PValidator.html#all[M[_],C](f:A=&gt;M[C])(that:robots.PValidator[F,E,C,_])(implicitevidence$1:cats.Traverse[M]):robots.PValidator[F,E,A,B]" title="Permalink">
@@ -329,6 +345,22 @@ of error messages <code>F[E]</code>.</p><p>The <code>P</code> in <code>PValidato
       </span>
       
       <p class="shortcomment cmt">Combine this validator with a validator <code>that</code> which validates tuples of a single inner value extracted using the function <code>f</code> and elements of a traversable structure extracted using the function <code>g</code>.</p>
+    </li><li name="robots.PValidator#allIndexed" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="allIndexed[C,X,Y](t:monocle.PTraversal[B,C,(X,Int),Y])(that:robots.PValidator[F,E,(X,Int),Y]):robots.PValidator[F,E,A,C]"></a><a id="allIndexed[C,X,Y](PTraversal[B,C,(X,Int),Y])(PValidator[F,E,(X,Int),Y]):PValidator[F,E,A,C]"></a>
+      <span class="permalink">
+      <a href="../robots/PValidator.html#allIndexed[C,X,Y](t:monocle.PTraversal[B,C,(X,Int),Y])(that:robots.PValidator[F,E,(X,Int),Y]):robots.PValidator[F,E,A,C]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">allIndexed</span><span class="tparams">[<span name="C">C</span>, <span name="X">X</span>, <span name="Y">Y</span>]</span><span class="params">(<span name="t">t: <a href="https://julien-truffaut.github.io/Monocle/api/monocle/PTraversal.html#monocle.PTraversal" class="extype" name="monocle.PTraversal">PTraversal</a>[<span class="extype" name="robots.PValidator.B">B</span>, <span class="extype" name="robots.PValidator.allIndexed.C">C</span>, (<span class="extype" name="robots.PValidator.allIndexed.X">X</span>, <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>), <span class="extype" name="robots.PValidator.allIndexed.Y">Y</span>]</span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, (<span class="extype" name="robots.PValidator.allIndexed.X">X</span>, <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>), <span class="extype" name="robots.PValidator.allIndexed.Y">Y</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.allIndexed.C">C</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Combine this validator with a validator <code>that</code> which validates tuples of elements and their indices in a traversable structure extracted using the traversal <code>t</code>.</p>
     </li><li name="robots.PValidator#allIndexed" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="allIndexed[M[_],C](g:A=&gt;M[C])(that:robots.PValidator[F,E,(C,Int),_])(implicitTM:cats.Traverse[M]):robots.PValidator[F,E,A,B]"></a><a id="allIndexed[M[_],C]((A)⇒M[C])(PValidator[F,E,(C,Int),_])(Traverse[M]):PValidator[F,E,A,B]"></a>
       <span class="permalink">
@@ -658,6 +690,22 @@ of error messages <code>F[E]</code>.</p><p>The <code>P</code> in <code>PValidato
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="robots.PValidator#has" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="has[C,X,Y](l:monocle.PLens[B,C,X,Y])(that:robots.PValidator[F,E,X,Y]):robots.PValidator[F,E,A,C]"></a><a id="has[C,X,Y](PLens[B,C,X,Y])(PValidator[F,E,X,Y]):PValidator[F,E,A,C]"></a>
+      <span class="permalink">
+      <a href="../robots/PValidator.html#has[C,X,Y](l:monocle.PLens[B,C,X,Y])(that:robots.PValidator[F,E,X,Y]):robots.PValidator[F,E,A,C]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">has</span><span class="tparams">[<span name="C">C</span>, <span name="X">X</span>, <span name="Y">Y</span>]</span><span class="params">(<span name="l">l: <a href="https://julien-truffaut.github.io/Monocle/api/monocle/PLens.html#monocle.PLens" class="extype" name="monocle.PLens">PLens</a>[<span class="extype" name="robots.PValidator.B">B</span>, <span class="extype" name="robots.PValidator.has.C">C</span>, <span class="extype" name="robots.PValidator.has.X">X</span>, <span class="extype" name="robots.PValidator.has.Y">Y</span>]</span>)</span><span class="params">(<span name="that">that: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.has.X">X</span>, <span class="extype" name="robots.PValidator.has.Y">Y</span>]</span>)</span><span class="result">: <a href="" class="extype" name="robots.PValidator">PValidator</a>[<span class="extype" name="robots.PValidator.F">F</span>, <span class="extype" name="robots.PValidator.E">E</span>, <span class="extype" name="robots.PValidator.A">A</span>, <span class="extype" name="robots.PValidator.has.C">C</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Combine this validator with a validator <code>that</code> which validates an inner value extracted using the lens <code>l</code>.</p>
     </li><li name="robots.PValidator#has" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="has[C](f:A=&gt;C)(that:robots.PValidator[F,E,C,_]):robots.PValidator[F,E,A,B]"></a><a id="has[C]((A)⇒C)(PValidator[F,E,C,_]):PValidator[F,E,A,B]"></a>
       <span class="permalink">
