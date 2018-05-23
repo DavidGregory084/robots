@@ -1,9 +1,5 @@
 language: scala
 
-scala:
-  - 2.10.6
-  - 2.11.11
-
 jdk:
   - oraclejdk8
 
@@ -12,6 +8,7 @@ env:
 matrix:
   # Add a job for 2.12 which publishes the site
   include:
+  - scala: 2.11.11
   - scala: 2.12.4
     env: PUBLISH_SITE=true
 
