@@ -7,7 +7,7 @@ import cats.laws.discipline._
 import cats.laws.discipline.eq._
 import cats.tests.CatsSuite
 import org.scalacheck.{ Arbitrary, Cogen }
-import monocle.function.Each.each
+import monocle.function.all._
 import monocle.macros.Lenses
 
 class ValidatorTests extends CatsSuite {
@@ -222,12 +222,21 @@ class ValidatorTests extends CatsSuite {
       Validator.validate[Option, String, Document]
         .has2(_.maxLines, _.lines)(maxLinesValidator)
 
+    val documentValidatorLens =
+      Validator.validate[Option, String, Document]
+        .has2(Document.maxLines, Document.lines)(maxLinesValidator)
+
     val valid = Document(80, 120, List("Hello", "World"))
     val invalid = Document(80, 1, List("Hello", "World"))
 
     documentValidator.runNel[Validated](valid) should ===(Validated.Valid(valid))
 
     documentValidator.runNel[Validated](invalid) should ===(Validated.Invalid(
+      NonEmptyList.of("The number of lines in this document exceeds the maximum of 1")))
+
+    documentValidatorLens.runNel[Validated](valid) should ===(Validated.Valid(valid))
+
+    documentValidatorLens.runNel[Validated](invalid) should ===(Validated.Invalid(
       NonEmptyList.of("The number of lines in this document exceeds the maximum of 1")))
   }
 
@@ -276,12 +285,21 @@ class ValidatorTests extends CatsSuite {
       Validator.validate[Option, String, Document]
         .all2(_.maxColumn, _.lines)(lineWidthValidator)
 
+    val documentValidatorLens =
+      Validator.validate[Option, String, Document]
+        .all2(Document.maxColumn, Document.lines composeTraversal each)(lineWidthValidator)
+
     val valid = Document(80, 120, List("Hello", "World"))
     val invalid = Document(4, 1, List("Hello", "", "World"))
 
     documentValidator.runNel[Validated](valid) should ===(Validated.Valid(valid))
 
     documentValidator.runNel[Validated](invalid) should ===(Validated.Invalid(
+      NonEmptyList.of("The line exceeds the maximum width of 4 columns")))
+
+    documentValidatorLens.runNel[Validated](valid) should ===(Validated.Valid(valid))
+
+    documentValidatorLens.runNel[Validated](invalid) should ===(Validated.Invalid(
       NonEmptyList.of("The line exceeds the maximum width of 4 columns")))
   }
 
@@ -341,12 +359,21 @@ class ValidatorTests extends CatsSuite {
       Validator.validate[Option, String, Document]
         .at(_.lines, 1)(hasSecondLineValidator)
 
+    val documentValidatorLens =
+      Validator.validate[Option, String, Document]
+        .element(Document.lines composeOptional index(1))(hasSecondLineValidator)
+
     val valid = Document(80, 120, List("Hello", "World"))
     val invalid = Document(80, 120, List("Hello"))
 
     documentValidator.runNel[Validated](valid) should ===(Validated.Valid(valid))
 
     documentValidator.runNel[Validated](invalid) should ===(Validated.Invalid(
+      NonEmptyList.of("A document should have at least two lines")))
+
+    documentValidatorLens.runNel[Validated](valid) should ===(Validated.Valid(valid))
+
+    documentValidatorLens.runNel[Validated](invalid) should ===(Validated.Invalid(
       NonEmptyList.of("A document should have at least two lines")))
   }
 
@@ -363,12 +390,21 @@ class ValidatorTests extends CatsSuite {
       Validator.validate[Option, String, Document]
         .first(_.lines)(saysHelloValidator)
 
+    val documentValidatorLens =
+      Validator.validate[Option, String, Document]
+        .element(Document.lines composeOptional headOption)(saysHelloValidator)
+
     val valid = Document(80, 120, List("Hello", "World"))
     val invalid = Document(80, 120, List("Hi", "World"))
 
     documentValidator.runNel[Validated](valid) should ===(Validated.Valid(valid))
 
     documentValidator.runNel[Validated](invalid) should ===(Validated.Invalid(
+      NonEmptyList.of("A document should start with 'Hello'")))
+
+    documentValidatorLens.runNel[Validated](valid) should ===(Validated.Valid(valid))
+
+    documentValidatorLens.runNel[Validated](invalid) should ===(Validated.Invalid(
       NonEmptyList.of("A document should start with 'Hello'")))
   }
 

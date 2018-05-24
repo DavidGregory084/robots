@@ -32,8 +32,6 @@ import monocle._
  * This may be useful when a successful validation provides some knowledge about the value that is being validated that can be used to refine its type.
  *
  * For example, a `required` validator makes use of the fact that it has ensured that an `Option[A]` is not empty to safely unwrap the option's inner value.
- *
- * The function `f: A => B` is applied as a post-processing step after validation succeeds in order to make use of this new knowledge about the input.
  */
 final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B)(implicit FF: Traverse[F], M: MonoidK[F]) {
   /**
@@ -184,6 +182,12 @@ final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B)(i
     this and that.contramap { a => (f(a), g(a)) }
 
   /**
+   * Combine this validator with a validator `that` which validates a tuple of inner values extracted using the lenses `l` and `r`.
+   */
+  def has2[X, Y, Z](l: Lens[B, X], r: Lens[B, Y])(that: PValidator[F, E, (X, Y), Z]): PValidator[F, E, A, B] =
+    this andThen Validator(b => that.validate((l.get(b), r.get(b))))
+
+  /**
    * Combine this validator with a validator `that` which validates elements of a traversable structure extracted using the function `f`.
    */
   def all[M[_]: Traverse, C](f: A => M[C])(that: PValidator[F, E, C, _]): PValidator[F, E, A, B] =
@@ -206,6 +210,17 @@ final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B)(i
   def all2[M[_], C, D](f: A => C, g: A => M[D])(that: PValidator[F, E, (C, D), _])(implicit TM: Traverse[M]): PValidator[F, E, A, B] =
     this and that.over[M].contramap { a =>
       TM.map(g(a))(c => (f(a), c))
+    }
+
+  /**
+   * Combine this validator with a validator `that` which validates tuples of an inner value extracted using the lens `l` and elements of a traversable structure extracted using the traversal `t`.
+   */
+  def all2[C, D](l: Lens[B, C], t: Traversal[B, D])(that: PValidator[F, E, (C, D), _]): PValidator[F, E, A, B] =
+    this andThen Validator { b =>
+      val elem = l.get(b)
+      val targets = t.getAll(b)
+      val zipped = targets.map(tgt => (elem, tgt))
+      that.over[List].validate(zipped)
     }
 
   /**
@@ -238,6 +253,16 @@ final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B)(i
    */
   def first[M[_], C](f: A => M[C])(that: PValidator[F, E, Option[C], _])(implicit FM: Foldable[M]): PValidator[F, E, A, B] =
     this and that.contramap(a => FM.get(f(a))(0))
+
+  /**
+   * Combine this validator with a validator `that` which validates an specific element of a traversable structure extracted using the traversal `t`
+   */
+  def element[C, X, Y, Z](t: POptional[B, C, X, X])(that: PValidator[F, E, Option[X], Z]): PValidator[F, E, A, C] =
+    this andThen PValidator({ b =>
+      that.validate(t.getOption(b))
+    }, { b =>
+      t.modify(identity)(b)
+    })
 }
 
 /**
