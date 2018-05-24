@@ -184,7 +184,7 @@ final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B)(i
   /**
    * Combine this validator with a validator `that` which validates a tuple of inner values extracted using the lenses `l` and `r`.
    */
-  def has2[X, Y, Z](l: Lens[B, X], r: Lens[B, Y])(that: PValidator[F, E, (X, Y), Z]): PValidator[F, E, A, B] =
+  def has2[X, Y](l: Lens[B, X], r: Lens[B, Y])(that: PValidator[F, E, (X, Y), _]): PValidator[F, E, A, B] =
     this andThen Validator(b => that.validate((l.get(b), r.get(b))))
 
   /**
@@ -257,7 +257,7 @@ final case class PValidator[F[_], E, A, B](val validate: A => F[E], f: A => B)(i
   /**
    * Combine this validator with a validator `that` which validates an specific element of a traversable structure extracted using the traversal `t`
    */
-  def element[C, X, Y, Z](t: POptional[B, C, X, X])(that: PValidator[F, E, Option[X], Z]): PValidator[F, E, A, C] =
+  def element[C, X](t: POptional[B, C, X, X])(that: PValidator[F, E, Option[X], _]): PValidator[F, E, A, C] =
     this andThen PValidator({ b =>
       that.validate(t.getOption(b))
     }, { b =>
