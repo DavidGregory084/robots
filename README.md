@@ -14,7 +14,7 @@ Robots is a small Scala library which aims to provide helpful utilities for vali
 Add the following to your `build.sbt`:
 
 ```scala
-libraryDependencies += "io.github.davidgregory084" %% "robots" % "0.1.0-RC1"
+libraryDependencies += "io.github.davidgregory084" %% "robots" % "0.1.0"
 ```
 
 ### Example
@@ -92,7 +92,7 @@ Contributors are expected to follow the [Typelevel Code of Conduct](http://typel
 
 ### Acknowledgements
 
-Thanks to Brendan Maginnis ([@brendanator](https://github.com/brendanator)) for the design which inspired this library.
+Thanks to Dave Gurnell ([@davegurnell](https://github.com/davegurnell)) and Brendan Maginnis ([@brendanator](https://github.com/brendanator)) for the design which inspired this library.
 
 ### License
 
